@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RONYERDOB - Executores e Scripts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
@@ -22,7 +23,6 @@
       }
     };
 
-    // Detecta dark mode
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.documentElement.classList.add('dark');
     }
@@ -30,7 +30,6 @@
       document.documentElement.classList.toggle('dark', event.matches);
     });
 
-    // Função para copiar script
     function copyScript(script, buttonId) {
       navigator.clipboard.writeText(script).then(() => {
         const button = document.getElementById(buttonId);
@@ -49,7 +48,6 @@
       });
     }
 
-    // Troca de categoria com animação
     function fadeOutIn(elementToHide, elementToShow) {
       elementToHide.classList.add('fade-out');
       setTimeout(() => {
@@ -82,7 +80,6 @@
       });
     });
 
-    // Renderiza a tela de login/registro se o usuário não estiver logado
     function renderAuthOverlay() {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       const overlay = document.getElementById('loginOverlay');
@@ -198,7 +195,110 @@
     }
   </script>
   <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+
+    .bg-primary {
+      background-color: #5D5CDE;
+    }
+    .bg-secondary {
+      background-color: #4338ca;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #5D5CDE;
+    }
+
+    .section {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .section h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .executor-card {
+      transition: transform 0.3s;
+    }
+
+    .executor-card:hover {
+      transform: scale(1.05);
+    }
+
+    .download-btn {
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3%);
+    }
+
+    button {
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+      color: #333;
+    }
+
+    .social-icon {
+      transition: transform 0.3s;
+    }
+
+    .social-icon:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding: 1.5rem 0;
+      text-align: center;
+      background-color: #f1f1f1;
+    }
+
     #commentInput { color: #000; }
+
+    .bg-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.pinimg.com/originals/f4/34/e8/f434e86cdc40ef068b7783d150f8a65c.gif');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+    }
 
     #loginOverlay {
       position: fixed;
@@ -235,11 +335,13 @@
 
     .bg-opacity-90,
     .bg-opacity-80 {
-      background-color: rgba(0, 0, 0, 0.8) !important; /* Preto transparente */
+      background-color: rgba(0, 0, 0, 0.8) !important;
     }
   </style>
 </head>
 <body class="dark:text-white">
+  <div class="bg-image"></div>
+  
   <div id="loginOverlay" class="flex items-center justify-center z-50"></div>
   
   <div id="userInfo" class="relative container mx-auto px-4 py-4"></div>
@@ -256,7 +358,7 @@
   
   <div class="relative container mx-auto px-4 py-8" id="mainContent">
     <header class="text-center py-10 mb-6">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-indigo-700 dark:text-indigo-400 animate-pulse-slow">RONYERDOB</h1>
+      <h1 class="animate-pulse-slow">RONYERDOB</h1>
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg max-w-3xl mx-auto bg-opacity-90 dark:bg-opacity-80">
         <p class="text-xl md:text-2xl font-semibold">Olá! EU SOU O RONYERDOB</p>
         <p class="text-lg md:text-xl mt-2">ESTOU AQUI DISPONIBILIZANDO OS MELHORES EXECUTORES E SCRIPTS!</p>
@@ -352,7 +454,7 @@
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
               <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()</pre>
             </div>
-            <button id="hoho-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\'))()', 'hoho-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="hoho-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\\'))()', 'hoho-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>
@@ -361,7 +463,7 @@
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
               <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua", true))()</pre>
             </div>
-            <button id="zen-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua\', true))()', 'zen-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="zen-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua\\', true))()', 'zen-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>
@@ -370,7 +472,7 @@
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
               <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua"))()</pre>
             </div>
-            <button id="lion-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua\'))()', 'lion-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="lion-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua\\'))()', 'lion-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>
@@ -379,7 +481,7 @@
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
               <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau"))()</pre>
             </div>
-            <button id="volcano-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau\'))()', 'volcano-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="volcano-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau\\'))()', 'volcano-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>
@@ -388,7 +490,7 @@
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
               <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua"))()</pre>
             </div>
-            <button id="hiru-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua\'))()', 'hiru-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="hiru-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua\\'))()', 'hiru-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>
@@ -399,7 +501,7 @@
 getgenv().Hide_Menu = false
 loadstring(game:HttpGet("https://apixerohub.x10.mx/main.lua"))()</pre>
             </div>
-            <button id="xero-hub-btn" onclick="copyScript('getgenv().Team = \"Marines\"\ngetgenv().Hide_Menu = false\nloadstring(game:HttpGet(\"https://apixerohub.x10.mx/main.lua\"))()', 'xero-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="xero-hub-btn" onclick="copyScript('getgenv().Team = \\"Marines\\"\\ngetgenv().Hide_Menu = false\\nloadstring(game:HttpGet(\\"https://apixerohub.x10.mx/main.lua\\"))()', 'xero-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>
@@ -408,7 +510,7 @@ loadstring(game:HttpGet("https://apixerohub.x10.mx/main.lua"))()</pre>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
               <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua"))()</pre>
             </div>
-            <button id="kncrypt-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua\'))()', 'kncrypt-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="kncrypt-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua\\'))()', 'kncrypt-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>
@@ -419,7 +521,7 @@ loadstring(game:HttpGet("https://apixerohub.x10.mx/main.lua"))()</pre>
 getgenv().Key = "PASTE_KEY_HERE"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua"))()</pre>
             </div>
-            <button id="banana-hub-btn" onclick="copyScript('repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\ngetgenv().Key = \"PASTE_KEY_HERE\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua\"))()', 'banana-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="banana-hub-btn" onclick="copyScript('repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\\ngetgenv().Key = \\"PASTE_KEY_HERE\\"\\nloadstring(game:HttpGet(\\"https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua\\"))()', 'banana-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>
@@ -428,7 +530,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitin
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
               <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack", true))()</pre>
             </div>
-            <button id="relz-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack\', true))()', 'relz-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="relz-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack\\', true))()', 'relz-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>
@@ -442,7 +544,7 @@ getgenv().ForceUseSilentAimDashModifier = false
 getgenv().ForceUseWalkSpeedModifier = false
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()</pre>
             </div>
-            <button id="azure-hub-btn" onclick="copyScript('getgenv().Team = \"Pirates\"\ngetgenv().AutoLoad = false\ngetgenv().SlowLoadUi = false\ngetgenv().ForceUseSilentAimDashModifier = false\ngetgenv().ForceUseWalkSpeedModifier = false\nloadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua\"))()', 'azure-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
+            <button id="azure-hub-btn" onclick="copyScript('getgenv().Team = \\"Pirates\\"\\ngetgenv().AutoLoad = false\\ngetgenv().SlowLoadUi = false\\ngetgenv().ForceUseSilentAimDashModifier = false\\ngetgenv().ForceUseWalkSpeedModifier = false\\nloadstring(game:HttpGet(\\"https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua\\"))()', 'azure-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
               <span>Copiar Script</span>
             </button>
           </div>

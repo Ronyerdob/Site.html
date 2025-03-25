@@ -22,7 +22,7 @@
       }
     };
 
-    // Detecta o dark mode
+    // Detecta dark mode
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.documentElement.classList.add('dark');
     }
@@ -30,7 +30,7 @@
       document.documentElement.classList.toggle('dark', event.matches);
     });
 
-    // Função para copiar o script
+    // Função para copiar script (sistema inspirado no exemplo)
     function copyScript(script, buttonId) {
       navigator.clipboard.writeText(script).then(() => {
         const btn = document.getElementById(buttonId);
@@ -48,65 +48,119 @@
         alert('Falha ao copiar o script. Tente novamente.');
       });
     }
+
+    // Funções de autenticação simples usando localStorage
+    function renderAuthSection() {
+      const authSection = document.getElementById('authSection');
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (currentUser) {
+        authSection.innerHTML = `
+          <div class="flex items-center justify-center space-x-4 p-4 bg-white dark:bg-gray-800 rounded shadow mb-6">
+            <img src="${currentUser.avatar}" alt="Avatar" class="w-12 h-12 rounded-full border">
+            <span class="text-lg font-semibold text-gray-800 dark:text-gray-200">Olá, ${currentUser.name}!</span>
+            <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded">Logout</button>
+          </div>
+        `;
+      } else {
+        authSection.innerHTML = `
+          <form id="loginForm" class="bg-white dark:bg-gray-800 p-4 rounded shadow mb-6">
+            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Login / Registro</h2>
+            <input type="text" id="userName" placeholder="Seu nome" required class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded mb-3">
+            <input type="file" id="avatarInput" accept="image/*" class="mb-3">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">Entrar</button>
+          </form>
+        `;
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('currentUser');
+      renderAuthSection();
+    }
+
+    // Manipula o formulário de login/registro
+    function setupLoginForm() {
+      const loginForm = document.getElementById('loginForm');
+      if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const name = document.getElementById('userName').value.trim();
+          const avatarInput = document.getElementById('avatarInput');
+          if (!name) return alert('Digite seu nome.');
+          // Se o usuário não selecionar um avatar, pode usar uma imagem padrão
+          if (avatarInput.files && avatarInput.files[0]) {
+            const file = avatarInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(event) {
+              const avatarData = event.target.result;
+              const user = { name, avatar: avatarData };
+              localStorage.setItem('currentUser', JSON.stringify(user));
+              renderAuthSection();
+            };
+            reader.readAsDataURL(file);
+          } else {
+            // Imagem padrão (link ou data URL)
+            const user = { name, avatar: 'https://via.placeholder.com/150' };
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            renderAuthSection();
+          }
+        });
+      }
+    }
+
+    // Sistema de comentários usando localStorage
+    const COMMENTS_KEY = 'executorsComments';
+    function loadComments() {
+      const commentsList = document.getElementById('commentsList');
+      const comments = JSON.parse(localStorage.getItem(COMMENTS_KEY)) || [];
+      commentsList.innerHTML = '';
+      comments.forEach(comment => {
+        const div = document.createElement('div');
+        div.className = "mb-2 p-2 border-b border-gray-300 dark:border-gray-600 flex items-center space-x-3";
+        div.innerHTML = `
+          <img src="${comment.avatar}" alt="Avatar" class="w-10 h-10 rounded-full border">
+          <div>
+            <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">${comment.name}</p>
+            <p class="text-sm text-black">${comment.text}</p>
+          </div>
+        `;
+        commentsList.appendChild(div);
+      });
+    }
+
+    function setupCommentForm() {
+      const commentForm = document.getElementById('commentForm');
+      commentForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const commentInput = document.getElementById('commentInput');
+        const text = commentInput.value.trim();
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) return alert('Você precisa estar logado para comentar.');
+        if (text !== "") {
+          const comments = JSON.parse(localStorage.getItem(COMMENTS_KEY)) || [];
+          comments.push({
+            name: currentUser.name,
+            avatar: currentUser.avatar,
+            text
+          });
+          localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
+          commentInput.value = '';
+          loadComments();
+        }
+      });
+    }
+
+    // Ao carregar a página, renderiza a área de autenticação e configura o formulário de login e comentários
+    window.addEventListener('DOMContentLoaded', () => {
+      renderAuthSection();
+      setupLoginForm();
+      setupCommentForm();
+      loadComments();
+    });
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f8fafc;
-    }
-    .dark body {
-      background-color: #181818;
-    }
-    .executor-card {
-      transition: all 0.3s ease;
-    }
-    .executor-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-    }
-    .bg-image {
-      background-image: url('https://i.ibb.co/67JTvSqN/quality-restoration-20250325025203823.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      filter: blur(8px);
-      opacity: 0.6;
-    }
-    .dark .bg-image {
-      opacity: 0.3;
-    }
-    .download-btn {
-      transition: all 0.2s ease;
-    }
-    .download-btn:hover {
-      transform: scale(1.05);
-    }
-    /* Dropdown Menu */
-    #menuDropdown a {
-      cursor: pointer;
-    }
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    .dark ::-webkit-scrollbar-track {
-      background: #2d3748;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #5D5CDE;
-      border-radius: 5px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #4338ca;
-    }
+    /* Garante que o texto dos comentários fique preto */
+    #commentsList p { color: #000; }
   </style>
 </head>
 <body class="dark:text-white">
@@ -123,6 +177,9 @@
       <a id="scriptsTab" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Scripts</a>
     </div>
   </div>
+  
+  <!-- Seção de Autenticação (Login/Registro) -->
+  <div class="relative container mx-auto px-4 py-4" id="authSection"></div>
   
   <!-- Conteúdo Principal -->
   <div class="relative container mx-auto px-4 py-8">
@@ -153,9 +210,9 @@
         <img src="https://www.lucascaton.com/images/posts/2013/09/android.png" alt="Android" class="h-20 md:h-24 mx-auto">
         <h2 class="text-2xl md:text-3xl font-bold mt-4 text-gray-800 dark:text-gray-200">Executores para Android</h2>
       </div>
-      <!-- Grid de Executores -->
+      <!-- Grid de Executores (exemplo com um executor) -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        <!-- Exemplo: KRNL Executor -->
+        <!-- KRNL Executor -->
         <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
           <div class="p-4 text-center">
             <img src="https://apkclone.com/logos/krnl-executor-v663-apk.jpg" alt="KRNL Executor" class="h-20 mx-auto rounded-lg mb-3">
@@ -168,10 +225,10 @@
             </a>
           </div>
         </div>
-        <!-- Outros executores seguem o mesmo padrão... (Codex, Trigon, Fluxus, etc.) -->
+        <!-- Outros executores poderiam ser listados aqui... -->
       </div>
       
-      <!-- Sistema de Comentários (para executores) -->
+      <!-- Sistema de Comentários para Executores -->
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-12 bg-opacity-90 dark:bg-opacity-80">
         <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Comentários</h2>
         <form id="commentForm" class="mb-4">
@@ -197,7 +254,7 @@
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- Repita para os outros scripts (Zen Hub, Lion Hub, Volcano Hub, etc.) -->
+          <!-- Outros scripts podem ser listados aqui... -->
         </div>
         <div class="mt-8 flex justify-center">
           <img src="https://tm.ibxk.com.br/2025/01/10/10180620059062.jpg" alt="Logo do Blox Fruits" class="h-24 rounded">
@@ -212,15 +269,15 @@
     </footer>
   </div>
   
-  <!-- Scripts para Menu, Alternância de Seções e Sistema de Comentários -->
+  <!-- Scripts para Menu Dropdown, Alternância de Seções e Sistema de Comentários -->
   <script>
-    // Dropdown menu toggle
+    // Toggle do menu dropdown
     const menuButton = document.getElementById('menuButton');
     const menuDropdown = document.getElementById('menuDropdown');
     menuButton.addEventListener('click', () => {
       menuDropdown.classList.toggle('hidden');
     });
-    // Fecha o menu se clicar fora
+    // Fecha o dropdown ao clicar fora
     document.addEventListener('click', e => {
       if (!menuButton.contains(e.target) && !menuDropdown.contains(e.target)) {
         menuDropdown.classList.add('hidden');
@@ -232,7 +289,6 @@
     const scriptsTab = document.getElementById('scriptsTab');
     const executorsSection = document.getElementById('executorsSection');
     const scriptsSection = document.getElementById('scriptsSection');
-    
     executorsTab.addEventListener('click', () => {
       executorsSection.classList.remove('hidden');
       scriptsSection.classList.add('hidden');
@@ -244,36 +300,7 @@
       menuDropdown.classList.add('hidden');
     });
     
-    // Sistema de comentários usando localStorage
-    const commentForm = document.getElementById('commentForm');
-    const commentInput = document.getElementById('commentInput');
-    const commentsList = document.getElementById('commentsList');
-    const COMMENTS_KEY = 'executorsComments';
-    
-    function loadComments() {
-      const comments = JSON.parse(localStorage.getItem(COMMENTS_KEY)) || [];
-      commentsList.innerHTML = '';
-      comments.forEach(text => {
-        const div = document.createElement('div');
-        div.className = "mb-2 p-2 border-b border-gray-300 dark:border-gray-600";
-        div.textContent = text;
-        commentsList.appendChild(div);
-      });
-    }
-    
-    commentForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const text = commentInput.value.trim();
-      if (text !== "") {
-        const comments = JSON.parse(localStorage.getItem(COMMENTS_KEY)) || [];
-        comments.push(text);
-        localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
-        commentInput.value = '';
-        loadComments();
-      }
-    });
-    
-    loadComments();
+    // Sistema de comentários já configurado acima (loadComments e setupCommentForm)
   </script>
 </body>
 </html>

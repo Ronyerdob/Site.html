@@ -6,6 +6,8 @@
   <title>RONYERDOB - Executores Roblox</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- ClipboardJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -22,7 +24,7 @@
       }
     }
 
-    // Check for dark mode preference
+    // Checa a preferência de dark mode
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.documentElement.classList.add('dark');
     }
@@ -240,71 +242,71 @@
         <!-- Hoho Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">Hoho Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()</code></pre>
-          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <pre id="script-hoho" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()</code></pre>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-hoho">Copiar Script</button>
         </div>
         <!-- Zen Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">Zen Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua", true))()</code></pre>
-          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua\", true))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <pre id="script-zen" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua", true))()</code></pre>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-zen">Copiar Script</button>
         </div>
         <!-- Lion Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">Lion Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua"))()</code></pre>
-          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <pre id="script-lion" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua"))()</code></pre>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-lion">Copiar Script</button>
         </div>
         <!-- Voucano Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">Voucano Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau"))()</code></pre>
-          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <pre id="script-voucano" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau"))()</code></pre>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-voucano">Copiar Script</button>
         </div>
         <!-- Hiru Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">Hiru Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua"))()</code></pre>
-          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <pre id="script-hiru" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua"))()</code></pre>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-hiru">Copiar Script</button>
         </div>
         <!-- Xero Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">Xero Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>getgenv().Team = "Marines"
+          <pre id="script-xero" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>getgenv().Team = "Marines"
 getgenv().Hide_Menu = false
 loadstring(game:HttpGet("https://apixerohub.x10.mx/main.lua"))()</code></pre>
-          <button onclick="copyToClipboard('getgenv().Team = \"Marines\"\ngetgenv().Hide_Menu = false\nloadstring(game:HttpGet(\"https://apixerohub.x10.mx/main.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-xero">Copiar Script</button>
         </div>
         <!-- Kncrypt Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">Kncrypt Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua"))()</code></pre>
-          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <pre id="script-kncrypt" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua"))()</code></pre>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-kncrypt">Copiar Script</button>
         </div>
         <!-- Banana Cat Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">Banana Cat Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+          <pre id="script-banana" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 getgenv().Key = "PASTE_KEY_HERE"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua"))()</code></pre>
-          <button onclick="copyToClipboard('repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\ngetgenv().Key = \"PASTE_KEY_HERE\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-banana">Copiar Script</button>
         </div>
         <!-- Relz Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">Relz Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack", true))()</code></pre>
-          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack\", true))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <pre id="script-relz" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack", true))()</code></pre>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-relz">Copiar Script</button>
         </div>
         <!-- W azure Hub -->
         <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
           <h3 class="text-xl font-semibold mb-2">W azure Hub</h3>
-          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>getgenv().Team = "Pirates"
+          <pre id="script-wazure" class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>getgenv().Team = "Pirates"
 getgenv().AutoLoad = false
 getgenv().SlowLoadUi = false
 getgenv().ForceUseSilentAimDashModifier = false
 getgenv().ForceUseWalkSpeedModifier = false
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()</code></pre>
-          <button onclick="copyToClipboard('getgenv().Team = \"Pirates\"\ngetgenv().AutoLoad = false\ngetgenv().SlowLoadUi = false\ngetgenv().ForceUseSilentAimDashModifier = false\ngetgenv().ForceUseWalkSpeedModifier = false\nloadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+          <button class="download-btn copy-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all" data-clipboard-target="#script-wazure">Copiar Script</button>
         </div>
       </div>
       <!-- Logo do Blox Fruits -->
@@ -321,47 +323,13 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc61
   </div>
   
   <script>
-    function copyToClipboard(text) {
-      if (navigator.clipboard && window.isSecureContext) {
-        // Tenta usar a API moderna
-        navigator.clipboard.writeText(text).then(() => {
-          alert("Script copiado para a área de transferência!");
-        }).catch(err => {
-          console.error("Erro com clipboard:", err);
-          fallbackCopyTextToClipboard(text);
-        });
-      } else {
-        fallbackCopyTextToClipboard(text);
-      }
-    }
-
-    function fallbackCopyTextToClipboard(text) {
-      // Cria um elemento textarea temporário
-      var textArea = document.createElement("textarea");
-      textArea.value = text;
-      // Posiciona o textarea fora da tela
-      textArea.style.position = "fixed";
-      textArea.style.top = "0";
-      textArea.style.left = "0";
-      textArea.style.opacity = "0";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-
-      try {
-        var successful = document.execCommand('copy');
-        if (successful) {
-          alert("Script copiado para a área de transferência!");
-        } else {
-          // Fallback: abre um prompt para copiar manualmente
-          window.prompt("Pressione Ctrl+C para copiar o script:", text);
-        }
-      } catch (err) {
-        console.error("Fallback copy error:", err);
-        window.prompt("Pressione Ctrl+C para copiar o script:", text);
-      }
-      document.body.removeChild(textArea);
-    }
+    // Inicializa o ClipboardJS para os botões com a classe copy-btn
+    new ClipboardJS('.copy-btn').on('success', function(e) {
+      alert("Script copiado para a área de transferência!");
+      e.clearSelection();
+    }).on('error', function(e) {
+      alert("Falha ao copiar. Tente selecionar e copiar manualmente.");
+    });
   </script>
 </body>
 </html>

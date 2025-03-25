@@ -1,539 +1,861 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONYERDOB - Executores e Scripts</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#5D5CDE',
-                        secondary: '#4338ca',
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
-            }
-        };
-
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        }
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            document.documentElement.classList.toggle('dark', event.matches);
-        });
-
-        function copyScript(script, buttonId) {
-            navigator.clipboard.writeText(script).then(() => {
-                const button = document.getElementById(buttonId);
-                const originalText = button.textContent;
-                button.textContent = 'Copied!';
-                button.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
-                button.classList.add('bg-green-600', 'hover:bg-green-700');
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.classList.remove('bg-green-600', 'hover:bg-green-700');
-                    button.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert('Failed to copy script. Please try again.');
-            });
-        }
-
-        function fadeOutIn(elementToHide, elementToShow) {
-            elementToHide.classList.add('fade-out');
-            setTimeout(() => {
-                elementToHide.classList.add('hidden');
-                elementToHide.classList.remove('fade-out');
-                elementToShow.classList.remove('hidden');
-                elementToShow.classList.add('fade-in');
-                setTimeout(() => {
-                    elementToShow.classList.remove('fade-in');
-                }, 500);
-            }, 500);
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            renderAuthOverlay();
-            setupCommentForm();
-            loadComments();
-
-            const executorsTab = document.getElementById('executorsTab');
-            const scriptsTab = document.getElementById('scriptsTab');
-            const executorsSection = document.getElementById('executorsSection');
-            const scriptsSection = document.getElementById('scriptsSection');
-
-            executorsTab.addEventListener('click', () => {
-                fadeOutIn(scriptsSection, executorsSection);
-            });
-
-            scriptsTab.addEventListener('click', () => {
-                fadeOutIn(executorsSection, scriptsSection);
-            });
-        });
-
-        function renderAuthOverlay() {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            const overlay = document.getElementById('loginOverlay');
-            if (!currentUser) {
-                overlay.innerHTML = `
-                    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md mx-auto space-y-4">
-                        <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-200">Criar Conta</h2>
-                        <form id="loginForm" class="space-y-4">
-                            <input type="text" id="userName" placeholder="Nome de usuário"
-                                   required
-                                   class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-black">
-                            <input type="file" id="avatarInput" accept="image/*" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg w-full font-semibold transition-colors">Entrar</button>
-                        </form>
-                    </div>
-                `;
-                overlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-                setupLoginForm();
-            } else {
-                overlay.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-                renderUserInfo();
-            }
-        }
-
-        function setupLoginForm() {
-            const loginForm = document.getElementById('loginForm');
-            if (loginForm) {
-                loginForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const name = document.getElementById('userName').value.trim();
-                    const avatarInput = document.getElementById('avatarInput');
-                    if (!name) return alert('Digite seu nome.');
-                    if (avatarInput.files && avatarInput.files[0]) {
-                        const file = avatarInput.files[0];
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            const avatarData = event.target.result;
-                            const user = { name, avatar: avatarData };
-                            localStorage.setItem('currentUser', JSON.stringify(user));
-                            renderAuthOverlay();
-                        };
-                        reader.readAsDataURL(file);
-                    } else {
-                        const user = { name, avatar: 'https://via.placeholder.com/150' };
-                        localStorage.setItem('currentUser', JSON.stringify(user));
-                        renderAuthOverlay();
-                    }
-                });
-            }
-        }
-
-        function renderUserInfo() {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            const infoDiv = document.getElementById('userInfo');
-            if (currentUser && infoDiv) {
-                infoDiv.innerHTML = `
-                    <div class="flex items-center justify-center space-x-4 p-4 bg-white dark:bg-gray-800 rounded shadow mb-6">
-                        <img src="${currentUser.avatar}" alt="Avatar" class="w-12 h-12 rounded-full border">
-                        <span class="text-lg font-semibold text-gray-800 dark:text-gray-200">Olá, ${currentUser.name}!</span>
-                        <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded">Logout</button>
-                    </div>
-                `;
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('currentUser');
-            renderAuthOverlay();
-            renderUserInfo();
-        }
-
-        const COMMENTS_KEY = 'executorsComments';
-        function loadComments() {
-            const commentsList = document.getElementById('commentsList');
-            const comments = JSON.parse(localStorage.getItem(COMMENTS_KEY)) || [];
-            commentsList.innerHTML = '';
-            comments.forEach(comment => {
-                const commentDiv = document.createElement('div');
-                commentDiv.className = "mb-2 p-2 border-b border-gray-300 dark:border-gray-600 flex items-center space-x-3";
-                commentDiv.innerHTML = `
-                    <img src="${comment.avatar}" alt="Avatar" class="w-10 h-10 rounded-full border">
-                    <div>
-                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">${comment.name}</p>
-                        <p class="text-sm text-black">${comment.text}</p>
-                    </div>
-                `;
-                commentsList.appendChild(commentDiv);
-            });
-        }
-
-        function setupCommentForm() {
-            const commentForm = document.getElementById('commentForm');
-            commentForm.addEventListener('submit', e => {
-                e.preventDefault();
-                const commentInput = document.getElementById('commentInput');
-                const text = commentInput.value.trim();
-                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                if (!currentUser) return alert('Você precisa estar logado para comentar.');
-                if (text !== "") {
-                    const comments = JSON.parse(localStorage.getItem(COMMENTS_KEY)) || [];
-                    comments.push({
-                        name: currentUser.name,
-                        avatar: currentUser.avatar,
-                        text
-                    });
-                    localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
-                    commentInput.value = '';
-                    loadComments();
-                }
-            });
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
-            transition: background-color 0.3s linear, color 0.3s linear;
-        }
-
-        .dark body {
-            background-color: #181818;
-        }
-
-        .executor-card {
-            transition: all 0.3s ease;
-        }
-
-        .executor-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .bg-image {
-            background-image: url('https://i.pinimg.com/originals/fe/b6/87/feb6879f86e6b4f3d912fcabbff5244f.gif');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            filter: blur(8px);
-            opacity: 0.6;
-        }
-
-        .dark .bg-image {
-            opacity: 0.3;
-        }
-
-        .download-btn {
-            transition: all 0.2s ease;
-        }
-
-        .download-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .download-btn:active {
-            transform: scale(0.95);
-        }
-
-        .social-icon {
-            transition: transform 0.3s;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.15);
-        }
-
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        .dark ::-webkit-scrollbar-track {
-            background: #2d3748;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #5D5CDE;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4338ca;
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
-        }
-
-        .fade-out {
-            animation: fadeOut 0.5s forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-            }
-        }
-
-        .bg-opacity-90,
-        .bg-opacity-80 {
-            background-color: rgba(0, 0, 0, 0.8) !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RONYERDOB - Executores e Scripts</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- AOS (Animate on Scroll) -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Orbitron', sans-serif;
+    }
+    /* Fundo animado com o GIF solicitado */
+    .animated-bg {
+      background-image: url('https://i.pinimg.com/originals/f4/34/e8/f434e86cdc40ef068b7783d150f8a65c.gif');
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.3;
+    }
+    .dark .animated-bg { opacity: 0.1; }
+    
+    /* Glassmorphism e efeito neon para botões */
+    .modern-btn {
+      background: rgba(0, 0, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 0, 255, 0.5);
+      color: #3B82F6;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease-in-out;
+    }
+    .modern-btn:hover {
+      background: rgba(0, 0, 255, 0.3);
+      box-shadow: 0 0 10px rgba(0, 0, 255, 0.8);
+      transform: scale(1.05);
+    }
+    .modern-btn:active { transform: scale(0.98); }
+    
+    /* Efeito para blocos de código */
+    .code-box {
+      background: #000;
+      color: #0ff;
+      border-radius: 8px;
+      padding: 10px;
+      font-family: 'Courier New', monospace;
+      border: 2px solid #00ffff;
+      animation: flicker 1.5s infinite alternate;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      100% { opacity: 0.8; }
+    }
+    
+    /* Animação de fade-in */
+    .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Estilo para abas ativas */
+    .tab-active {
+      background: linear-gradient(to right, #5D5CDE, #4338ca);
+      color: white;
+      position: relative;
+    }
+    .tab-active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(to right, #00C6FF, #7B2FF7);
+      border-radius: 3px;
+    }
+    
+    /* Dark mode toggle button */
+    #themeToggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 50;
+    }
+  </style>
 </head>
-<body class="dark:text-white">
-    <div class="bg-image"></div>
-    
-    <div id="loginOverlay" class="flex items-center justify-center z-50"></div>
-    
-    <div id="userInfo" class="relative container mx-auto px-4 py-4"></div>
-    
-    <div class="fixed top-0 right-0 m-4 z-20">
-        <button id="menuButton" class="p-2 focus:outline-none">
-            <i class="fas fa-ellipsis-v text-2xl"></i>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+  <!-- Fundo animado -->
+  <div class="animated-bg"></div>
+  
+  <!-- Particles.js container (opcional) -->
+  <div id="particles-js" class="absolute inset-0 z-[-1]"></div>
+  
+  <!-- Toggle de tema -->
+  <button id="themeToggle" class="modern-btn" onclick="toggleTheme()">
+    <i class="fas fa-adjust mr-2"></i> Toggle Tema
+  </button>
+  
+  <!-- Login Overlay -->
+  <div id="loginOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm hidden" data-aos="fade-up">
+    <div class="login-card p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg" data-aos="zoom-in">
+      <h2 class="text-3xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">Criar Conta</h2>
+      <div class="mb-6">
+        <label for="usernameInput" class="block text-gray-700 dark:text-gray-300 mb-2 font-medium">Nome de Usuário</label>
+        <input type="text" id="usernameInput" placeholder="Digite seu nome" class="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-400 focus:outline-none text-base" required>
+      </div>
+      <div class="mb-6">
+        <label for="profilePicture" class="block text-gray-700 dark:text-gray-300 mb-2 font-medium">Selecione sua foto de perfil</label>
+        <input type="file" id="profilePicture" accept="image/*" onchange="handleProfileImage(event)" class="mb-2 modern-btn">
+        <img id="profilePreview" src="" alt="Preview" class="w-16 h-16 rounded-full border border-gray-300 mt-2">
+      </div>
+      <button onclick="createAccount()" class="modern-btn w-full">
+        <i class="fas fa-user-plus mr-2"></i> Criar Conta
+      </button>
+    </div>
+  </div>
+  
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white dark:bg-gray-800 shadow-md" data-aos="fade-down">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple animate-pulse-slow">RONYERDOB</h1>
+      <div class="hidden md:flex space-x-4 relative">
+        <button id="executorsTab" class="modern-btn relative" onclick="switchTab('executors')">
+          <i class="fas fa-mobile-alt mr-2"></i> Executores
         </button>
-        <div id="menuDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded shadow-lg">
-            <a id="executorsTab" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Executores</a>
-            <a id="scriptsTab" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Scripts</a>
-        </div>
+        <button id="scriptsTab" class="modern-btn relative" onclick="switchTab('scripts')">
+          <i class="fas fa-code mr-2"></i> Scripts
+        </button>
+      </div>
+      <button id="mobileMenuBtn" class="modern-btn md:hidden rounded-full w-10 h-10 flex items-center justify-center">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
-    
-    <div class="relative container mx-auto px-4 py-8" id="mainContent">
-        <header class="text-center py-10 mb-6">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-indigo-700 dark:text-indigo-400 animate-pulse-slow">RONYERDOB</h1>
-            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg max-w-3xl mx-auto bg-opacity-90 dark:bg-opacity-80">
-                <p class="text-xl md:text-2xl font-semibold">Olá! EU SOU O RONYERDOB</p>
-                <p class="text-lg md:text-xl mt-2">ESTOU AQUI DISPONIBILIZANDO OS MELHORES EXECUTORES E SCRIPTS!</p>
-            </div>
-            <div class="flex justify-center mt-8 space-x-4">
-                <a href="https://discord.gg/yfB6DRdUy3" target="_blank" rel="noopener noreferrer" class="social-icon">
-                    <img src="https://logodownload.org/wp-content/uploads/2017/11/discord-logo-0.png" alt="Discord" class="h-12 md:h-14">
-                </a>
-                <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" rel="noopener noreferrer" class="social-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube - Legado do Pirata" class="h-12 md:h-14">
-                </a>
-                <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" rel="noopener noreferrer" class="social-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube - RONYERDOB" class="h-12 md:h-14">
-                </a>
-            </div>
-        </header>
-        
-        <div id="executorsSection">
-            <div class="text-center mb-8">
-                <img src="https://www.lucascaton.com/images/posts/2013/09/android.png" alt="Android" class="h-20 md:h-24 mx-auto">
-                <h2 class="text-2xl md:text-3xl font-bold mt-4 text-gray-800 dark:text-gray-200">Executores para Android</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                    <div class="p-4 text-center">
-                        <img src="https://apkclone.com/logos/krnl-executor-v663-apk.jpg" alt="KRNL Executor" class="h-20 mx-auto rounded-lg mb-3">
-                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">KRNL Executor</h3>
-                    </div>
-                    <div class="p-4">
-                        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=3600,h=2160,fit=crop/m6Lq6GkJxMT4WM7b/1000200657-removebg-preview-dWxBWj9xxLfepaL9.png" alt="KRNL Interface" class="w-full h-auto rounded-lg mb-4">
-                        <a href="https://www.mediafire.com/file/ih0161ok5xxjyww/krnl_release_2.665.684_2025.3.23_19.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
-                            <i class="fas fa-download mr-2"></i> Download KRNL
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                    <div class="p-4 text-center">
-                        <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/654895ed9f66b9b6ca199e43/0x0.png" alt="Codex Executor" class="h-20 mx-auto rounded-lg mb-3">
-                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Codex Executor</h3>
-                    </div>
-                    <div class="p-4">
-                        <img src="https://www.softlay.com/downloads/wp-content/uploads/Codex-Android-Interface-edited.jpeg" alt="Codex Interface" class="w-full h-auto rounded-lg mb-4">
-                        <a href="https://www.mediafire.com/file/pb7w6l12892805q/Codex+v2.665.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
-                            <i class="fas fa-download mr-2"></i> Download Codex
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                    <div class="p-4 text-center">
-                        <img src="https://scriptblox.com/images/photo/65a56357e1ae033856e36b24-1710589765537.png" alt="Trigon Executor" class="h-20 mx-auto rounded-lg mb-3">
-                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Trigon Executor</h3>
-                    </div>
-                    <div class="p-4">
-                        <img src="https://trigonevo.com/wp-content/uploads/2024/01/Untitled-1-768x432.png" alt="Trigon Interface" class="w-full h-auto rounded-lg mb-4">
-                        <a href="https://www.mediafire.com/file/1nfqw82bkns9jmu/Trigon_v2.665.684.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
-                            <i class="fas fa-download mr-2"></i> Download Trigon
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                    <div class="p-4 text-center">
-                        <img src="https://techbigs.com/uploads/2022/11/download-6654.jpg" alt="Fluxus Executor" class="h-20 mx-auto rounded-lg mb-3">
-                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Fluxus Executor</h3>
-                    </div>
-                    <div class="p-4">
-                        <img src="https://assets.zyrosite.com/m6Lq6GkJxMT4WM7b/salinan-dari-hoho-hub-1-YyvoZ3N9vOcPWBlD.gif" alt="Fluxus Interface" class="w-full h-auto rounded-lg mb-4">
-                        <a href="https://www.mediafire.com/file/woat8ey8w9v5rh9/Fluxus_V2.665.684.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
-                            <i class="fas fa-download mr-2"></i> Download Fluxus
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-12 bg-opacity-90 dark:bg-opacity-80">
-                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Comentários</h2>
-                <form id="commentForm" class="mb-4">
-                    <textarea id="commentInput" placeholder="Digite seu comentário..." class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded mb-2 text-black"></textarea>
-                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
-                </form>
-                <div id="commentsList"></div>
-            </div>
-        </div>
-        
-        <div id="scriptsSection" class="hidden">
-            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-12 bg-opacity-90 dark:bg-opacity-80">
-                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Blox Fruits Scripts</h2>
-                <div class="space-y-6">
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">Hoho Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()</pre>
-                        </div>
-                        <button id="hoho-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\\'))()', 'hoho-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">Zen Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua", true))()</pre>
-                        </div>
-                        <button id="zen-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua\\', true))()', 'zen-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">Lion Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua"))()</pre>
-                        </div>
-                        <button id="lion-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua\\'))()', 'lion-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">Volcano Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau"))()</pre>
-                        </div>
-                        <button id="volcano-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau\\'))()', 'volcano-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">Hiru Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua"))()</pre>
-                        </div>
-                        <button id="hiru-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua\\'))()', 'hiru-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">Xero Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">getgenv().Team = "Marines"
-getgenv().Hide_Menu = false
-loadstring(game:HttpGet("https://apixerohub.x10.mx/main.lua"))()</pre>
-                        </div>
-                        <button id="xero-hub-btn" onclick="copyScript('getgenv().Team = "Marines"\\ngetgenv().Hide_Menu = false\\nloadstring(game:HttpGet("https://apixerohub.x10.mx/main.lua"))()', 'xero-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">Kncrypt Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua"))()</pre>
-                        </div>
-                        <button id="kncrypt-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua\\'))()', 'kncrypt-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">Banana Cat Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
-getgenv().Key = "PASTE_KEY_HERE"
-loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua"))()</pre>
-                        </div>
-                        <button id="banana-hub-btn" onclick="copyScript('repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\\ngetgenv().Key = "PASTE_KEY_HERE"\\nloadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua"))()', 'banana-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">Relz Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">loadstring(game:HttpGet("https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack", true))()</pre>
-                        </div>
-                        <button id="relz-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\\'https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack\\', true))()', 'relz-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                    <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-2">W Azure Hub</h3>
-                        <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
-                            <pre class="text-sm text-gray-800 dark:text-gray-300 whitespace-pre-wrap">getgenv().Team = "Pirates"
-getgenv().AutoLoad = false
-getgenv().SlowLoadUi = false
-getgenv().ForceUseSilentAimDashModifier = false
-getgenv().ForceUseWalkSpeedModifier = false
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()</pre>
-                        </div>
-                        <button id="azure-hub-btn" onclick="copyScript('getgenv().Team = "Pirates"\\ngetgenv().AutoLoad = false\\ngetgenv().SlowLoadUi = false\\ngetgenv().ForceUseSilentAimDashModifier = false\\ngetgenv().ForceUseWalkSpeedModifier = false\\nloadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()', 'azure-hub-btn')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out flex items-center justify-center">
-                            <span>Copiar Script</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="mt-8 flex justify-center">
-                    <img src="https://tm.ibxk.com.br/2025/01/10/10180620059062.jpg" alt="Logo do Blox Fruits" class="h-24 rounded">
-                </div>
-            </div>
-        </div>
-        
-        <footer class="text-center py-6 text-gray-600 dark:text-gray-400">
-            <p>© 2025 RONYERDOB - Todos os direitos reservados</p>
-            <p class="mt-2 text-sm">Os melhores executores e scripts para Roblox atualizados</p>
-        </footer>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="md:hidden mt-4 hidden">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-2 flex flex-col space-y-1">
+        <button onclick="switchTab('executors')" class="modern-btn text-left">
+          <i class="fas fa-mobile-alt mr-2"></i> Executores
+        </button>
+        <button onclick="switchTab('scripts')" class="modern-btn text-left">
+          <i class="fas fa-code mr-2"></i> Scripts
+        </button>
+      </div>
     </div>
+  </header>
+  
+  <!-- User Info -->
+  <div class="container mx-auto px-4 py-4" data-aos="fade-up">
+    <div id="userInfo"></div>
+  </div>
+  
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 pb-12">
+    <!-- Hero Section -->
+    <section class="text-center mb-12 relative overflow-hidden" data-aos="fade-up">
+      <div class="relative z-10 py-12 px-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-2xl">
+        <h1 class="text-5xl md:text-6xl font-bold mb-4 neon-text animate-float">RONYERDOB</h1>
+        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Os melhores executores e scripts para Roblox atualizados!</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="https://discord.gg/yfB6DRdUy3" target="_blank" class="modern-btn">
+            <i class="fab fa-discord text-xl"></i> Discord
+          </a>
+          <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" class="modern-btn">
+            <i class="fab fa-youtube text-xl"></i> Legado do Pirata
+          </a>
+          <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" class="modern-btn">
+            <i class="fab fa-youtube text-xl"></i> RONYERDOB
+          </a>
+        </div>
+      </div>
+    </section>
     
-    <script>
-        const menuButton = document.getElementById('menuButton');
-        const menuDropdown = document.getElementById('menuDropdown');
-        menuButton.addEventListener('click', () => {
-            menuDropdown.classList.toggle('hidden');
-        });
-        document.addEventListener('click', (e) => {
-            if (!menuButton.contains(e.target) && !menuDropdown.contains(e.target)) {
-                menuDropdown.classList.add('hidden');
-            }
-        });
-    </script>
+    <!-- Executores Section -->
+    <section id="executorsSection" class="fade-in" data-aos="fade-up">
+      <div class="flex items-center justify-center mb-8">
+        <div class="p-3 rounded-full shadow-lg animate-pulse-slow bg-blue-500/20">
+          <i class="fas fa-mobile-alt text-2xl text-blue-500"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Executores para Android</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+        <!-- KRNL Executor -->
+        <div class="tilt bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-tilt data-aos="zoom-in">
+          <div class="p-6 text-center">
+            <img src="https://apkclone.com/logos/krnl-executor-v663-apk.jpg" alt="KRNL Executor" class="h-20 w-20 mx-auto rounded-xl">
+            <h3 class="text-2xl font-bold mt-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">KRNL Executor</h3>
+          </div>
+          <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=3600,h=2160,fit=crop/m6Lq6GkJxMT4WM7b/1000200657-removebg-preview-dWxBWj9xxLfepaL9.png" alt="KRNL Interface" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <a href="https://www.mediafire.com/file/ih0161ok5xxjyww/krnl_release_2.665.684_2025.3.23_19.apk/file" target="_blank" class="modern-btn block text-center">
+              <i class="fas fa-download mr-2"></i> Download KRNL
+            </a>
+          </div>
+        </div>
+        <!-- Codex Executor -->
+        <div class="tilt bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-tilt data-aos="zoom-in">
+          <div class="p-6 text-center">
+            <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/654895ed9f66b9b6ca199e43/0x0.png" alt="Codex Executor" class="h-20 w-20 mx-auto rounded-xl">
+            <h3 class="text-2xl font-bold mt-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Codex Executor</h3>
+          </div>
+          <img src="https://www.softlay.com/downloads/wp-content/uploads/Codex-Android-Interface-edited.jpeg" alt="Codex Interface" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <a href="https://www.mediafire.com/file/pb7w6l12892805q/Codex+v2.665.apk/file" target="_blank" class="modern-btn block text-center">
+              <i class="fas fa-download mr-2"></i> Download Codex
+            </a>
+          </div>
+        </div>
+        <!-- Trigon Executor -->
+        <div class="tilt bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-tilt data-aos="zoom-in">
+          <div class="p-6 text-center">
+            <img src="https://scriptblox.com/images/photo/65a56357e1ae033856e36b24-1710589765537.png" alt="Trigon Executor" class="h-20 w-20 mx-auto rounded-xl">
+            <h3 class="text-2xl font-bold mt-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Trigon Executor</h3>
+          </div>
+          <img src="https://trigonevo.com/wp-content/uploads/2024/01/Untitled-1-768x432.png" alt="Trigon Interface" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <a href="https://www.mediafire.com/file/1nfqw82bkns9jmu/Trigon_v2.665.684.apk/file" target="_blank" class="modern-btn block text-center">
+              <i class="fas fa-download mr-2"></i> Download Trigon
+            </a>
+          </div>
+        </div>
+        <!-- Fluxus Executor -->
+        <div class="tilt bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-tilt data-aos="zoom-in">
+          <div class="p-6 text-center">
+            <img src="https://techbigs.com/uploads/2022/11/download-6654.jpg" alt="Fluxus Executor" class="h-20 w-20 mx-auto rounded-xl">
+            <h3 class="text-2xl font-bold mt-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Fluxus Executor</h3>
+          </div>
+          <img src="https://assets.zyrosite.com/m6Lq6GkJxMT4WM7b/salinan-dari-hoho-hub-1-YyvoZ3N9vOcPWBlD.gif" alt="Fluxus Interface" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <a href="https://www.mediafire.com/file/woat8ey8w9v5rh9/Fluxus_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center">
+              <i class="fas fa-download mr-2"></i> Download Fluxus
+            </a>
+          </div>
+        </div>
+        <!-- Vegax Executor Android -->
+        <div class="tilt bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-tilt data-aos="zoom-in">
+          <div class="p-6 text-center">
+            <img src="https://modmenuz.com/storage/vega-x-icon.png" alt="Vegax Executor" class="h-20 w-20 mx-auto rounded-xl">
+            <h3 class="text-2xl font-bold mt-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Vegax Executor</h3>
+          </div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPc_0Mbxf0LjfA39ti_JtV4LfzuVpZ6Y1HcXaZ4DtxTF6x_i-PuhW5sH-_ZGi4BBCm_WI&usqp=CAU" alt="Vegax Interface" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <a href="https://www.mediafire.com/file/wovfxy2qggsm19i/Vega_X_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center">
+              <i class="fas fa-download mr-2"></i> Download Vegax
+            </a>
+          </div>
+        </div>
+        <!-- Arceusx Neo Executor Android -->
+        <div class="tilt bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow" data-tilt data-aos="zoom-in">
+          <div class="p-6 text-center">
+            <img src="https://i.imgur.com/W0KQWyD.png" alt="Arceusx Neo Executor" class="h-20 w-20 mx-auto rounded-xl">
+            <h3 class="text-2xl font-bold mt-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Arceusx Neo Executor</h3>
+          </div>
+          <img src="https://i.imgur.com/W0KQWyD.png" alt="Arceusx Interface" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <a href="https://www.mediafire.com/file/1koyv79fepibqxp/Roblox_Arceus_X_NEO_1.6.0.apk/file" target="_blank" class="modern-btn block text-center">
+              <i class="fas fa-download mr-2"></i> Download Arceusx Neo
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Seção de Comentários -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-12" data-aos="fade-up">
+        <div class="flex items-center mb-6">
+          <div class="p-3 rounded-full shadow-lg bg-blue-500/20 mr-4">
+            <i class="fas fa-comments text-xl text-blue-500"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Comentários</h3>
+        </div>
+        <div class="mb-6">
+          <textarea id="commentInput" rows="3" placeholder="Compartilhe sua experiência..." class="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-400 focus:outline-none text-base resize-none"></textarea>
+          <div class="flex justify-end mt-3">
+            <button onclick="addComment()" class="modern-btn">
+              <i class="fas fa-paper-plane mr-2"></i> Comentar
+            </button>
+          </div>
+        </div>
+        <div id="commentsList"></div>
+      </div>
+    </section>
+    
+    <!-- Scripts Section -->
+    <section id="scriptsSection" class="hidden" data-aos="fade-up">
+      <div class="flex items-center justify-center mb-8">
+        <div class="p-3 rounded-full shadow-lg animate-pulse-slow bg-blue-500/20 mr-4">
+          <i class="fas fa-code text-2xl text-blue-500"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Blox Fruits Scripts</h2>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-12 space-y-6">
+        <!-- Hoho Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Hoho Hub</h3>
+            <span class="bg-green-400/20 border border-green-400 text-green-500 text-xs font-bold px-3 py-1 rounded-full">Popular</span>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()</pre>
+          </div>
+          <button id="hoho-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\'))()', 'hoho-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Forge Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Forge Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()</pre>
+          </div>
+          <button id="forge-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua\'))()', 'forge-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Fruit Finder Raito Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Fruit Finder Raito Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">
+ServerHopTimer = 5
+TeleportSafe = true
+Webhook = "Your Webhook Here"
+_G.Version = "Fruit Farm"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script"))()
+            </pre>
+          </div>
+          <button id="raitohub-btn" onclick="copyScript('ServerHopTimer = 5\nTeleportSafe = true\nWebhook = \"Your Webhook Here\"\n_G.Version = \"Fruit Farm\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script\"))()', 'raitohub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Xero Hub Kaitum -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Xero Hub Kaitum</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">
+script_key = ""
+getgenv().Shutdown = false
+getgenv().Configs = {
+  ["Team"] = "Marines",
+  ["Gun Farm"] = false,
+  ["FPS Boost"] = { ["Enable"] = false, ["FPS Cap"] = 30 },
+  ["Farm Boss Drops"] = { ["Enable"] = false, ["When x2 Exp Expired"] = false },
+  ["Auto Evo Race"] = true,
+  ["Awaken Fruit"] = true,
+  ["Rainbow Haki"] = true,
+  ["Hop Player Near"] = true,
+  ["Skull Guitar"] = true,
+  ["Find Fruit"] = false,
+  ["Cursed Dual Katana"] = true,
+  ["Switch Melee"] = true,
+  ["Eat Fruit"] = "",
+  ["Snipe Fruit"] = "",
+  ["Lock Fragment"] = 0,
+  ["Buy Stuffs"] = true
+}
+repeat task.wait() until pcall(function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/verudous/Xero-Hub/refs/heads/main/kaitun.lua"))()
+end) or getgenv().Check_Execute
+            </pre>
+          </div>
+          <button id="xero-hub-btn" onclick="copyScript('script_key = \"\"\ngetgenv().Shutdown = false\ngetgenv().Configs = { [\"Team\"] = \"Marines\", [\"Gun Farm\"] = false, [\"FPS Boost\"] = { [\"Enable\"] = false, [\"FPS Cap\"] = 30 }, [\"Farm Boss Drops\"] = { [\"Enable\"] = false, [\"When x2 Exp Expired\"] = false }, [\"Auto Evo Race\"] = true, [\"Awaken Fruit\"] = true, [\"Rainbow Haki\"] = true, [\"Hop Player Near\"] = true, [\"Skull Guitar\"] = true, [\"Find Fruit\"] = false, [\"Cursed Dual Katana\"] = true, [\"Switch Melee\"] = true, [\"Eat Fruit\"] = \"\", [\"Snipe Fruit\"] = \"\", [\"Lock Fragment\"] = 0, [\"Buy Stuffs\"] = true } repeat task.wait() until pcall(function() loadstring(game:HttpGet(\"https://raw.githubusercontent.com/verudous/Xero-Hub/refs/heads/main/kaitun.lua\"))() end) or getgenv().Check_Execute', 'xero-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Speed Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Speed Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</pre>
+          </div>
+          <button id="speed-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()', 'speed-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Thunder Z Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Thunder Z Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua"))()</pre>
+          </div>
+          <button id="thunderz-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua\"))()', 'thunderz-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Alchemy Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Alchemy Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">loadstring(game:HttpGet("https://scripts.alchemyhub.xyz"))()</pre>
+          </div>
+          <button id="alchemy-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://scripts.alchemyhub.xyz\"))()', 'alchemy-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Auto Bounty Hoho Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Auto Bounty Hoho Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">
+script_key = "PASTE_KEY_HERE"
+_G["HoHo Hub Auto Bounty V4"] = {
+  ["Avatar"] = "rbxassetid://8598068647",
+  ["Farm Method"] = "Normal",
+  ["Select Team"] = "Pirate",
+  ["Discord Webhook"] = "",
+  ["Bypass Teleport"] = false,
+  ["Max Level Distance"] = 612,
+  ["Don't attack friends"] = true,
+  ["Don't attack player have cup"] = false,
+  ["Distance Attack Y"] = 2,
+  ["Chat After Kill"] = {
+      ["Active"] = false,
+      ["List Chat"] = {""},
+  },
+  ["Yourself"] = {
+      ["Invisible From Ken"] = true,
+      ["No Stun"] = true,
+  },
+  ["SafeZone"] = {Enabled = true, ["Health Left (%)"] = 25, ["Wait Until Heal (%)"] = 80},
+  ["Time Control"] = { ["Max Time Target Player"] = 120 },
+  ["Abilities"] = {
+      ["Auto Click"] = true,
+      ["Melee"] = {
+          Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+          X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+          C = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+      },
+      ["Sword"] = {
+          Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+          X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+      },
+      ["Gun"] = {
+          Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+          X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+      },
+      ["Fruit"] = {
+          Z = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6},
+          X = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6},
+          C = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6},
+          V = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6},
+          F = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6},
+      },
+  },
+}
+_G.SupperFixLag = true
+_G["Auto Gacha & Store Fruit"] = true
+_G.loadCustomId = "fac6dbd013c78163f8061ce11b2c1330"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
+            </pre>
+          </div>
+          <button id="autobounty-hub-btn" onclick="copyScript('script_key = \"PASTE_KEY_HERE\"\n_G[\"HoHo Hub Auto Bounty V4\"] = { [\"Avatar\"] = \"rbxassetid://8598068647\", [\"Farm Method\"] = \"Normal\", [\"Select Team\"] = \"Pirate\", [\"Discord Webhook\"] = \"\", [\"Bypass Teleport\"] = false, [\"Max Level Distance\"] = 612, [\"Don\\'t attack friends\"] = true, [\"Don\\'t attack player have cup\"] = false, [\"Distance Attack Y\"] = 2, [\"Chat After Kill\"] = { [\"Active\"] = false, [\"List Chat\"] = {\"\"} }, [\"Yourself\"] = { [\"Invisible From Ken\"] = true, [\"No Stun\"] = true }, [\"SafeZone\"] = {Enabled = true, [\"Health Left (%)\"] = 25, [\"Wait Until Heal (%)\"] = 80}, [\"Time Control\"] = { [\"Max Time Target Player\"] = 120 }, [\"Abilities\"] = { [\"Auto Click\"] = true, [\"Melee\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\"Sword\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\"Gun\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\"Fruit\"] = { Z = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, V = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, F = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6} } } }\n_G.SupperFixLag = true\n_G[\"Auto Gacha & Store Fruit\"] = true\n_G.loadCustomId = \"fac6dbd013c78163f8061ce11b2c1330\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\"))()', 'autobounty-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Vxeze Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Vxeze Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt"))()</pre>
+          </div>
+          <button id="vxeze-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt\"))()', 'vxeze-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Skull Fruit Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Skull Fruit Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">
+getgenv().BloxFruits = {
+  ["Team"] = "Marines",
+  ["TweenSpeed"] = 350,
+  ["Fruit"] = {
+      ["FruitNotifier"] = false,
+      ["AutoRandom"] = true,
+      ["FruitSniper"] = {
+          ["Enabled"] = false,
+          ["TargetFruits"] = {"Yeti-Yeti", "Dragon-Dragon", "Dough-Dough"},
+      },
+  },
+  ["Farm"] = {
+      ["Enabled"] = true,
+      ["FastMethod"] = false,
+      ["AutoHop"] = true,
+      ["ItemHop"] = true,
+  },
+  ["Webhook"] = {
+      ["Enabled"] = false,
+      ["URL"] = "Your Webhook Url",
+      ["UserId"] = "Id Discord",
+  },
+  ["BlackScreen"] = false,
+  ["FpsBoost"] = false,
+  ["AntiIdle"] = true,
+}
+loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
+            </pre>
+          </div>
+          <button id="skullfruit-hub-btn" onclick="copyScript('getgenv().BloxFruits = { [\"Team\"] = \"Marines\", [\"TweenSpeed\"] = 350, [\"Fruit\"] = { [\"FruitNotifier\"] = false, [\"AutoRandom\"] = true, [\"FruitSniper\"] = { [\"Enabled\"] = false, [\"TargetFruits\"] = {\"Yeti-Yeti\", \"Dragon-Dragon\", \"Dough-Dough\"} } }, [\"Farm\"] = { [\"Enabled\"] = true, [\"FastMethod\"] = false, [\"AutoHop\"] = true, [\"ItemHop\"] = true }, [\"Webhook\"] = { [\"Enabled\"] = false, [\"URL\"] = \"Your Webhook Url\", [\"UserId\"] = \"Id Discord\" }, [\"BlackScreen\"] = false, [\"FpsBoost\"] = false, [\"AntiIdle\"] = true }; loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()', 'skullfruit-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Tsuo Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Tsuo Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts"))()</pre>
+          </div>
+          <button id="tsuo-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts\"))()', 'tsuo-hub-btn')" class="modern-btn flex items-center">
+            <i class="far fa-copy mr-2"></i> Copiar Script
+          </button>
+        </div>
+        <!-- Ronyx Kaitum Hub -->
+        <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md" data-aos="zoom-in">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Ronyx Kaitum Hub</h3>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <pre class="text-sm">https://scriptpastebin.com/royx-kaitun-hub-blox-fruits-script-mobile/</pre>
+          </div>
+          <button onclick="window.open('https://scriptpastebin.com/royx-kaitun-hub-blox-fruits-script-mobile/', '_blank')" class="modern-btn flex items-center">
+            <i class="fas fa-external-link-alt mr-2"></i> Abrir Página
+          </button>
+        </div>
+      </div>
+      
+      <!-- Área para envio de scripts pela comunidade -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6" data-aos="fade-up">
+        <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 mb-4">Enviar Seu Script</h3>
+        <textarea id="userScriptInput" rows="4" placeholder="Cole seu script aqui..." class="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-400 focus:outline-none text-base resize-none mb-4"></textarea>
+        <button onclick="sendUserScript()" class="modern-btn mb-4">
+          <i class="fas fa-upload mr-2"></i> Enviar Script
+        </button>
+        <div id="userScriptsList"></div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="bg-white dark:bg-gray-800 py-8" data-aos="fade-up">
+    <div class="container mx-auto px-4 text-center">
+      <div class="flex justify-center mb-4">
+        <img src="https://i.imgur.com/W0KQWyD.png" alt="RONYERDOB Logo" class="h-16">
+      </div>
+      <p class="text-gray-700 dark:text-gray-300 mb-4">&copy; 2025 RONYERDOB - Todos os direitos reservados</p>
+      <div class="flex justify-center space-x-6 mb-6">
+        <a href="https://discord.gg/yfB6DRdUy3" target="_blank" class="modern-btn">
+          <i class="fab fa-discord text-2xl"></i>
+        </a>
+        <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" class="modern-btn">
+          <i class="fab fa-youtube text-2xl"></i>
+        </a>
+        <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" class="modern-btn">
+          <i class="fab fa-youtube text-2xl"></i>
+        </a>
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400">Desenvolvido com modernidade e paixão</p>
+    </div>
+  </footer>
+  
+  <!-- Scripts: AOS, Particles.js, Vanilla Tilt, e inicializações -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <script>
+    // Inicializa AOS
+    AOS.init({ once: true });
+    
+    // Inicializa Particles.js
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#ffffff" },
+        "opacity": { "value": 0.5 },
+        "size": { "value": 3 },
+        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+        "move": { "enable": true, "speed": 3 }
+      },
+      "interactivity": {
+        "events": { "onhover": { "enable": true, "mode": "repulse" } },
+        "modes": { "repulse": { "distance": 100 } }
+      }
+    });
+    
+    // Inicializa Vanilla Tilt para cartões
+    VanillaTilt.init(document.querySelectorAll(".tilt"), {
+      max: 15,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.3,
+    });
+    
+    // Toggle de tema
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+    if(localStorage.getItem('theme') === 'dark'){
+      document.documentElement.classList.add('dark');
+    }
+    
+    // Funções de login, comentários e envio de script
+    let profileImageBase64 = "";
+    function handleProfileImage(event) {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profileImageBase64 = e.target.result;
+          document.getElementById("profilePreview").src = profileImageBase64;
+        }
+        reader.readAsDataURL(file);
+      } else {
+        alert("Selecione um arquivo de imagem válido.");
+      }
+    }
+    function showLoginModal() {
+      document.getElementById('loginOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function hideLoginModal() {
+      document.getElementById('loginOverlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+    function createAccount() {
+      const username = document.getElementById('usernameInput').value.trim();
+      if (!username) {
+        showToast('Por favor, digite um nome de usuário', 'error');
+        return;
+      }
+      if (!profileImageBase64) {
+        showToast('Por favor, selecione uma foto de perfil', 'error');
+        return;
+      }
+      const userData = { username, avatar: profileImageBase64, joinDate: new Date().toISOString() };
+      localStorage.setItem('currentUser', JSON.stringify(userData));
+      hideLoginModal();
+      updateUserDisplay();
+      showToast(`Bem-vindo, ${username}!`, 'success');
+    }
+    function logout() {
+      localStorage.removeItem('currentUser');
+      updateUserDisplay();
+      showLoginModal();
+      showToast('Você foi desconectado', 'info');
+    }
+    function updateUserDisplay() {
+      const userInfo = document.getElementById('userInfo');
+      const userData = JSON.parse(localStorage.getItem('currentUser'));
+      if (userData) {
+        userInfo.innerHTML = `
+          <div class="flex items-center bg-white dark:bg-gray-800 p-3 rounded-xl shadow-lg">
+            <img src="${userData.avatar}" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-primary">
+            <div class="ml-3">
+              <p class="font-bold text-gray-800 dark:text-white">${userData.username}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Membro desde ${new Date(userData.joinDate).toLocaleDateString()}</p>
+            </div>
+            <button onclick="logout()" class="modern-btn ml-auto">
+              <i class="fas fa-sign-out-alt mr-1"></i> Sair
+            </button>
+          </div>
+        `;
+      } else {
+        userInfo.innerHTML = `
+          <button onclick="showLoginModal()" class="modern-btn w-full">
+            <i class="fas fa-user-circle text-xl mr-2"></i> Criar Conta / Entrar
+          </button>
+        `;
+      }
+    }
+    function addComment() {
+      const commentInput = document.getElementById('commentInput');
+      const comment = commentInput.value.trim();
+      const userData = JSON.parse(localStorage.getItem('currentUser'));
+      if (!userData) {
+        showToast('Faça login para comentar', 'error');
+        showLoginModal();
+        return;
+      }
+      if (!comment) {
+        showToast('Por favor, digite um comentário', 'error');
+        return;
+      }
+      const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+      comments.push({
+        id: Date.now(),
+        user: userData.username,
+        avatar: userData.avatar,
+        text: comment,
+        date: new Date().toISOString()
+      });
+      localStorage.setItem('comments', JSON.stringify(comments));
+      commentInput.value = '';
+      loadComments();
+      showToast('Comentário adicionado!', 'success');
+    }
+    function loadComments() {
+      const commentsList = document.getElementById('commentsList');
+      const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+      if (comments.length === 0) {
+        commentsList.innerHTML = `
+          <div class="text-center py-8">
+            <i class="fas fa-comments text-4xl text-gray-300 dark:text-gray-600 mb-3"></i>
+            <p class="text-gray-500 dark:text-gray-400">Seja o primeiro a comentar!</p>
+          </div>
+        `;
+        return;
+      }
+      commentsList.innerHTML = '';
+      comments.forEach(comment => {
+        const date = new Date(comment.date);
+        const formattedDate = date.toLocaleDateString() + ' às ' + date.toLocaleTimeString().substring(0, 5);
+        const commentElement = document.createElement('div');
+        commentElement.className = 'bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md mb-4';
+        commentElement.innerHTML = `
+          <div class="flex items-start">
+            <img src="${comment.avatar}" alt="${comment.user}" class="w-10 h-10 rounded-full mr-3">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <h4 class="font-bold text-gray-800 dark:text-white">${comment.user}</h4>
+                <span class="text-xs text-gray-500 dark:text-gray-400">${formattedDate}</span>
+              </div>
+              <p class="text-gray-700 dark:text-gray-300">${comment.text}</p>
+            </div>
+          </div>
+        `;
+        commentsList.appendChild(commentElement);
+      });
+    }
+    function sendUserScript() {
+      const scriptContent = document.getElementById('userScriptInput').value.trim();
+      const userData = JSON.parse(localStorage.getItem('currentUser'));
+      if (!userData) {
+        showToast('Faça login para enviar scripts', 'error');
+        showLoginModal();
+        return;
+      }
+      if (!scriptContent) {
+        showToast('Por favor, cole seu script', 'error');
+        return;
+      }
+      const userScripts = JSON.parse(localStorage.getItem('userScripts') || '[]');
+      userScripts.push({
+        id: Date.now(),
+        user: userData.username,
+        avatar: userData.avatar,
+        script: scriptContent,
+        date: new Date().toISOString()
+      });
+      localStorage.setItem('userScripts', JSON.stringify(userScripts));
+      document.getElementById('userScriptInput').value = '';
+      loadUserScripts();
+      showToast('Script enviado com sucesso!', 'success');
+    }
+    function loadUserScripts() {
+      const scriptsList = document.getElementById('userScriptsList');
+      const userScripts = JSON.parse(localStorage.getItem('userScripts') || '[]');
+      if (userScripts.length === 0) {
+        scriptsList.innerHTML = `<p class="text-gray-500">Nenhum script enviado ainda.</p>`;
+        return;
+      }
+      scriptsList.innerHTML = '';
+      userScripts.forEach(item => {
+        const date = new Date(item.date);
+        const formattedDate = date.toLocaleDateString() + ' às ' + date.toLocaleTimeString().substring(0,5);
+        const div = document.createElement('div');
+        div.className = 'bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md mb-4';
+        div.innerHTML = `
+          <div class="flex items-center mb-2">
+            <img src="${item.avatar}" alt="${item.user}" class="w-10 h-10 rounded-full mr-3">
+            <div>
+              <p class="font-bold text-gray-800 dark:text-white">${item.user}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">${formattedDate}</p>
+            </div>
+          </div>
+          <pre class="code-box overflow-x-auto">${item.script}</pre>
+        `;
+        scriptsList.appendChild(div);
+      });
+    }
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      const colors = {
+        success: 'bg-green-400/20',
+        error: 'bg-red-400/20',
+        info: 'bg-blue-400/20',
+        warning: 'bg-yellow-400/20'
+      };
+      toast.className = `fixed top-4 right-4 z-50 px-4 py-2 rounded-lg text-blue-500 font-medium shadow-lg ${colors[type]} transform transition-all duration-500 -translate-y-5 opacity-0`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.classList.remove('-translate-y-5', 'opacity-0'); }, 10);
+      setTimeout(() => { 
+        toast.classList.add('-translate-y-5', 'opacity-0'); 
+        setTimeout(() => { document.body.removeChild(toast); }, 500);
+      }, 3000);
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      const userData = JSON.parse(localStorage.getItem('currentUser'));
+      if (!userData) { showLoginModal(); }
+      updateUserDisplay();
+      loadComments();
+      loadUserScripts();
+      document.getElementById('executorsTab').addEventListener('click', () => switchTab('executors'));
+      document.getElementById('scriptsTab').addEventListener('click', () => switchTab('scripts'));
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+      }
+    });
+  </script>
+  <!-- Scripts: AOS, Particles.js, Vanilla Tilt -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
 </body>
 </html>

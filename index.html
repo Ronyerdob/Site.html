@@ -1,359 +1,367 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONYERDOB - Executores Roblox</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#5D5CDE',
-                        secondary: '#4338ca',
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RONYERDOB - Executores Roblox</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#5D5CDE',
+            secondary: '#4338ca',
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
         }
+      }
+    }
 
-        // Check for dark mode preference
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        }
-        
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            if (event.matches) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        });
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
-        }
-        
-        .dark body {
-            background-color: #181818;
-        }
-        
-        .executor-card {
-            transition: all 0.3s ease;
-        }
-        
-        .executor-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        .bg-image {
-            background-image: url('https://i.ibb.co/67JTvSqN/quality-restoration-20250325025203823.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            filter: blur(8px);
-            opacity: 0.6;
-        }
-        
-        .dark .bg-image {
-            opacity: 0.3;
-        }
-        
-        .download-btn {
-            transition: all 0.2s ease;
-        }
-        
-        .download-btn:hover {
-            transform: scale(1.05);
-        }
-        
-        .download-btn:active {
-            transform: scale(0.95);
-        }
-        
-        .social-icon {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            transform: scale(1.15);
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        
-        .dark ::-webkit-scrollbar-track {
-            background: #2d3748;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #5D5CDE;
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4338ca;
-        }
-    </style>
+    // Check for dark mode preference
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+    }
+    
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      if (event.matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    });
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8fafc;
+    }
+    
+    .dark body {
+      background-color: #181818;
+    }
+    
+    .executor-card {
+      transition: all 0.3s ease;
+    }
+    
+    .executor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .bg-image {
+      background-image: url('https://i.ibb.co/67JTvSqN/quality-restoration-20250325025203823.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      filter: blur(8px);
+      opacity: 0.6;
+    }
+    
+    .dark .bg-image {
+      opacity: 0.3;
+    }
+    
+    .download-btn {
+      transition: all 0.2s ease;
+    }
+    
+    .download-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    .download-btn:active {
+      transform: scale(0.95);
+    }
+    
+    .social-icon {
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      transform: scale(1.15);
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    .dark ::-webkit-scrollbar-track {
+      background: #2d3748;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #5D5CDE;
+      border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4338ca;
+    }
+  </style>
 </head>
 <body class="dark:text-white">
-    <div class="bg-image"></div>
+  <div class="bg-image"></div>
+  
+  <div class="relative container mx-auto px-4 py-8">
+    <!-- Header Section -->
+    <header class="text-center py-10 mb-6">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-indigo-700 dark:text-indigo-400 animate-pulse-slow">RONYERDOB</h1>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg max-w-3xl mx-auto bg-opacity-90 dark:bg-opacity-80">
+        <p class="text-xl md:text-2xl font-semibold">Olá! EU SOU O RONYERDOB</p>
+        <p class="text-lg md:text-xl mt-2">ESTOU AQUI DISPONIBILIZANDO PARA VOCÊ OS MELHORES EXECUTORES ATUALIZADOS PARA ANDROID!</p>
+      </div>
+      
+      <!-- Social Media Links -->
+      <div class="flex justify-center mt-8 space-x-4">
+        <a href="https://discord.gg/yfB6DRdUy3" target="_blank" rel="noopener noreferrer" class="social-icon">
+          <img src="https://logodownload.org/wp-content/uploads/2017/11/discord-logo-0.png" alt="Discord" class="h-12 md:h-14">
+        </a>
+        <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" rel="noopener noreferrer" class="social-icon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube - Legado do Pirata" class="h-12 md:h-14">
+        </a>
+        <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" rel="noopener noreferrer" class="social-icon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube - RONYERDOB" class="h-12 md:h-14">
+        </a>
+      </div>
+    </header>
     
-    <div class="relative container mx-auto px-4 py-8">
-        <!-- Header Section -->
-        <header class="text-center py-10 mb-6">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-indigo-700 dark:text-indigo-400 animate-pulse-slow">RONYERDOB</h1>
-            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg max-w-3xl mx-auto bg-opacity-90 dark:bg-opacity-80">
-                <p class="text-xl md:text-2xl font-semibold">Olá! EU SOU O RONYERDOB</p>
-                <p class="text-lg md:text-xl mt-2">ESTOU AQUI DISPONIBILIZANDO PARA VOCÊ OS MELHORES EXECUTORES ATUALIZADOS PARA ANDROID!</p>
-            </div>
-            
-            <!-- Social Media Links -->
-            <div class="flex justify-center mt-8 space-x-4">
-                <a href="https://discord.gg/yfB6DRdUy3" target="_blank" rel="noopener noreferrer" class="social-icon">
-                    <img src="https://logodownload.org/wp-content/uploads/2017/11/discord-logo-0.png" alt="Discord" class="h-12 md:h-14">
-                </a>
-                <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" rel="noopener noreferrer" class="social-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube - Legado do Pirata" class="h-12 md:h-14">
-                </a>
-                <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" rel="noopener noreferrer" class="social-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube - RONYERDOB" class="h-12 md:h-14">
-                </a>
-            </div>
-        </header>
-        
-        <!-- Android Icon -->
-        <div class="text-center mb-8">
-            <img src="https://www.lucascaton.com/images/posts/2013/09/android.png" alt="Android" class="h-20 md:h-24 mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold mt-4 text-gray-800 dark:text-gray-200">Executores para Android</h2>
+    <!-- Android Icon -->
+    <div class="text-center mb-8">
+      <img src="https://www.lucascaton.com/images/posts/2013/09/android.png" alt="Android" class="h-20 md:h-24 mx-auto">
+      <h2 class="text-2xl md:text-3xl font-bold mt-4 text-gray-800 dark:text-gray-200">Executores para Android</h2>
+    </div>
+    
+    <!-- Executors Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <!-- KRNL Executor -->
+      <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+        <div class="p-4 text-center">
+          <img src="https://apkclone.com/logos/krnl-executor-v663-apk.jpg" alt="KRNL Executor" class="h-20 mx-auto rounded-lg mb-3">
+          <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">KRNL Executor</h3>
         </div>
-        
-        <!-- Executors Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <!-- KRNL Executor -->
-            <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                <div class="p-4 text-center">
-                    <img src="https://apkclone.com/logos/krnl-executor-v663-apk.jpg" alt="KRNL Executor" class="h-20 mx-auto rounded-lg mb-3">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">KRNL Executor</h3>
-                </div>
-                <div class="p-4">
-                    <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=3600,h=2160,fit=crop/m6Lq6GkJxMT4WM7b/1000200657-removebg-preview-dWxBWj9xxLfepaL9.png" alt="KRNL Interface" class="w-full h-auto rounded-lg mb-4">
-                    <a href="https://www.mediafire.com/file/ih0161ok5xxjyww/krnl_release_2.665.684_2025.3.23_19.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
-                        <i class="fas fa-download mr-2"></i> Download KRNL
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Codex Executor -->
-            <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                <div class="p-4 text-center">
-                    <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/654895ed9f66b9b6ca199e43/0x0.png" alt="Codex Executor" class="h-20 mx-auto rounded-lg mb-3">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Codex Executor</h3>
-                </div>
-                <div class="p-4">
-                    <img src="https://www.softlay.com/downloads/wp-content/uploads/Codex-Android-Interface-edited.jpeg" alt="Codex Interface" class="w-full h-auto rounded-lg mb-4">
-                    <a href="https://www.mediafire.com/file/pb7w6l12892805q/Codex+v2.665.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
-                        <i class="fas fa-download mr-2"></i> Download Codex
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Trigon Executor -->
-            <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                <div class="p-4 text-center">
-                    <img src="https://scriptblox.com/images/photo/65a56357e1ae033856e36b24-1710589765537.png" alt="Trigon Executor" class="h-20 mx-auto rounded-lg mb-3">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Trigon Executor</h3>
-                </div>
-                <div class="p-4">
-                    <img src="https://trigonevo.com/wp-content/uploads/2024/01/Untitled-1-768x432.png" alt="Trigon Interface" class="w-full h-auto rounded-lg mb-4">
-                    <a href="https://www.mediafire.com/file/1nfqw82bkns9jmu/Trigon_v2.665.684.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
-                        <i class="fas fa-download mr-2"></i> Download Trigon
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Fluxus Executor -->
-            <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-                <div class="p-4 text-center">
-                    <img src="https://techbigs.com/uploads/2022/11/download-6654.jpg" alt="Fluxus Executor" class="h-20 mx-auto rounded-lg mb-3">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Fluxus Executor</h3>
-                </div>
-                <div class="p-4">
-                    <img src="https://assets.zyrosite.com/m6Lq6GkJxMT4WM7b/salinan-dari-hoho-hub-1-YyvoZ3N9vOcPWBlD.gif" alt="Fluxus Interface" class="w-full h-auto rounded-lg mb-4">
-                    <a href="https://www.mediafire.com/file/woat8ey8w9v5rh9/Fluxus_V2.665.684.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
-                        <i class="fas fa-download mr-2"></i> Download Fluxus
-                    </a>
-                </div>
-            </div>
+        <div class="p-4">
+          <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=3600,h=2160,fit=crop/m6Lq6GkJxMT4WM7b/1000200657-removebg-preview-dWxBWj9xxLfepaL9.png" alt="KRNL Interface" class="w-full h-auto rounded-lg mb-4">
+          <a href="https://www.mediafire.com/file/ih0161ok5xxjyww/krnl_release_2.665.684_2025.3.23_19.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
+            <i class="fas fa-download mr-2"></i> Download KRNL
+          </a>
         </div>
-        
-        <!-- YouTube Channels Section -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-8 bg-opacity-90 dark:bg-opacity-80">
-            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-white">Meus Canais no YouTube</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" rel="noopener noreferrer" class="bg-red-600 hover:bg-red-700 text-white rounded-lg p-4 flex items-center justify-center transition-all">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" class="h-8 mr-3">
-                    <span class="text-lg font-semibold">Legado do Pirata YT</span>
-                </a>
-                <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" rel="noopener noreferrer" class="bg-red-600 hover:bg-red-700 text-white rounded-lg p-4 flex items-center justify-center transition-all">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" class="h-8 mr-3">
-                    <span class="text-lg font-semibold">RONYERDOB YT</span>
-                </a>
-            </div>
+      </div>
+      
+      <!-- Codex Executor -->
+      <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+        <div class="p-4 text-center">
+          <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/654895ed9f66b9b6ca199e43/0x0.png" alt="Codex Executor" class="h-20 mx-auto rounded-lg mb-3">
+          <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Codex Executor</h3>
         </div>
-        
-        <!-- Discord Server Section -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-12 bg-opacity-90 dark:bg-opacity-80">
-            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-white">Servidor do Discord</h2>
-            <a href="https://discord.gg/yfB6DRdUy3" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg p-4 flex items-center justify-center transition-all mx-auto max-w-md">
-                <img src="https://logodownload.org/wp-content/uploads/2017/11/discord-logo-0.png" alt="Discord" class="h-8 mr-3">
-                <span class="text-lg font-semibold">🐲 SERVIDOR do PIRATA #9k ☯</span>
-            </a>
+        <div class="p-4">
+          <img src="https://www.softlay.com/downloads/wp-content/uploads/Codex-Android-Interface-edited.jpeg" alt="Codex Interface" class="w-full h-auto rounded-lg mb-4">
+          <a href="https://www.mediafire.com/file/pb7w6l12892805q/Codex+v2.665.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
+            <i class="fas fa-download mr-2"></i> Download Codex
+          </a>
         </div>
-        
-        <!-- Blox Fruits Scripts Section -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-12 bg-opacity-90 dark:bg-opacity-80">
-            <h2 class="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-white">Blox Fruits Scripts</h2>
-            <div class="space-y-6">
-                <!-- Hoho Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">Hoho Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()</code></pre>
-                    <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-                <!-- Zen Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">Zen Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua", true))()</code></pre>
-                    <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua\", true))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-                <!-- Lion Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">Lion Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua"))()</code></pre>
-                    <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-                <!-- Voucano Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">Voucano Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau"))()</code></pre>
-                    <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-                <!-- Hiru Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">Hiru Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua"))()</code></pre>
-                    <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-                <!-- Xero Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">Xero Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>getgenv().Team = "Marines"
+      </div>
+      
+      <!-- Trigon Executor -->
+      <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+        <div class="p-4 text-center">
+          <img src="https://scriptblox.com/images/photo/65a56357e1ae033856e36b24-1710589765537.png" alt="Trigon Executor" class="h-20 mx-auto rounded-lg mb-3">
+          <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Trigon Executor</h3>
+        </div>
+        <div class="p-4">
+          <img src="https://trigonevo.com/wp-content/uploads/2024/01/Untitled-1-768x432.png" alt="Trigon Interface" class="w-full h-auto rounded-lg mb-4">
+          <a href="https://www.mediafire.com/file/1nfqw82bkns9jmu/Trigon_v2.665.684.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
+            <i class="fas fa-download mr-2"></i> Download Trigon
+          </a>
+        </div>
+      </div>
+      
+      <!-- Fluxus Executor -->
+      <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
+        <div class="p-4 text-center">
+          <img src="https://techbigs.com/uploads/2022/11/download-6654.jpg" alt="Fluxus Executor" class="h-20 mx-auto rounded-lg mb-3">
+          <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Fluxus Executor</h3>
+        </div>
+        <div class="p-4">
+          <img src="https://assets.zyrosite.com/m6Lq6GkJxMT4WM7b/salinan-dari-hoho-hub-1-YyvoZ3N9vOcPWBlD.gif" alt="Fluxus Interface" class="w-full h-auto rounded-lg mb-4">
+          <a href="https://www.mediafire.com/file/woat8ey8w9v5rh9/Fluxus_V2.665.684.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn block w-full bg-primary hover:bg-secondary text-white font-bold py-3 px-4 rounded-lg text-center transition-all">
+            <i class="fas fa-download mr-2"></i> Download Fluxus
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- YouTube Channels Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-8 bg-opacity-90 dark:bg-opacity-80">
+      <h2 class="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-white">Meus Canais no YouTube</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" rel="noopener noreferrer" class="bg-red-600 hover:bg-red-700 text-white rounded-lg p-4 flex items-center justify-center transition-all">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" class="h-8 mr-3">
+          <span class="text-lg font-semibold">Legado do Pirata YT</span>
+        </a>
+        <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" rel="noopener noreferrer" class="bg-red-600 hover:bg-red-700 text-white rounded-lg p-4 flex items-center justify-center transition-all">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" class="h-8 mr-3">
+          <span class="text-lg font-semibold">RONYERDOB YT</span>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Discord Server Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-12 bg-opacity-90 dark:bg-opacity-80">
+      <h2 class="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-white">Servidor do Discord</h2>
+      <a href="https://discord.gg/yfB6DRdUy3" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg p-4 flex items-center justify-center transition-all mx-auto max-w-md">
+        <img src="https://logodownload.org/wp-content/uploads/2017/11/discord-logo-0.png" alt="Discord" class="h-8 mr-3">
+        <span class="text-lg font-semibold">🐲 SERVIDOR do PIRATA #9k ☯</span>
+      </a>
+    </div>
+    
+    <!-- Blox Fruits Scripts Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-12 bg-opacity-90 dark:bg-opacity-80">
+      <h2 class="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-white">Blox Fruits Scripts</h2>
+      <div class="space-y-6">
+        <!-- Hoho Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">Hoho Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()</code></pre>
+          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+        </div>
+        <!-- Zen Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">Zen Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua", true))()</code></pre>
+          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Zenhubtop/zen_hub_pr/main/zennewwwwui.lua\", true))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+        </div>
+        <!-- Lion Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">Lion Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua"))()</code></pre>
+          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/NHMdz/BloxFruit/refs/heads/main/Lion%20Hub.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+        </div>
+        <!-- Voucano Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">Voucano Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau"))()</code></pre>
+          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/wpisstestfprg/Volcano/refs/heads/main/VolcanoNewUpdated.luau\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+        </div>
+        <!-- Hiru Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">Hiru Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua"))()</code></pre>
+          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/NGUYENVUDUY1/Dev-Hiru/refs/heads/main/HiruHub.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+        </div>
+        <!-- Xero Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">Xero Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>getgenv().Team = "Marines"
 getgenv().Hide_Menu = false
 loadstring(game:HttpGet("https://apixerohub.x10.mx/main.lua"))()</code></pre>
-                    <button onclick="copyToClipboard('getgenv().Team = \"Marines\"\ngetgenv().Hide_Menu = false\nloadstring(game:HttpGet(\"https://apixerohub.x10.mx/main.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-                <!-- Kncrypt Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">Kncrypt Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua"))()</code></pre>
-                    <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-                <!-- Banana Cat Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">Banana Cat Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+          <button onclick="copyToClipboard('getgenv().Team = \"Marines\"\ngetgenv().Hide_Menu = false\nloadstring(game:HttpGet(\"https://apixerohub.x10.mx/main.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+        </div>
+        <!-- Kncrypt Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">Kncrypt Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua"))()</code></pre>
+          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/3345-c-a-t-s-u-s/Kncrypt/refs/heads/main/sources/BloxFruit.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+        </div>
+        <!-- Banana Cat Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">Banana Cat Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 getgenv().Key = "PASTE_KEY_HERE"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua"))()</code></pre>
-                    <button onclick="copyToClipboard('repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\ngetgenv().Key = \"PASTE_KEY_HERE\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-                <!-- Relz Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">Relz Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack", true))()</code></pre>
-                    <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack\", true))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-                <!-- W azure Hub -->
-                <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                    <h3 class="text-xl font-semibold mb-2">W azure Hub</h3>
-                    <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>getgenv().Team = "Pirates"
+          <button onclick="copyToClipboard('repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\ngetgenv().Key = \"PASTE_KEY_HERE\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+        </div>
+        <!-- Relz Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">Relz Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack", true))()</code></pre>
+          <button onclick="copyToClipboard('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/farghii/relzhub/main/execute.hack\", true))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
+        </div>
+        <!-- W azure Hub -->
+        <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+          <h3 class="text-xl font-semibold mb-2">W azure Hub</h3>
+          <pre class="bg-gray-200 dark:bg-gray-800 p-2 rounded mb-2 text-sm overflow-x-auto"><code>getgenv().Team = "Pirates"
 getgenv().AutoLoad = false
 getgenv().SlowLoadUi = false
 getgenv().ForceUseSilentAimDashModifier = false
 getgenv().ForceUseWalkSpeedModifier = false
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()</code></pre>
-                    <button onclick="copyToClipboard('getgenv().Team = \"Pirates\"\ngetgenv().AutoLoad = false\ngetgenv().SlowLoadUi = false\ngetgenv().ForceUseSilentAimDashModifier = false\ngetgenv().ForceUseWalkSpeedModifier = false\nloadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
-                </div>
-            </div>
-            <!-- Logo do Blox Fruits -->
-            <div class="mt-8 flex justify-center">
-                <img src="https://tm.ibxk.com.br/2025/01/10/10180620059062.jpg" alt="Logo do Blox Fruits" class="h-24 rounded">
-            </div>
+          <button onclick="copyToClipboard('getgenv().Team = \"Pirates\"\ngetgenv().AutoLoad = false\ngetgenv().SlowLoadUi = false\ngetgenv().ForceUseSilentAimDashModifier = false\ngetgenv().ForceUseWalkSpeedModifier = false\nloadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua\"))()')" class="download-btn block bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded-lg text-center transition-all">Copiar Script</button>
         </div>
-        
-        <!-- Footer -->
-        <footer class="text-center py-6 text-gray-600 dark:text-gray-400">
-            <p>© 2025 RONYERDOB - Todos os direitos reservados</p>
-            <p class="mt-2 text-sm">Os melhores executores para Roblox atualizados</p>
-        </footer>
+      </div>
+      <!-- Logo do Blox Fruits -->
+      <div class="mt-8 flex justify-center">
+        <img src="https://tm.ibxk.com.br/2025/01/10/10180620059062.jpg" alt="Logo do Blox Fruits" class="h-24 rounded">
+      </div>
     </div>
     
-    <script>
-        function copyToClipboard(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                // Usando a API moderna
-                navigator.clipboard.writeText(text).then(function() {
-                    alert("Script copiado para a área de transferência!");
-                }, function(err) {
-                    alert("Erro ao copiar script: " + err);
-                });
-            } else {
-                // Fallback para navegadores que não suportam navigator.clipboard
-                let textArea = document.createElement("textarea");
-                textArea.value = text;
-                // Evita que o textarea seja exibido e posicionado fora da tela
-                textArea.style.position = "fixed";
-                textArea.style.top = "0";
-                textArea.style.left = "0";
-                textArea.style.opacity = "0";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    let successful = document.execCommand('copy');
-                    if (successful) {
-                        alert("Script copiado para a área de transferência!");
-                    } else {
-                        alert("Falha ao copiar script.");
-                    }
-                } catch (err) {
-                    alert("Erro ao copiar script: " + err);
-                }
-                document.body.removeChild(textArea);
-            }
+    <!-- Footer -->
+    <footer class="text-center py-6 text-gray-600 dark:text-gray-400">
+      <p>© 2025 RONYERDOB - Todos os direitos reservados</p>
+      <p class="mt-2 text-sm">Os melhores executores para Roblox atualizados</p>
+    </footer>
+  </div>
+  
+  <script>
+    function copyToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        // Tenta usar a API moderna
+        navigator.clipboard.writeText(text).then(() => {
+          alert("Script copiado para a área de transferência!");
+        }).catch(err => {
+          console.error("Erro com clipboard:", err);
+          fallbackCopyTextToClipboard(text);
+        });
+      } else {
+        fallbackCopyTextToClipboard(text);
+      }
+    }
+
+    function fallbackCopyTextToClipboard(text) {
+      // Cria um elemento textarea temporário
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      // Posiciona o textarea fora da tela
+      textArea.style.position = "fixed";
+      textArea.style.top = "0";
+      textArea.style.left = "0";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        var successful = document.execCommand('copy');
+        if (successful) {
+          alert("Script copiado para a área de transferência!");
+        } else {
+          // Fallback: abre um prompt para copiar manualmente
+          window.prompt("Pressione Ctrl+C para copiar o script:", text);
         }
-    </script>
+      } catch (err) {
+        console.error("Fallback copy error:", err);
+        window.prompt("Pressione Ctrl+C para copiar o script:", text);
+      }
+      document.body.removeChild(textArea);
+    }
+  </script>
 </body>
 </html>

@@ -49,6 +49,39 @@
       });
     }
 
+    // Troca de categoria com animação
+    function fadeOutIn(elementToHide, elementToShow) {
+      elementToHide.classList.add('fade-out');
+      setTimeout(() => {
+        elementToHide.classList.add('hidden');
+        elementToHide.classList.remove('fade-out');
+        elementToShow.classList.remove('hidden');
+        elementToShow.classList.add('fade-in');
+        setTimeout(() => {
+          elementToShow.classList.remove('fade-in');
+        }, 500);
+      }, 500);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderAuthOverlay();
+      setupCommentForm();
+      loadComments();
+
+      const executorsTab = document.getElementById('executorsTab');
+      const scriptsTab = document.getElementById('scriptsTab');
+      const executorsSection = document.getElementById('executorsSection');
+      const scriptsSection = document.getElementById('scriptsSection');
+
+      executorsTab.addEventListener('click', () => {
+        fadeOutIn(scriptsSection, executorsSection);
+      });
+
+      scriptsTab.addEventListener('click', () => {
+        fadeOutIn(executorsSection, scriptsSection);
+      });
+    });
+
     // Renderiza a tela de login/registro se o usuário não estiver logado
     function renderAuthOverlay() {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -163,12 +196,6 @@
         }
       });
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      renderAuthOverlay();
-      setupCommentForm();
-      loadComments();
-    });
   </script>
   <style>
     #commentInput { color: #000; }
@@ -181,9 +208,34 @@
       height: 100%;
       background-image: url('https://i.gifer.com/J2GE.gif');
       background-size: cover;
-      background-position: center center;
+      background-position: center;
       z-index: 50;
-      background-color: rgba(255, 0, 0, 0.7); /* Atraso do plano de fundo */
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+    }
+
+    .fade-out {
+      animation: fadeOut 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+      }
+    }
+
+    .bg-opacity-90,
+    .bg-opacity-80 {
+      background-color: rgba(0, 0, 0, 0.8) !important; /* Preto transparente */
     }
   </style>
 </head>
@@ -417,23 +469,6 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc61
       if (!menuButton.contains(e.target) && !menuDropdown.contains(e.target)) {
         menuDropdown.classList.add('hidden');
       }
-    });
-    
-    const executorsTab = document.getElementById('executorsTab');
-    const scriptsTab = document.getElementById('scriptsTab');
-    const executorsSection = document.getElementById('executorsSection');
-    const scriptsSection = document.getElementById('scriptsSection');
-    
-    executorsTab.addEventListener('click', () => {
-      executorsSection.classList.remove('hidden');
-      scriptsSection.classList.add('hidden');
-      menuDropdown.classList.add('hidden');
-    });
-    
-    scriptsTab.addEventListener('click', () => {
-      scriptsSection.classList.remove('hidden');
-      executorsSection.classList.add('hidden');
-      menuDropdown.classList.add('hidden');
     });
   </script>
 </body>

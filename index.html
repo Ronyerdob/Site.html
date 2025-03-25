@@ -2,7 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Ajuste para dispositivos mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RONYERDOB - Executores e Scripts</title>
   
   <!-- Google Fonts -->
@@ -90,21 +91,40 @@
       50% { transform: translateY(-5px); }
     }
     
-    /* Abas ativas */
-    .tab-active {
-      background: linear-gradient(to right, #5D5CDE, #4338ca);
-      color: white;
-      position: relative;
-    }
-    .tab-active::after {
-      content: '';
+    /* Dropdown de Categorias (Desktop) */
+    #categoryDropdown {
       position: absolute;
-      bottom: -4px;
-      left: 0;
+      right: 0;
+      top: 100%;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 50;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 150px;
+    }
+    #categoryDropdown button {
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 0.5rem 1rem;
       width: 100%;
-      height: 3px;
-      background: linear-gradient(to right, #00C6FF, #7B2FF7);
-      border-radius: 3px;
+      font-size: 0.9rem;
+    }
+    #categoryDropdown button:hover {
+      background: #f0f0f0;
+    }
+    
+    /* Botão para exibir dropdown de categorias */
+    #categoryToggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: inherit;
     }
     
     /* Botão de toggle de tema reposicionado */
@@ -149,7 +169,36 @@
     }
     #settingsModal button { margin-top: 1rem; }
     
-    /* Mobile Menu ajustado: todas as opções aparecem */
+    /* Área de envio de scripts – Nova Versão */
+    #scriptSubmission {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    #scriptSubmission input[type="text"],
+    #scriptSubmission textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    #scriptSubmission input[type="file"] {
+      margin-bottom: 1rem;
+    }
+    #scriptImagePreview {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    
+    /* Mobile Menu: sempre exibido para facilitar o acesso */
     #mobileMenu { display: none; }
     @media (max-width: 768px) {
       #mobileMenu { display: block !important; }
@@ -209,21 +258,20 @@
   
   <!-- Header -->
   <header class="sticky top-0 z-40 bg-white dark:bg-gray-800 shadow-md" data-aos="fade-down">
-    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between relative">
       <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple animate-pulse-slow bounce">RONYERDOB</h1>
-      <div class="hidden md:flex space-x-4 relative">
-        <button id="executorsTab" class="modern-btn relative" onclick="switchTab('executors')">
-          <i class="fas fa-mobile-alt mr-2"></i> Executores
+      <!-- No desktop, botão com três pontinhos para exibir categorias -->
+      <div class="hidden md:flex items-center relative">
+        <button id="categoryToggle" onclick="toggleCategoryDropdown()">
+          <i class="fas fa-ellipsis-v"></i>
         </button>
-        <button id="scriptsTab" class="modern-btn relative" onclick="switchTab('scripts')">
-          <i class="fas fa-code mr-2"></i> Scripts
-        </button>
+        <!-- Dropdown de Categorias -->
+        <div id="categoryDropdown">
+          <button onclick="switchTab('executors'); hideCategoryDropdown()">Executores</button>
+          <button onclick="switchTab('scripts'); hideCategoryDropdown()">Scripts</button>
+        </div>
       </div>
-      <div class="hidden md:flex items-center space-x-2">
-        <button id="settingsBtn" class="modern-btn" onclick="openSettings()">
-          <i class="fas fa-cog mr-2"></i> Configurações
-        </button>
-      </div>
+      <!-- No mobile, o menu é exibido -->
       <button id="mobileMenuBtn" class="modern-btn md:hidden rounded-full w-10 h-10 flex items-center justify-center" onclick="toggleMobileMenu()">
         <i class="fas fa-bars"></i>
       </button>
@@ -627,14 +675,19 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
         </div>
         
         <!-- Área para envio de scripts pela comunidade -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6" data-aos="fade-up">
-          <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 mb-4">Enviar Seu Script</h3>
-          <textarea id="userScriptInput" rows="4" placeholder="Cole seu script aqui..." class="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-400 focus:outline-none text-base resize-none mb-4"></textarea>
-          <button onclick="sendUserScript()" class="modern-btn mb-4">
-            <i class="fas fa-upload mr-2"></i> Enviar Script
+        <div id="scriptSubmission" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-12" data-aos="fade-up">
+          <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 mb-4">Publicar Novo Script</h3>
+          <input type="text" id="scriptNameInput" placeholder="Digite o nome do script">
+          <textarea id="scriptCodeInput" rows="4" placeholder="Cole o código do script aqui..."></textarea>
+          <input type="file" id="scriptImageInput" accept="image/*" onchange="handleScriptImage(event)">
+          <img id="scriptImagePreview" src="" alt="Prévia da Imagem">
+          <button onclick="sendUserScript()" class="modern-btn w-full">
+            <i class="fas fa-upload mr-2"></i> Publicar Script
           </button>
-          <div id="userScriptsList"></div>
         </div>
+        
+        <!-- Área para exibir scripts publicados -->
+        <div id="userScriptsList"></div>
       </div>
     </section>
   </main>
@@ -703,7 +756,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       document.documentElement.classList.add('dark');
     }
     
-    // Função para copiar texto usando input oculto (100% garantida)
+    // Função para copiar texto usando input oculto (100% garantido)
     function copyTextToClipboard(text) {
       const input = document.createElement("input");
       input.style.position = "absolute";
@@ -736,6 +789,25 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
         alert("Selecione um arquivo de imagem válido.");
       }
     }
+    
+    // Função para lidar com imagem do script
+    let scriptImageBase64 = "";
+    function handleScriptImage(event) {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          scriptImageBase64 = e.target.result;
+          const preview = document.getElementById("scriptImagePreview");
+          preview.src = scriptImageBase64;
+          preview.style.display = "block";
+        }
+        reader.readAsDataURL(file);
+      } else {
+        alert("Selecione um arquivo de imagem válido.");
+      }
+    }
+    
     function showLoginModal() {
       document.getElementById('loginOverlay').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
@@ -793,36 +865,44 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
     
     // Funções para envio e carregamento de scripts do usuário
     function sendUserScript() {
-      const scriptContent = document.getElementById('userScriptInput').value.trim();
+      const scriptName = document.getElementById('scriptNameInput').value.trim();
+      const scriptCode = document.getElementById('scriptCodeInput').value.trim();
       const userData = JSON.parse(localStorage.getItem('currentUser'));
       if (!userData) {
-        showToast('Faça login para enviar scripts', 'error');
+        showToast('Faça login para publicar scripts', 'error');
         showLoginModal();
         return;
       }
-      if (!scriptContent) {
-        showToast('Por favor, cole seu script', 'error');
+      if (!scriptName || !scriptCode || !scriptImageBase64) {
+        showToast('Preencha todos os campos para publicar o script', 'error');
         return;
       }
       const userScripts = JSON.parse(localStorage.getItem('userScripts') || '[]');
       userScripts.push({
         id: Date.now(),
+        name: scriptName,
+        code: scriptCode,
+        image: scriptImageBase64,
         user: userData.username,
         avatar: userData.avatar,
-        script: scriptContent,
         date: new Date().toISOString()
       });
       localStorage.setItem('userScripts', JSON.stringify(userScripts));
-      document.getElementById('userScriptInput').value = '';
+      // Limpa os campos do formulário
+      document.getElementById('scriptNameInput').value = "";
+      document.getElementById('scriptCodeInput').value = "";
+      document.getElementById('scriptImageInput').value = "";
+      document.getElementById('scriptImagePreview').style.display = "none";
+      scriptImageBase64 = "";
       loadUserScripts();
       updateSettingsScripts();
-      showToast('Script enviado com sucesso!', 'success');
+      showToast('Script publicado com sucesso!', 'success');
     }
     function loadUserScripts() {
       const scriptsList = document.getElementById('userScriptsList');
       const userScripts = JSON.parse(localStorage.getItem('userScripts') || '[]');
       if (userScripts.length === 0) {
-        scriptsList.innerHTML = `<p class="text-gray-500">Nenhum script enviado ainda.</p>`;
+        scriptsList.innerHTML = `<p class="text-gray-500">Nenhum script publicado ainda.</p>`;
         return;
       }
       scriptsList.innerHTML = '';
@@ -835,11 +915,12 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
           <div class="flex items-center mb-2">
             <img src="${item.avatar}" alt="${item.user}" class="w-10 h-10 rounded-full mr-3">
             <div>
-              <p class="font-bold text-gray-800 dark:text-white">${item.user}</p>
+              <p class="font-bold text-gray-800 dark:text-white">${item.user} - ${item.name}</p>
               <p class="text-xs text-gray-500 dark:text-gray-400">${formattedDate}</p>
             </div>
           </div>
-          <pre class="code-box overflow-x-auto">${item.script}</pre>
+          <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover rounded mb-2">
+          <pre class="code-box overflow-x-auto">${item.code}</pre>
         `;
         scriptsList.appendChild(div);
       });
@@ -849,7 +930,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       const configDiv = document.getElementById('userScriptsConfig');
       const userScripts = JSON.parse(localStorage.getItem('userScripts') || '[]');
       if (userScripts.length === 0) {
-        configDiv.innerHTML = `<p class="text-gray-500">Você ainda não enviou nenhum script.</p>`;
+        configDiv.innerHTML = `<p class="text-gray-500">Você ainda não publicou nenhum script.</p>`;
         return;
       }
       configDiv.innerHTML = '';
@@ -862,11 +943,12 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
           <div class="flex items-center mb-2">
             <img src="${item.avatar}" alt="${item.user}" class="w-10 h-10 rounded-full mr-3">
             <div>
-              <p class="font-bold text-gray-800 dark:text-white">${item.user}</p>
+              <p class="font-bold text-gray-800 dark:text-white">${item.user} - ${item.name}</p>
               <p class="text-xs text-gray-500 dark:text-gray-400">${formattedDate}</p>
             </div>
           </div>
-          <pre class="code-box overflow-x-auto">${item.script}</pre>
+          <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover rounded mb-2">
+          <pre class="code-box overflow-x-auto">${item.code}</pre>
         `;
         configDiv.appendChild(div);
       });
@@ -891,14 +973,10 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       if(tab === 'executors'){
         document.getElementById('executorsSection').classList.remove('hidden');
         document.getElementById('scriptsSection').classList.add('hidden');
-        document.getElementById('executorsTab').classList.add('tab-active');
-        document.getElementById('scriptsTab').classList.remove('tab-active');
         localStorage.setItem('activeTab', 'executors');
       } else {
         document.getElementById('scriptsSection').classList.remove('hidden');
         document.getElementById('executorsSection').classList.add('hidden');
-        document.getElementById('scriptsTab').classList.add('tab-active');
-        document.getElementById('executorsTab').classList.remove('tab-active');
         localStorage.setItem('activeTab', 'scripts');
       }
     }
@@ -941,7 +1019,16 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       document.getElementById('mobileMenu').classList.toggle('hidden');
     }
     
-    // Recupera a aba ativa e inicializa a página
+    // Funções para o dropdown de categorias no desktop
+    function toggleCategoryDropdown() {
+      const dropdown = document.getElementById('categoryDropdown');
+      dropdown.style.display = (dropdown.style.display === 'flex') ? 'none' : 'flex';
+    }
+    function hideCategoryDropdown() {
+      document.getElementById('categoryDropdown').style.display = 'none';
+    }
+    
+    // Inicialização
     document.addEventListener('DOMContentLoaded', function() {
       const activeTab = localStorage.getItem('activeTab') || 'executors';
       switchTab(activeTab);

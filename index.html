@@ -55,13 +55,13 @@
       const overlay = document.getElementById('loginOverlay');
       if (!currentUser) {
         overlay.innerHTML = `
-          <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md mx-auto">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200 text-center">Login / Registro</h2>
-            <form id="loginForm">
-              <input type="text" id="userName" placeholder="Seu nome"
+          <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md mx-auto space-y-4">
+            <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-200">Criar Conta</h2>
+            <form id="loginForm" class="space-y-4">
+              <input type="text" id="userName" placeholder="Nome de usuário"
                      required
-                     class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg mb-4 text-black">
-              <input type="file" id="avatarInput" accept="image/*" class="mb-4 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                     class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg text-black">
+              <input type="file" id="avatarInput" accept="image/*" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
               <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg w-full font-semibold transition-colors">Entrar</button>
             </form>
           </div>
@@ -173,31 +173,22 @@
   <style>
     #commentInput { color: #000; }
 
-    .bg-image {
+    #loginOverlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('https://i.pinimg.com/originals/f4/34/e8/f434e86cdc40ef068b7783d150f8a65c.gif');
+      background-image: url('https://i.gifer.com/J2GE.gif');
       background-size: cover;
       background-position: center center;
-      z-index: -1;
-    }
-
-    #loginOverlay {
-      background-color: rgba(255, 0, 0, 0.7);
-    }
-
-    .bg-opacity-90 {
-      background-color: rgba(255, 0, 0, 0.7) !important;
+      z-index: 50;
+      background-color: rgba(255, 0, 0, 0.7); /* Atraso do plano de fundo */
     }
   </style>
 </head>
 <body class="dark:text-white">
-  <div class="bg-image"></div>
-  
-  <div id="loginOverlay" class="fixed inset-0 flex items-center justify-center z-30 hidden"></div>
+  <div id="loginOverlay" class="flex items-center justify-center z-50"></div>
   
   <div id="userInfo" class="relative container mx-auto px-4 py-4"></div>
   

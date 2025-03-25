@@ -30,7 +30,7 @@
       document.documentElement.classList.toggle('dark', event.matches);
     });
 
-    // Função para copiar script (sistema inspirado no exemplo)
+    // Função para copiar script
     function copyScript(script, buttonId) {
       navigator.clipboard.writeText(script).then(() => {
         const button = document.getElementById(buttonId);
@@ -49,23 +49,24 @@
       });
     }
 
-    // Renderiza a tela de login/registro em overlay se o usuário não estiver logado
+    // Renderiza a tela de login/registro se o usuário não estiver logado
     function renderAuthOverlay() {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       const overlay = document.getElementById('loginOverlay');
       if (!currentUser) {
         overlay.innerHTML = `
-          <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-sm mx-auto">
-            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Login / Registro</h2>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md mx-auto">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200 text-center">Login / Registro</h2>
             <form id="loginForm">
-              <input type="text" id="userName" placeholder="Seu nome" required class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded mb-3">
-              <input type="file" id="avatarInput" accept="image/*" class="mb-3">
-              <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded w-full">Entrar</button>
+              <input type="text" id="userName" placeholder="Seu nome"
+                     required
+                     class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg mb-4 text-black">
+              <input type="file" id="avatarInput" accept="image/*" class="mb-4 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+              <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg w-full font-semibold transition-colors">Entrar</button>
             </form>
           </div>
         `;
         overlay.classList.remove('hidden');
-        // Impede o scroll do fundo
         document.body.style.overflow = 'hidden';
         setupLoginForm();
       } else {
@@ -94,7 +95,6 @@
             };
             reader.readAsDataURL(file);
           } else {
-            // Imagem padrão
             const user = { name, avatar: 'https://via.placeholder.com/150' };
             localStorage.setItem('currentUser', JSON.stringify(user));
             renderAuthOverlay();
@@ -103,7 +103,6 @@
       }
     }
 
-    // Renderiza informações do usuário (opcional)
     function renderUserInfo() {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       const infoDiv = document.getElementById('userInfo');
@@ -124,7 +123,6 @@
       renderUserInfo();
     }
 
-    // Sistema de comentários usando localStorage com nome e avatar
     const COMMENTS_KEY = 'executorsComments';
     function loadComments() {
       const commentsList = document.getElementById('commentsList');
@@ -166,7 +164,6 @@
       });
     }
 
-    // Ao carregar a página, configura a autenticação e os comentários
     window.addEventListener('DOMContentLoaded', () => {
       renderAuthOverlay();
       setupCommentForm();
@@ -174,10 +171,8 @@
     });
   </script>
   <style>
-    /* Garante que o texto digitado no comentário fique preto */
     #commentInput { color: #000; }
 
-    /* Defina o GIF de plano de fundo */
     .bg-image {
       position: fixed;
       top: 0;
@@ -187,31 +182,25 @@
       background-image: url('https://i.pinimg.com/originals/f4/34/e8/f434e86cdc40ef068b7783d150f8a65c.gif');
       background-size: cover;
       background-position: center center;
-      z-index: -1; /* Para ficar atrás do conteúdo */
+      z-index: -1;
     }
 
-    /* Overlay de login/registro com fundo vermelho translúcido */
     #loginOverlay {
       background-color: rgba(255, 0, 0, 0.7);
     }
 
-    /* Geralmente usado para overlays */
     .bg-opacity-90 {
-      background-color: rgba(255, 0, 0, 0.7) !important; /* Altere essa classe se necessário */
+      background-color: rgba(255, 0, 0, 0.7) !important;
     }
   </style>
 </head>
 <body class="dark:text-white">
-  <!-- Background -->
   <div class="bg-image"></div>
   
-  <!-- Overlay de Login/Registro -->
-  <div id="loginOverlay" class="fixed inset-0 flex items-center justify-center bg-white dark:bg-gray-900 bg-opacity-90 z-30 hidden"></div>
+  <div id="loginOverlay" class="fixed inset-0 flex items-center justify-center z-30 hidden"></div>
   
-  <!-- Área para exibir informações do usuário logado (opcional) -->
   <div id="userInfo" class="relative container mx-auto px-4 py-4"></div>
   
-  <!-- Dropdown Menu no canto superior direito -->
   <div class="fixed top-0 right-0 m-4 z-20">
     <button id="menuButton" class="p-2 focus:outline-none">
       <i class="fas fa-ellipsis-v text-2xl"></i>
@@ -222,9 +211,7 @@
     </div>
   </div>
   
-  <!-- Conteúdo Principal -->
   <div class="relative container mx-auto px-4 py-8" id="mainContent">
-    <!-- Cabeçalho Comum -->
     <header class="text-center py-10 mb-6">
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-indigo-700 dark:text-indigo-400 animate-pulse-slow">RONYERDOB</h1>
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg max-w-3xl mx-auto bg-opacity-90 dark:bg-opacity-80">
@@ -244,16 +231,12 @@
       </div>
     </header>
     
-    <!-- Seção de Executores (visível por padrão) -->
     <div id="executorsSection">
-      <!-- Título e ícone Android -->
       <div class="text-center mb-8">
         <img src="https://www.lucascaton.com/images/posts/2013/09/android.png" alt="Android" class="h-20 md:h-24 mx-auto">
         <h2 class="text-2xl md:text-3xl font-bold mt-4 text-gray-800 dark:text-gray-200">Executores para Android</h2>
       </div>
-      <!-- Grid de Executores -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        <!-- KRNL Executor -->
         <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
           <div class="p-4 text-center">
             <img src="https://apkclone.com/logos/krnl-executor-v663-apk.jpg" alt="KRNL Executor" class="h-20 mx-auto rounded-lg mb-3">
@@ -267,7 +250,6 @@
           </div>
         </div>
         
-        <!-- Codex Executor -->
         <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
           <div class="p-4 text-center">
             <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/654895ed9f66b9b6ca199e43/0x0.png" alt="Codex Executor" class="h-20 mx-auto rounded-lg mb-3">
@@ -281,7 +263,6 @@
           </div>
         </div>
         
-        <!-- Trigon Executor -->
         <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
           <div class="p-4 text-center">
             <img src="https://scriptblox.com/images/photo/65a56357e1ae033856e36b24-1710589765537.png" alt="Trigon Executor" class="h-20 mx-auto rounded-lg mb-3">
@@ -295,7 +276,6 @@
           </div>
         </div>
         
-        <!-- Fluxus Executor -->
         <div class="executor-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
           <div class="p-4 text-center">
             <img src="https://techbigs.com/uploads/2022/11/download-6654.jpg" alt="Fluxus Executor" class="h-20 mx-auto rounded-lg mb-3">
@@ -310,7 +290,6 @@
         </div>
       </div>
       
-      <!-- Sistema de Comentários para Executores -->
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-12 bg-opacity-90 dark:bg-opacity-80">
         <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Comentários</h2>
         <form id="commentForm" class="mb-4">
@@ -321,12 +300,10 @@
       </div>
     </div>
     
-    <!-- Seção de Scripts (inicialmente oculta) -->
     <div id="scriptsSection" class="hidden">
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-12 bg-opacity-90 dark:bg-opacity-80">
         <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Blox Fruits Scripts</h2>
         <div class="space-y-6">
-          <!-- Hoho Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">Hoho Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -336,7 +313,6 @@
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- Zen Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">Zen Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -346,7 +322,6 @@
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- Lion Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">Lion Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -356,7 +331,6 @@
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- Volcano Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">Volcano Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -366,7 +340,6 @@
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- Hiru Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">Hiru Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -376,7 +349,6 @@
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- Xero Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">Xero Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -388,7 +360,6 @@ loadstring(game:HttpGet("https://apixerohub.x10.mx/main.lua"))()</pre>
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- Kncrypt Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">Kncrypt Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -398,7 +369,6 @@ loadstring(game:HttpGet("https://apixerohub.x10.mx/main.lua"))()</pre>
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- Banana Cat Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">Banana Cat Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -410,7 +380,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitin
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- Relz Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">Relz Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -420,7 +389,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitin
               <span>Copiar Script</span>
             </button>
           </div>
-          <!-- W Azure Hub Script -->
           <div class="script-block bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
             <h3 class="text-xl font-semibold mb-2">W Azure Hub</h3>
             <div class="bg-gray-100 dark:bg-gray-900 rounded p-3 mb-4 overflow-x-auto">
@@ -436,36 +404,30 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc61
             </button>
           </div>
         </div>
-        <!-- Logo do Blox Fruits -->
         <div class="mt-8 flex justify-center">
           <img src="https://tm.ibxk.com.br/2025/01/10/10180620059062.jpg" alt="Logo do Blox Fruits" class="h-24 rounded">
         </div>
       </div>
     </div>
     
-    <!-- Footer -->
     <footer class="text-center py-6 text-gray-600 dark:text-gray-400">
       <p>© 2025 RONYERDOB - Todos os direitos reservados</p>
       <p class="mt-2 text-sm">Os melhores executores e scripts para Roblox atualizados</p>
     </footer>
   </div>
   
-  <!-- Scripts para o Menu Dropdown, Alternância de Seções e Sistema de Comentários -->
   <script>
-    // Dropdown menu toggle
     const menuButton = document.getElementById('menuButton');
     const menuDropdown = document.getElementById('menuDropdown');
     menuButton.addEventListener('click', () => {
       menuDropdown.classList.toggle('hidden');
     });
-    // Fecha o dropdown ao clicar fora
     document.addEventListener('click', (e) => {
       if (!menuButton.contains(e.target) && !menuDropdown.contains(e.target)) {
         menuDropdown.classList.add('hidden');
       }
     });
     
-    // Alterna entre as seções de Executores e Scripts
     const executorsTab = document.getElementById('executorsTab');
     const scriptsTab = document.getElementById('scriptsTab');
     const executorsSection = document.getElementById('executorsSection');
@@ -482,9 +444,6 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc61
       executorsSection.classList.add('hidden');
       menuDropdown.classList.add('hidden');
     });
-    
-    // Sistema de comentários – já configurado acima
-    // Se desejar alterar a forma de exibição dos comentários (agora sem nome), veja a versão anterior.
   </script>
 </body>
 </html>

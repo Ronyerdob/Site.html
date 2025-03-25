@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neymar's Champions League Glory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .hero-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1624280157150-4d1ed8219090?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 50vh;
+            position: relative;
+        }
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 24px;
+            height: calc(100% - 24px);
+            width: 2px;
+            background-color: #3B82F6;
+        }
+        @media (prefers-color-scheme: dark) {
+            .dark\:bg-gray-900 {
+                background-color: #111827;
+            }
+            .dark\:text-white {
+                color: #ffffff;
+            }
+            .dark\:text-gray-300 {
+                color: #d1d5db;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+    <!-- Hero Section -->
+    <div class="hero-image flex items-center justify-center">
+        <div class="text-center px-4">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">A Estrela Brilhou na Europa</h1>
+            <p class="text-xl md:text-2xl text-white drop-shadow-lg">A história de como Neymar conquistou a Champions League</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">O Sonho Realizado</h2>
+            
+            <p class="text-gray-700 dark:text-gray-300 text-lg mb-6">
+                Sob as luzes brilhantes do Wembley Stadium, em uma noite de primavera em Londres, Neymar Jr. finalmente realizou o sonho que perseguia desde criança. O caminho até aquele momento não foi apenas sobre talento, mas sobre resiliência, determinação e a capacidade de se reerguer após cada queda.
+            </p>
+
+            <div class="my-8 border-l-4 border-blue-500 pl-4 italic text-gray-700 dark:text-gray-300">
+                "Eu sempre acreditei que este momento chegaria. Mesmo nos momentos mais difíceis, nunca deixei de sonhar com esta taça." — Neymar Jr.
+            </div>
+
+            <p class="text-gray-700 dark:text-gray-300 text-lg mb-6">
+                A jornada de Neymar na Europa começou em 2013, quando deixou o Santos para se juntar ao Barcelona. Depois de sua passagem pelo clube catalão e sua transferência recorde para o Paris Saint-Germain, muitos questionaram se ele conseguiria liderar uma equipe à glória máxima do futebol europeu.
+            </p>
+
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-white mt-8 mb-4">A Jornada até a Glória</h3>
+
+            <!-- Timeline section -->
+            <div class="space-y-6 mt-6 mb-8 relative">
+                <div class="timeline-item relative pl-10">
+                    <div class="absolute left-0 top-1.5 w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold">1</span>
+                    </div>
+                    <h4 class="font-bold text-lg text-gray-800 dark:text-white">Fase de grupos</h4>
+                    <p class="text-gray-700 dark:text-gray-300">Neymar começou a campanha de forma explosiva, com 5 gols e 4 assistências na fase de grupos, liderando sua equipe em um grupo desafiador com gigantes europeus.</p>
+                </div>
+
+                <div class="timeline-item relative pl-10">
+                    <div class="absolute left-0 top-1.5 w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold">2</span>
+                    </div>
+                    <h4 class="font-bold text-lg text-gray-800 dark:text-white">Oitavas de final</h4>
+                    <p class="text-gray-700 dark:text-gray-300">Contra todas as expectativas, Neymar liderou uma virada histórica após perder o jogo de ida. Sua atuação magistral no jogo de volta, com dois gols e uma assistência, garantiu a classificação.</p>
+                </div>
+
+                <div class="timeline-item relative pl-10">
+                    <div class="absolute left-0 top-1.5 w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold">3</span>
+                    </div>
+                    <h4 class="font-bold text-lg text-gray-800 dark:text-white">Quartas de final</h4>
+                    <p class="text-gray-700 dark:text-gray-300">Enfrentando uma lesão no primeiro jogo, Neymar fez um esforço sobre-humano para se recuperar para o jogo de volta, onde marcou o gol decisivo nos minutos finais.</p>
+                </div>
+
+                <div class="timeline-item relative pl-10">
+                    <div class="absolute left-0 top-1.5 w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold">4</span>
+                    </div>
+                    <h4 class="font-bold text-lg text-gray-800 dark:text-white">Semifinal</h4>
+                    <p class="text-gray-700 dark:text-gray-300">Em um confronto eletrizante contra seu ex-clube Barcelona, Neymar demonstrou respeito e classe, não comemorando seus gols, mas liderando sua equipe à final com uma atuação memorável.</p>
+                </div>
+
+                <div class="timeline-item relative pl-10">
+                    <div class="absolute left-0 top-1.5 w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold">5</span>
+                    </div>
+                    <h4 class="font-bold text-lg text-gray-800 dark:text-white">A Grande Final</h4>
+                    <p class="text-gray-700 dark:text-gray-300">No Wembley Stadium, contra o Bayern de Munique, Neymar enfrentou seu maior desafio. Com o jogo empatado em 1-1 e faltando apenas 3 minutos para o fim, ele recebeu a bola na intermediária...</p>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-white mt-8 mb-4">O Momento da Glória</h3>
+
+            <p class="text-gray-700 dark:text-gray-300 text-lg mb-6">
+                Naquela noite histórica, com o placar empatado e o relógio marcando 87 minutos, Neymar recebeu a bola na intermediária. O que aconteceu a seguir entrou para a história do futebol. Com uma série de dribles desconcertantes, ele deixou dois defensores para trás, avançou até a entrada da área e, com categoria, encobriu o goleiro com um toque sutil que fez a bola beijar a rede.
+            </p>
+
+            <p class="text-gray-700 dark:text-gray-300 text-lg mb-6">
+                O estádio explodiu. O banco de reservas invadiu o campo. Os três minutos restantes pareciam uma eternidade, mas quando o árbitro finalmente apitou, Neymar caiu de joelhos no gramado, com lágrimas escorrendo pelo rosto. A imagem do brasileiro ajoelhado, olhando para o céu com a camisa de seu time levantada, tornou-se icônica.
+            </p>
+
+            <div class="my-8 border-l-4 border-blue-500 pl-4 italic text-gray-700 dark:text-gray-300">
+                "Este troféu é para todos que acreditaram em mim, especialmente para o povo brasileiro. Quero mostrar às crianças do meu país que sonhos são possíveis quando você trabalha duro e nunca desiste." — Neymar Jr. na entrevista pós-jogo
+            </div>
+
+            <p class="text-gray-700 dark:text-gray-300 text-lg mb-6">
+                Na cerimônia de premiação, Neymar foi o primeiro a levantar a taça, um momento que coroou não apenas aquela campanha épica, mas toda sua trajetória de superação. Ele havia ultrapassado as expectativas, as críticas e as adversidades para finalmente conquistar a Champions League, se juntando ao seleto grupo de brasileiros que ergueram o troféu mais cobiçado do futebol europeu.
+            </p>
+
+            <p class="text-gray-700 dark:text-gray-300 text-lg">
+                Aquela noite não representou apenas um título para Neymar. Foi a validação de uma carreira, a realização de um sonho de infância, e a prova de que, mesmo diante das maiores pressões e desafios, a estrela brasileira tinha o que era preciso para brilhar no palco mais importante do futebol mundial.
+            </p>
+        </div>
+
+        <div class="mt-8 text-center text-gray-600 dark:text-gray-400 text-sm">
+            <p>Esta é uma história ficcional criada para fins de entretenimento.</p>
+            <p class="mt-2">© 2023 Crônicas do Futebol</p>
+        </div>
+    </div>
+
+    <script>
+        // Check for dark mode preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        
+        // Listen for changes in color scheme preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -79,16 +79,12 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .slide-in {
-      animation: slideIn 0.7s ease-out forwards;
-    }
+    .slide-in { animation: slideIn 0.7s ease-out forwards; }
     @keyframes slideIn {
       from { opacity: 0; transform: translateX(-30px); }
       to { opacity: 1; transform: translateX(0); }
     }
-    .bounce {
-      animation: bounce 1s infinite;
-    }
+    .bounce { animation: bounce 1s infinite; }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
@@ -120,7 +116,7 @@
       margin-bottom: 2rem;
     }
     
-    /* Modal de Configurações */
+    /* Modal de Configurações do Usuário */
     #settingsModal {
       position: fixed;
       top: 50%; left: 50%;
@@ -138,7 +134,27 @@
       background: #1F2937;
       color: #f3f4f6;
     }
+    #settingsModal h2 { margin-bottom: 1rem; }
+    #settingsModal .tabs { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    #settingsModal .tab {
+      flex: 1;
+      padding: 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    #settingsModal .tab-active {
+      border-color: #3B82F6;
+      font-weight: bold;
+    }
     #settingsModal button { margin-top: 1rem; }
+    
+    /* Mobile Menu ajustado: todas as opções aparecem */
+    #mobileMenu { display: none; }
+    @media (max-width: 768px) {
+      #mobileMenu { display: block !important; }
+      #mobileMenu .hidden-mobile { display: block !important; }
+    }
   </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
@@ -173,8 +189,15 @@
   
   <!-- Modal de Configurações do Usuário -->
   <div id="settingsModal" class="dark:bg-gray-800 dark:text-gray-200" data-aos="zoom-in">
-    <h2 class="text-2xl font-bold mb-4">Configurações do Usuário</h2>
-    <div id="userScriptsSettings"></div>
+    <h2 class="text-2xl font-bold">Configurações do Usuário</h2>
+    <div class="tabs">
+      <div id="tabUserScripts" class="tab tab-active" onclick="switchSettingsTab('scripts')">Seus Scripts</div>
+      <div id="tabUserInfo" class="tab" onclick="switchSettingsTab('info')">Seus Dados</div>
+    </div>
+    <div id="settingsContent">
+      <!-- Conteúdo da aba "Seus Scripts" -->
+      <div id="userScriptsConfig"></div>
+    </div>
     <button onclick="closeSettings()" class="modern-btn mt-4">
       <i class="fas fa-times mr-2"></i> Fechar
     </button>
@@ -197,11 +220,11 @@
         </button>
       </div>
       <div class="hidden md:flex items-center space-x-2">
-        <button id="settingsBtn" class="modern-btn hidden" onclick="openSettings()">
+        <button id="settingsBtn" class="modern-btn" onclick="openSettings()">
           <i class="fas fa-cog mr-2"></i> Configurações
         </button>
       </div>
-      <button id="mobileMenuBtn" class="modern-btn md:hidden rounded-full w-10 h-10 flex items-center justify-center">
+      <button id="mobileMenuBtn" class="modern-btn md:hidden rounded-full w-10 h-10 flex items-center justify-center" onclick="toggleMobileMenu()">
         <i class="fas fa-bars"></i>
       </button>
     </div>
@@ -214,7 +237,7 @@
         <button onclick="switchTab('scripts'); toggleMobileMenu()" class="modern-btn text-left">
           <i class="fas fa-code mr-2"></i> Scripts
         </button>
-        <button id="mobileSettingsBtn" onclick="openSettings(); toggleMobileMenu()" class="modern-btn text-left hidden">
+        <button onclick="openSettings(); toggleMobileMenu()" class="modern-btn text-left">
           <i class="fas fa-cog mr-2"></i> Configurações
         </button>
       </div>
@@ -357,7 +380,7 @@
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
               <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()</pre>
             </div>
-            <button id="hoho-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\'))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\'))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -369,7 +392,7 @@
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
               <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()</pre>
             </div>
-            <button id="forge-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua\'))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua\'))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -387,7 +410,7 @@ _G.Version = "Fruit Farm"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script"))()
               </pre>
             </div>
-            <button id="raitohub-btn" onclick="copyScript('ServerHopTimer = 5\nTeleportSafe = true\nWebhook = \"Your Webhook Here\"\n_G.Version = \"Fruit Farm\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('ServerHopTimer = 5\nTeleportSafe = true\nWebhook = \"Your Webhook Here\"\n_G.Version = \"Fruit Farm\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script\"))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -423,7 +446,7 @@ repeat task.wait() until pcall(function()
 end) or getgenv().Check_Execute
               </pre>
             </div>
-            <button id="xero-hub-btn" onclick="copyScript('script_key = \"\"\ngetgenv().Shutdown = false\ngetgenv().Configs = { [\"Team\"] = \"Marines\", [\"Gun Farm\"] = false, [\"FPS Boost\"] = { [\"Enable\"] = false, [\"FPS Cap\"] = 30 }, [\"Farm Boss Drops\"] = { [\"Enable\"] = false, [\"When x2 Exp Expired\"] = false }, [\"Auto Evo Race\"] = true, [\"Awaken Fruit\"] = true, [\"Rainbow Haki\"] = true, [\"Hop Player Near\"] = true, [\"Skull Guitar\"] = true, [\"Find Fruit\"] = false, [\"Cursed Dual Katana\"] = true, [\"Switch Melee\"] = true, [\"Eat Fruit\"] = \"\", [\"Snipe Fruit\"] = \"\", [\"Lock Fragment\"] = 0, [\"Buy Stuffs\"] = true } repeat task.wait() until pcall(function() loadstring(game:HttpGet(\"https://raw.githubusercontent.com/verudous/Xero-Hub/refs/heads/main/kaitun.lua\"))() end) or getgenv().Check_Execute')" class="modern-btn flex items-center">
+            <button onclick="copyScript('script_key = \"\"\ngetgenv().Shutdown = false\ngetgenv().Configs = { [\"Team\"] = \"Marines\", [\"Gun Farm\"] = false, [\"FPS Boost\"] = { [\"Enable\"] = false, [\"FPS Cap\"] = 30 }, [\"Farm Boss Drops\"] = { [\"Enable\"] = false, [\"When x2 Exp Expired\"] = false }, [\"Auto Evo Race\"] = true, [\"Awaken Fruit\"] = true, [\"Rainbow Haki\"] = true, [\"Hop Player Near\"] = true, [\"Skull Guitar\"] = true, [\"Find Fruit\"] = false, [\"Cursed Dual Katana\"] = true, [\"Switch Melee\"] = true, [\"Eat Fruit\"] = \"\", [\"Snipe Fruit\"] = \"\", [\"Lock Fragment\"] = 0, [\"Buy Stuffs\"] = true } repeat task.wait() until pcall(function() loadstring(game:HttpGet(\"https://raw.githubusercontent.com/verudous/Xero-Hub/refs/heads/main/kaitun.lua\"))() end) or getgenv().Check_Execute')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -435,7 +458,7 @@ end) or getgenv().Check_Execute
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
               <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</pre>
             </div>
-            <button id="speed-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\", true))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -447,7 +470,7 @@ end) or getgenv().Check_Execute
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
               <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua"))()</pre>
             </div>
-            <button id="thunderz-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua\"))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -459,7 +482,7 @@ end) or getgenv().Check_Execute
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
               <pre class="text-sm">loadstring(game:HttpGet("https://scripts.alchemyhub.xyz"))()</pre>
             </div>
-            <button id="alchemy-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://scripts.alchemyhub.xyz\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('loadstring(game:HttpGet(\"https://scripts.alchemyhub.xyz\"))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -521,7 +544,7 @@ _G.loadCustomId = "fac6dbd013c78163f8061ce11b2c1330"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
               </pre>
             </div>
-            <button id="autobounty-hub-btn" onclick="copyScript('script_key = \"PASTE_KEY_HERE\"\n_G[\"HoHo Hub Auto Bounty V4\"] = { [\"Avatar\"] = \"rbxassetid://8598068647\", [\"Farm Method\"] = \"Normal\", [\"Select Team\"] = \"Pirate\", [\"Discord Webhook\"] = \"\", [\"Bypass Teleport\"] = false, [\"Max Level Distance\"] = 612, [\"Don\\'t attack friends\"] = true, [\"Don\\'t attack player have cup\"] = false, [\"Distance Attack Y\"] = 2, [\"Chat After Kill\"] = { [\"Active\"] = false, [\"List Chat\"] = {\"\"} }, [\"Yourself\"] = { [\"Invisible From Ken\"] = true, [\"No Stun\"] = true }, [\"SafeZone\"] = {Enabled = true, [\"Health Left (%)\"] = 25, [\"Wait Until Heal (%)\"] = 80}, [\"Time Control\"] = { [\"Max Time Target Player\"] = 120 }, [\"Abilities\"] = { [\"Auto Click\"] = true, [\"Melee\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\"Sword\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\"Gun\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\"Fruit\"] = { Z = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, V = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, F = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6} } } }\n_G.SupperFixLag = true\n_G[\"Auto Gacha & Store Fruit\"] = true\n_G.loadCustomId = \"fac6dbd013c78163f8061ce11b2c1330\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('script_key = \"PASTE_KEY_HERE\"\n_G[\"HoHo Hub Auto Bounty V4\"] = { [\"Avatar\"] = \"rbxassetid://8598068647\", [\"Farm Method\"] = \"Normal\", [\"Select Team\"] = \"Pirate\", [\"Discord Webhook\"] = \"\", [\"Bypass Teleport\"] = false, [\"Max Level Distance\"] = 612, [\"Don\\'t attack friends\"] = true, [\"Don\\'t attack player have cup\"] = false, [\"Distance Attack Y\"] = 2, [\"Chat After Kill\"] = { [\"Active\"] = false, [\"List Chat\"] = {\"\"} }, [\"Yourself\"] = { [\"Invisible From Ken\"] = true, [\"No Stun\"] = true }, [\"SafeZone\"] = {Enabled = true, [\"Health Left (%)\"] = 25, [\"Wait Until Heal (%)\"] = 80}, [\"Time Control\"] = { [\"Max Time Target Player\"] = 120 }, [\"Abilities\"] = { [\"Auto Click\"] = true, [\"Melee\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\"Sword\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\"Gun\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\"Fruit\"] = { Z = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, V = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, F = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6} } } }\n_G.SupperFixLag = true\n_G[\"Auto Gacha & Store Fruit\"] = true\n_G.loadCustomId = \"fac6dbd013c78163f8061ce11b2c1330\"\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\"))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -533,7 +556,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/L
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
               <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt"))()</pre>
             </div>
-            <button id="vxeze-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt\"))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -573,7 +596,7 @@ getgenv().BloxFruits = {
 loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
               </pre>
             </div>
-            <button id="skullfruit-hub-btn" onclick="copyScript('getgenv().BloxFruits = { [\"Team\"] = \"Marines\", [\"TweenSpeed\"] = 350, [\"Fruit\"] = { [\"FruitNotifier\"] = false, [\"AutoRandom\"] = true, [\"FruitSniper\"] = { [\"Enabled\"] = false, [\"TargetFruits\"] = {\"Yeti-Yeti\", \"Dragon-Dragon\", \"Dough-Dough\"} } }, [\"Farm\"] = { [\"Enabled\"] = true, [\"FastMethod\"] = false, [\"AutoHop\"] = true, [\"ItemHop\"] = true }, [\"Webhook\"] = { [\"Enabled\"] = false, [\"URL\"] = \"Your Webhook Url\", [\"UserId\"] = \"Id Discord\" }, [\"BlackScreen\"] = false, [\"FpsBoost\"] = false, [\"AntiIdle\"] = true }; loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('getgenv().BloxFruits = { [\"Team\"] = \"Marines\", [\"TweenSpeed\"] = 350, [\"Fruit\"] = { [\"FruitNotifier\"] = false, [\"AutoRandom\"] = true, [\"FruitSniper\"] = { [\"Enabled\"] = false, [\"TargetFruits\"] = {\"Yeti-Yeti\", \"Dragon-Dragon\", \"Dough-Dough\"} } }, [\"Farm\"] = { [\"Enabled\"] = true, [\"FastMethod\"] = false, [\"AutoHop\"] = true, [\"ItemHop\"] = true }, [\"Webhook\"] = { [\"Enabled\"] = false, [\"URL\"] = \"Your Webhook Url\", [\"UserId\"] = \"Id Discord\" }, [\"BlackScreen\"] = false, [\"FpsBoost\"] = false, [\"AntiIdle\"] = true }; loadstring(game:HttpGet(\'https://skullhub.xyz/loader.lua\'))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -585,7 +608,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
               <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts"))()</pre>
             </div>
-            <button id="tsuo-hub-btn" onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyScript('loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts\"))()')" class="modern-btn flex items-center">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
@@ -671,7 +694,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       "max-glare": 0.3,
     });
     
-    // Toggle de tema com armazenamento da preferência e preservação da aba ativa
+    // Toggle de tema com armazenamento da preferência
     function toggleTheme() {
       document.documentElement.classList.toggle('dark');
       localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
@@ -680,13 +703,22 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       document.documentElement.classList.add('dark');
     }
     
-    // Função para copiar script para a área de transferência
+    // Função para copiar texto usando input oculto (100% garantida)
+    function copyTextToClipboard(text) {
+      const input = document.createElement("input");
+      input.style.position = "absolute";
+      input.style.left = "-9999px";
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      showToast("Script copiado com sucesso!", "success");
+    }
+    
+    // Função wrapper para copiar script
     function copyScript(scriptText) {
-      navigator.clipboard.writeText(scriptText).then(() => {
-        showToast("Script copiado com sucesso!", "success");
-      }).catch(() => {
-        showToast("Erro ao copiar o script.", "error");
-      });
+      copyTextToClipboard(scriptText);
     }
     
     // Funções de login e cadastro
@@ -740,7 +772,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       if (userData) {
         userInfo.innerHTML = `
           <div class="flex items-center bg-white dark:bg-gray-800 p-3 rounded-xl shadow-lg slide-in">
-            <img src="${userData.avatar}" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-primary">
+            <img src="${userData.avatar}" alt="Avatar" class="w-12 h-12 rounded-full border-2">
             <div class="ml-3">
               <p class="font-bold text-gray-800 dark:text-white">${userData.username}</p>
               <p class="text-xs text-gray-500 dark:text-gray-400">Membro desde ${new Date(userData.joinDate).toLocaleDateString()}</p>
@@ -750,20 +782,16 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
             </button>
           </div>
         `;
-        document.getElementById("settingsBtn").classList.remove("hidden");
-        document.getElementById("mobileSettingsBtn").classList.remove("hidden");
       } else {
         userInfo.innerHTML = `
           <button onclick="showLoginModal()" class="modern-btn w-full">
             <i class="fas fa-user-circle text-xl mr-2"></i> Criar Conta / Entrar
           </button>
         `;
-        document.getElementById("settingsBtn").classList.add("hidden");
-        document.getElementById("mobileSettingsBtn").classList.add("hidden");
       }
     }
     
-    // Funções para comentários (se houverem) e envio de scripts
+    // Funções para envio e carregamento de scripts do usuário
     function sendUserScript() {
       const scriptContent = document.getElementById('userScriptInput').value.trim();
       const userData = JSON.parse(localStorage.getItem('currentUser'));
@@ -787,6 +815,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       localStorage.setItem('userScripts', JSON.stringify(userScripts));
       document.getElementById('userScriptInput').value = '';
       loadUserScripts();
+      updateSettingsScripts();
       showToast('Script enviado com sucesso!', 'success');
     }
     function loadUserScripts() {
@@ -815,6 +844,33 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
         scriptsList.appendChild(div);
       });
     }
+    // Atualiza o conteúdo da aba "Seus Scripts" no modal de configurações
+    function updateSettingsScripts() {
+      const configDiv = document.getElementById('userScriptsConfig');
+      const userScripts = JSON.parse(localStorage.getItem('userScripts') || '[]');
+      if (userScripts.length === 0) {
+        configDiv.innerHTML = `<p class="text-gray-500">Você ainda não enviou nenhum script.</p>`;
+        return;
+      }
+      configDiv.innerHTML = '';
+      userScripts.forEach(item => {
+        const date = new Date(item.date);
+        const formattedDate = date.toLocaleDateString() + ' às ' + date.toLocaleTimeString().substring(0,5);
+        const div = document.createElement('div');
+        div.className = 'bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md mb-3 slide-in';
+        div.innerHTML = `
+          <div class="flex items-center mb-2">
+            <img src="${item.avatar}" alt="${item.user}" class="w-10 h-10 rounded-full mr-3">
+            <div>
+              <p class="font-bold text-gray-800 dark:text-white">${item.user}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">${formattedDate}</p>
+            </div>
+          </div>
+          <pre class="code-box overflow-x-auto">${item.script}</pre>
+        `;
+        configDiv.appendChild(div);
+      });
+    }
     
     // Função para exibir toasts
     function showToast(message, type = 'info') {
@@ -830,7 +886,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       }, 3000);
     }
     
-    // Alterna entre seções e salva a preferência no localStorage
+    // Alterna entre as seções de executores e scripts, salvando a preferência
     function switchTab(tab) {
       if(tab === 'executors'){
         document.getElementById('executorsSection').classList.remove('hidden');
@@ -847,25 +903,53 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       }
     }
     
-    // Abre e fecha a modal de configurações
-    function openSettings() { document.getElementById('settingsModal').style.display = 'block'; }
+    // Funções para o modal de configurações
+    function openSettings() { 
+      updateSettingsScripts();
+      document.getElementById('settingsModal').style.display = 'block'; 
+    }
     function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
+    function switchSettingsTab(tab) {
+      const tabScripts = document.getElementById('tabUserScripts');
+      const tabInfo = document.getElementById('tabUserInfo');
+      const content = document.getElementById('settingsContent');
+      if(tab === 'scripts'){
+        tabScripts.classList.add('tab-active');
+        tabInfo.classList.remove('tab-active');
+        content.innerHTML = '<div id="userScriptsConfig"></div>';
+        updateSettingsScripts();
+      } else {
+        tabInfo.classList.add('tab-active');
+        tabScripts.classList.remove('tab-active');
+        const userData = JSON.parse(localStorage.getItem('currentUser'));
+        if(userData) {
+          content.innerHTML = `
+            <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md slide-in">
+              <p class="font-bold text-gray-800 dark:text-white">${userData.username}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Membro desde ${new Date(userData.joinDate).toLocaleDateString()}</p>
+              <img src="${userData.avatar}" alt="Avatar" class="w-16 h-16 rounded-full mt-2">
+            </div>
+          `;
+        } else {
+          content.innerHTML = `<p class="text-gray-500">Nenhum dado encontrado.</p>`;
+        }
+      }
+    }
     
-    // Alterna menu mobile
+    // Alterna o menu mobile
     function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('hidden');
     }
     
-    // Recupera a aba ativa no carregamento da página
+    // Recupera a aba ativa e inicializa a página
     document.addEventListener('DOMContentLoaded', function() {
       const activeTab = localStorage.getItem('activeTab') || 'executors';
       switchTab(activeTab);
       updateUserDisplay();
       loadUserScripts();
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
       }
       // Se nenhum usuário estiver logado, exibe o modal de login
       if (!localStorage.getItem('currentUser')) { showLoginModal(); }

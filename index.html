@@ -39,7 +39,9 @@
       transition: background-color 0.3s, color 0.3s; 
       overflow-x: hidden; 
     }
-    h1, h2, h3, h4, h5, h6 { font-family: 'Orbitron', sans-serif; }
+    h1, h2, h3, h4, h5, h6 { 
+      font-family: 'Orbitron', sans-serif; 
+    }
 
     /* Fundo animado */
     .animated-bg {
@@ -66,13 +68,15 @@
       background: rgba(0, 0, 255, 0.2);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(0, 0, 255, 0.5);
-      color: #3B82F6; font-weight: 600; padding: 0.5rem 1rem;
-      border-radius: 0.5rem; transition: all 0.3s ease-in-out;
+      color: #3B82F6; font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease-in-out;
     }
     .modern-btn:hover { 
-      background: rgba(0, 0, 255, 0.3); 
-      box-shadow: 0 0 10px rgba(0, 0, 255, 0.8); 
-      transform: scale(1.05); 
+      background: rgba(0, 0, 255, 0.3);
+      box-shadow: 0 0 10px rgba(0, 0, 255, 0.8);
+      transform: scale(1.05);
     }
     .modern-btn:active { transform: scale(0.98); }
 
@@ -89,13 +93,17 @@
 
     /* Bloco de código */
     .code-box {
-      background: #000; color: #0ff; border-radius: 8px; padding: 10px;
-      font-family: 'Courier New', monospace; border: 2px solid #00ffff;
+      background: #000;
+      color: #0ff;
+      border-radius: 8px;
+      padding: 10px;
+      font-family: 'Courier New', monospace;
+      border: 2px solid #00ffff;
       animation: flicker 1.5s infinite alternate;
     }
     @keyframes flicker { 0% { opacity: 1; } 100% { opacity: 0.85; } }
 
-    /* Animações individuais – delays aplicados via JavaScript */
+    /* Animações individuais – delays aplicados via JS */
     .fade-in { animation: fadeIn 0.8s ease-out forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .slide-in { animation: slideIn 0.8s ease-out forwards; }
@@ -103,19 +111,27 @@
     .bounce { animation: bounce 1s infinite; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
     
+    /* Efeito extra de animação nos cartões */
+    .card-hover:hover { transform: scale(1.02) translateY(-5px); transition: transform 0.3s ease-in-out; }
+
     /* Header */
     header { transition: transform 0.3s ease-in-out; }
     
     /* Dropdown (desktop) */
     #categoryDropdown {
       position: absolute; right: 0; top: 100%;
-      background: white; border: 1px solid #ddd; border-radius: 0.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 50; display: none;
-      flex-direction: column; overflow: hidden; min-width: 150px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 50; display: none;
+      flex-direction: column; overflow: hidden;
+      min-width: 150px;
     }
     #categoryDropdown button {
-      background: none; border: none; text-align: left;
-      padding: 0.5rem 1rem; font-size: 0.9rem;
+      background: none; border: none;
+      text-align: left; padding: 0.5rem 1rem;
+      font-size: 0.9rem;
     }
     #categoryDropdown button:hover { background: #f0f0f0; }
     
@@ -124,8 +140,10 @@
       position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       background: linear-gradient(45deg, rgba(125,249,255,0.2), rgba(224,176,255,0.2));
-      color: #f3f4f6; padding: 2rem; border-radius: 0.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 60; display: none;
+      color: #f3f4f6; padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 60; display: none;
       width: 90%; max-width: 500px;
     }
     #settingsModal h2 { margin-bottom: 1rem; }
@@ -139,13 +157,21 @@
     
     /* Área de Publicação (Comunidade) */
     #scriptSubmission {
-      background: rgba(0, 0, 0, 0.5); padding: 1.5rem; border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
     }
     #scriptSubmission input[type="text"],
     #scriptSubmission textarea {
-      width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 0.5rem;
-      margin-bottom: 0.5rem; background: rgba(0, 0, 0, 0.3); color: #fff;
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
     }
     #scriptSubmission input[type="file"] { margin-bottom: 1rem; }
     #scriptImagePreview { max-width: 100%; max-height: 200px; display: none; margin-bottom: 1rem; border-radius: 0.5rem; }
@@ -153,15 +179,18 @@
     /* Inputs no modal de Login */
     #loginOverlay input[type="text"],
     #loginOverlay input[type="file"] {
-      width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;
-      border: 1px solid #ccc; border-radius: 0.25rem;
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
     }
     
-    /* Exibição do usuário no header */
+    /* Exibição de usuário no header (desktop) */
     #headerUserInfo { display: none; }
     @media (min-width: 768px) { #headerUserInfo { display: block; } }
     
-    /* Otimização para dispositivos que preferem menos movimento */
+    /* Otimização para dispositivos com menos recursos */
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
     }
@@ -260,7 +289,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
           <!-- KRNL Executor -->
-          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in card-hover" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://apkclone.com/logos/krnl-executor-v663-apk.jpg" alt="KRNL Executor" class="h-20 w-20 mx-auto rounded-xl" loading="lazy">
               <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">KRNL Executor</h3>
@@ -272,9 +301,8 @@
               </a>
             </div>
           </div>
-          <!-- Adicione os demais executores: Codex, Trigon, Fluxus, Vegax, Arceusx Neo, Hydrogen -->
-          <!-- Exemplo: Codex Executor -->
-          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+          <!-- Codex Executor -->
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in card-hover" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/654895ed9f66b9b6ca199e43/0x0.png" alt="Codex Executor" class="h-20 w-20 mx-auto rounded-xl" loading="lazy">
               <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Codex Executor</h3>
@@ -286,7 +314,71 @@
               </a>
             </div>
           </div>
-          <!-- (Outros executores seguem o mesmo padrão) -->
+          <!-- Trigon Executor -->
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in card-hover" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://scriptblox.com/images/photo/65a56357e1ae033856e36b24-1710589765537.png" alt="Trigon Executor" class="h-20 w-20 mx-auto rounded-xl" loading="lazy">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Trigon Executor</h3>
+            </div>
+            <img src="https://trigonevo.com/wp-content/uploads/2024/01/Untitled-1-768x432.png" alt="Trigon Interface" class="w-full h-48 object-cover" loading="lazy">
+            <div class="p-6">
+              <a href="https://www.mediafire.com/file/1nfqw82bkns9jmu/Trigon_v2.665.684.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
+                <i class="fas fa-download mr-2"></i> Download Trigon
+              </a>
+            </div>
+          </div>
+          <!-- Fluxus Executor -->
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in card-hover" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://techbigs.com/uploads/2022/11/download-6654.jpg" alt="Fluxus Executor" class="h-20 w-20 mx-auto rounded-xl" loading="lazy">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Fluxus Executor</h3>
+            </div>
+            <img src="https://assets.zyrosite.com/m6Lq6GkJxMT4WM7b/salinan-dari-hoho-hub-1-YyvoZ3N9vOcPWBlD.gif" alt="Fluxus Interface" class="w-full h-48 object-cover" loading="lazy">
+            <div class="p-6">
+              <a href="https://www.mediafire.com/file/woat8ey8w9v5rh9/Fluxus_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
+                <i class="fas fa-download mr-2"></i> Download Fluxus
+              </a>
+            </div>
+          </div>
+          <!-- Vegax Executor -->
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in card-hover" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://modmenuz.com/storage/vega-x-icon.png" alt="Vegax Executor" class="h-20 w-20 mx-auto rounded-xl" loading="lazy">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Vegax Executor</h3>
+            </div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPc_0Mbxf0LjfA39ti_JtV4LfzuVpZ6Y1HcXaZ4DtxTF6x_i-PuhW5sH-_ZGi4BBCm_WI&usqp=CAU" alt="Vegax Interface" class="w-full h-48 object-cover" loading="lazy">
+            <div class="p-6">
+              <a href="https://www.mediafire.com/file/wovfxy2qggsm19i/Vega_X_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
+                <i class="fas fa-download mr-2"></i> Download Vegax
+              </a>
+            </div>
+          </div>
+          <!-- Arceusx Neo Executor -->
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in card-hover" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://apkboat.io/wp-content/uploads/arceus-x-neo-Logo.png" alt="Arceusx Neo Executor" class="h-20 w-20 mx-auto rounded-xl" loading="lazy">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Arceusx Neo Executor</h3>
+            </div>
+            <img src="https://i.ytimg.com/vi/O97H2mVxYwk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAdQeYl5I2UhKAYB5lu6X2ZwOkydA" alt="Arceusx Neo Interface" class="w-full h-48 object-cover" loading="lazy">
+            <div class="p-6">
+              <a href="https://www.mediafire.com/file/1koyv79fepibqxp/Roblox_Arceus_X_NEO_1.6.0.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
+                <i class="fas fa-download mr-2"></i> Download Arceusx Neo
+              </a>
+            </div>
+          </div>
+          <!-- Hydrogen Executor -->
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in card-hover" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://hydrogenexecutor.com/wp-content/uploads/2023/03/Hydrogen-Executor-Official-Logo.webp" alt="Hydrogen Executor" class="h-20 w-20 mx-auto rounded-xl" loading="lazy">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Hydrogen Executor</h3>
+            </div>
+            <img src="https://hydrogen.us.com/wp-content/uploads/2022/12/hydrogen-executor-1024x582.webp" alt="Hydrogen Interface" class="w-full h-48 object-cover" loading="lazy">
+            <div class="p-6">
+              <a href="https://hydrogenexecutor.com/" target="_blank" class="modern-btn block text-center rgb-btn">
+                 <i class="fas fa-download mr-2"></i> Download Hydrogen
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -300,7 +392,7 @@
         </div>
         <div class="bg-black/50 rounded-2xl shadow-lg p-6 mb-12 space-y-6">
           <!-- Hoho Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Hoho Hub</h3>
               <span class="bg-green-400/20 border border-green-400 text-green-500 text-xs font-bold px-3 py-1 rounded-full">Popular</span>
@@ -313,7 +405,7 @@
             </button>
           </div>
           <!-- W Azure Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">W Azure Hub</h3>
             </div>
@@ -330,7 +422,7 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc61
             </button>
           </div>
           <!-- Banana Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Banana Hub</h3>
             </div>
@@ -344,7 +436,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitin
             </button>
           </div>
           <!-- Forge Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Forge Hub</h3>
             </div>
@@ -356,7 +448,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitin
             </button>
           </div>
           <!-- Fruit Finder Raito Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Fruit Finder Raito Hub</h3>
             </div>
@@ -374,7 +466,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Efe0626/RaitoHub/main
             </button>
           </div>
           <!-- Xero Hub Kaitum -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Xero Hub Kaitum</h3>
             </div>
@@ -410,7 +502,7 @@ repeat task.wait() until pcall(function(){
             </button>
           </div>
           <!-- Speed Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Speed Hub</h3>
             </div>
@@ -422,7 +514,7 @@ repeat task.wait() until pcall(function(){
             </button>
           </div>
           <!-- Thunder Z Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Thunder Z Hub</h3>
             </div>
@@ -434,7 +526,7 @@ repeat task.wait() until pcall(function(){
             </button>
           </div>
           <!-- Alchemy Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Alchemy Hub</h3>
             </div>
@@ -446,7 +538,7 @@ repeat task.wait() until pcall(function(){
             </button>
           </div>
           <!-- Auto Bounty Hoho Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Auto Bounty Hoho Hub</h3>
             </div>
@@ -502,7 +594,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/L
             </button>
           </div>
           <!-- Vxeze Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Vxeze Hub</h3>
             </div>
@@ -514,7 +606,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/L
             </button>
           </div>
           <!-- Skull Fruit Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Skull Fruit Hub</h3>
             </div>
@@ -551,7 +643,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
             </button>
           </div>
           <!-- Tsuo Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Tsuo Hub</h3>
             </div>
@@ -563,7 +655,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
             </button>
           </div>
           <!-- Ronyx Kaitum Hub -->
-          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt card-hover" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-xl font-bold text-white">Ronyx Kaitum Hub</h3>
             </div>
@@ -644,7 +736,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       }
     });
     
-    // Inicializa VanillaTilt
+    // Inicializa VanillaTilt (apenas nos cartões individuais)
     VanillaTilt.init(document.querySelectorAll(".tilt"), { max: 15, speed: 400, glare: true, "max-glare": 0.3 });
     
     // Toggle de Tema
@@ -681,7 +773,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       window.getSelection().removeAllRanges();
     }
     
-    // Login / Cadastro (Obrigatório)
+    // Funções de Login / Cadastro (Obrigatório)
     let profileImageBase64 = "";
     function handleProfileImage(event) {
       const file = event.target.files[0];
@@ -780,7 +872,8 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       document.getElementById('scriptImageInput').value = "";
       document.getElementById('scriptImagePreview').style.display = "none";
       scriptImageBase64 = "";
-      loadUserScripts(); updateSettingsScripts();
+      loadUserScripts();
+      updateSettingsScripts();
       showToast("Script publicado com sucesso!", "success");
     }
     function loadUserScripts() {
@@ -795,7 +888,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
         const date = new Date(item.date);
         const formattedDate = date.toLocaleDateString() + " às " + date.toLocaleTimeString().substring(0,5);
         const div = document.createElement('div');
-        div.className = "tilt neon-border transparent-card rounded-xl p-4 shadow-md mb-4 slide-in";
+        div.className = "tilt neon-border transparent-card rounded-xl p-4 shadow-md mb-4 slide-in card-hover";
         div.innerHTML = `
           <div class="flex items-center mb-2">
             <img src="${item.avatar}" alt="${item.user}" class="w-10 h-10 rounded-full mr-3" loading="lazy">
@@ -856,29 +949,9 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       const dropdown = document.getElementById('categoryDropdown');
       dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
     }
-    function hideCategoryDropdown() { document.getElementById('categoryDropdown').style.display = 'none'; }
-    
-    // Efeito de perspectiva 3D individual ao deslizar (touchmove) na área principal
-    let touchStartX = 0, touchDeltaX = 0;
-    const mainContentElem = document.getElementById('mainContent');
-    mainContentElem.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
-    mainContentElem.addEventListener('touchmove', (e) => {
-      touchDeltaX = e.touches[0].clientX - touchStartX;
-      mainContentElem.style.transform = `perspective(1000px) translateX(${touchDeltaX}px) rotateY(${touchDeltaX / 20}deg)`;
-    });
-    mainContentElem.addEventListener('touchend', (e) => {
-      mainContentElem.style.transition = "transform 0.5s ease-out";
-      mainContentElem.style.transform = "perspective(1000px) translateX(0px) rotateY(0deg)";
-      setTimeout(() => { mainContentElem.style.transition = ""; }, 500);
-      if(touchDeltaX > 100) {
-        if(currentTab === 'scripts') switchTab('executors');
-        else if(currentTab === 'community') switchTab('scripts');
-      } else if(touchDeltaX < -100) {
-        if(currentTab === 'executors') switchTab('scripts');
-        else if(currentTab === 'scripts') switchTab('community');
-      }
-      touchDeltaX = 0;
-    });
+    function hideCategoryDropdown() {
+      document.getElementById('categoryDropdown').style.display = 'none';
+    }
     
     // Atribui delays individuais aos cartões para animação escalonada
     function staggerAnimations(sectionId) {
@@ -897,7 +970,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       staggerAnimations('communitySection');
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-      // Se for a primeira vez, forçar o login
+      // Força o login se não houver usuário cadastrado
       if(!localStorage.getItem('currentUser')) { showLoginModal(); }
     });
   </script>

@@ -68,7 +68,8 @@
       background: rgba(0, 0, 255, 0.2);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(0, 0, 255, 0.5);
-      color: #3B82F6; font-weight: 600;
+      color: #3B82F6; 
+      font-weight: 600;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
       transition: all 0.3s ease-in-out;
@@ -103,7 +104,7 @@
     }
     @keyframes flicker { 0% { opacity: 1; } 100% { opacity: 0.85; } }
 
-    /* Animações individuais – delays aplicados via JS */
+    /* Animações individuais – delays aplicados via JavaScript */
     .fade-in { animation: fadeIn 0.8s ease-out forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .slide-in { animation: slideIn 0.8s ease-out forwards; }
@@ -111,9 +112,9 @@
     .bounce { animation: bounce 1s infinite; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
     
-    /* Efeito extra de animação nos cartões */
+    /* Efeito de hover extra nos cartões para destacar a interatividade */
     .card-hover:hover { transform: scale(1.02) translateY(-5px); transition: transform 0.3s ease-in-out; }
-
+    
     /* Header */
     header { transition: transform 0.3s ease-in-out; }
     
@@ -155,26 +156,7 @@
     #settingsModal .tab-active { border-color: #3B82F6; font-weight: bold; }
     #settingsModal button { margin-top: 1rem; }
     
-    /* Área de Publicação (Comunidade) */
-    #scriptSubmission {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 1.5rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
-    }
-    #scriptSubmission input[type="text"],
-    #scriptSubmission textarea {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      margin-bottom: 0.5rem;
-      background: rgba(0, 0, 0, 0.3);
-      color: #fff;
-    }
-    #scriptSubmission input[type="file"] { margin-bottom: 1rem; }
-    #scriptImagePreview { max-width: 100%; max-height: 200px; display: none; margin-bottom: 1rem; border-radius: 0.5rem; }
+    /* Área de Publicação (Comunidade) – esta seção foi removida */
     
     /* Inputs no modal de Login */
     #loginOverlay input[type="text"],
@@ -215,7 +197,6 @@
       <nav class="hidden md:flex space-x-6 items-center desktop">
         <button onclick="switchTab('executors')" class="modern-btn slide-in rgb-btn">Executores</button>
         <button onclick="switchTab('scripts')" class="modern-btn slide-in rgb-btn">Scripts</button>
-        <button onclick="switchTab('community')" class="modern-btn slide-in rgb-btn">Comunidade</button>
         <button id="themeToggle" class="modern-btn slide-in" onclick="toggleTheme()">
           <i class="fas fa-adjust mr-2"></i> Toggle Tema
         </button>
@@ -230,7 +211,6 @@
       <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-2 flex flex-col space-y-1">
         <button onclick="switchTab('executors'); toggleMobileMenu()" class="modern-btn text-left rgb-btn"><i class="fas fa-mobile-alt mr-2"></i> Executores</button>
         <button onclick="switchTab('scripts'); toggleMobileMenu()" class="modern-btn text-left rgb-btn"><i class="fas fa-code mr-2"></i> Scripts</button>
-        <button onclick="switchTab('community'); toggleMobileMenu()" class="modern-btn text-left rgb-btn"><i class="fas fa-users mr-2"></i> Comunidade</button>
         <button onclick="openSettings(); toggleMobileMenu()" class="modern-btn text-left"><i class="fas fa-cog mr-2"></i> Configurações</button>
         <button onclick="logout()" class="modern-btn text-left rgb-btn"><i class="fas fa-sign-out-alt mr-2"></i> Deslogar</button>
       </div>
@@ -668,27 +648,6 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
           </div>
         </div>
       </div>
-      
-      <!-- Comunidade Section -->
-      <div id="communitySection" class="hidden" data-aos="fade-up">
-        <div class="flex items-center justify-center mb-8">
-          <div class="p-3 rounded-full shadow-lg animate-pulse-slow bg-blue-500/20 mr-4">
-            <i class="fas fa-users text-2xl text-blue-500"></i>
-          </div>
-          <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Comunidade</h2>
-        </div>
-        <div class="bg-black/80 rounded-2xl shadow-lg p-6 mb-12 neon-border" data-aos="fade-up">
-          <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 mb-4">Publicar Novo Script</h3>
-          <input type="text" id="scriptNameInput" placeholder="Digite o nome do script" class="block w-full px-3 py-2 mb-2 bg-black/50 rounded border border-gray-300 text-white">
-          <textarea id="scriptCodeInput" rows="4" placeholder="Cole o código do script aqui..." class="block w-full px-3 py-2 mb-2 bg-black/50 rounded border border-gray-300 text-white"></textarea>
-          <input type="file" id="scriptImageInput" accept="image/*" onchange="handleScriptImage(event)" class="mb-2">
-          <img id="scriptImagePreview" src="" alt="Prévia da Imagem" class="w-full h-48 object-cover rounded mb-2" style="display: none;" loading="lazy">
-          <button onclick="sendUserScript()" class="modern-btn w-full rgb-btn">
-            <i class="fas fa-upload mr-2"></i> Publicar Script
-          </button>
-        </div>
-        <div id="userScriptsList"></div>
-      </div>
     </section>
   </main>
   
@@ -835,102 +794,15 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
     }
     function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
     
-    // Publicação de Scripts (Comunidade)
-    let scriptImageBase64 = "";
-    function handleScriptImage(event) {
-      const file = event.target.files[0];
-      if(file && file.type.startsWith("image/")){
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          scriptImageBase64 = e.target.result;
-          const preview = document.getElementById("scriptImagePreview");
-          preview.src = scriptImageBase64;
-          preview.style.display = "block";
-        }
-        reader.readAsDataURL(file);
-      } else { alert("Selecione um arquivo de imagem válido."); }
-    }
-    function sendUserScript() {
-      const scriptName = document.getElementById('scriptNameInput').value.trim();
-      const scriptCode = document.getElementById('scriptCodeInput').value.trim();
-      const userData = JSON.parse(localStorage.getItem('currentUser'));
-      if(!userData){ showToast("Faça login para publicar scripts", "error"); showLoginModal(); return; }
-      if(!scriptName || !scriptCode || !scriptImageBase64){ showToast("Preencha todos os campos", "error"); return; }
-      const userScripts = JSON.parse(localStorage.getItem('userScripts') || "[]");
-      userScripts.push({
-        id: Date.now(),
-        name: scriptName,
-        code: scriptCode,
-        image: scriptImageBase64,
-        user: userData.username,
-        avatar: userData.avatar,
-        date: new Date().toISOString()
-      });
-      localStorage.setItem('userScripts', JSON.stringify(userScripts));
-      document.getElementById('scriptNameInput').value = "";
-      document.getElementById('scriptCodeInput').value = "";
-      document.getElementById('scriptImageInput').value = "";
-      document.getElementById('scriptImagePreview').style.display = "none";
-      scriptImageBase64 = "";
-      loadUserScripts();
-      updateSettingsScripts();
-      showToast("Script publicado com sucesso!", "success");
-    }
-    function loadUserScripts() {
-      const scriptsList = document.getElementById('userScriptsList');
-      const userScripts = JSON.parse(localStorage.getItem('userScripts') || "[]");
-      if(userScripts.length === 0){
-        scriptsList.innerHTML = `<p class="text-gray-500">Nenhum script publicado ainda.</p>`;
-        return;
-      }
-      scriptsList.innerHTML = "";
-      userScripts.forEach(item => {
-        const date = new Date(item.date);
-        const formattedDate = date.toLocaleDateString() + " às " + date.toLocaleTimeString().substring(0,5);
-        const div = document.createElement('div');
-        div.className = "tilt neon-border transparent-card rounded-xl p-4 shadow-md mb-4 slide-in card-hover";
-        div.innerHTML = `
-          <div class="flex items-center mb-2">
-            <img src="${item.avatar}" alt="${item.user}" class="w-10 h-10 rounded-full mr-3" loading="lazy">
-            <div>
-              <p class="font-bold text-white">${item.user} - ${item.name}</p>
-              <p class="text-xs text-gray-300">${formattedDate}</p>
-            </div>
-          </div>
-          <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover rounded mb-2" loading="lazy">
-          <pre class="code-box overflow-x-auto">${item.code}</pre>
-        `;
-        scriptsList.appendChild(div);
-      });
-      if(window.VanillaTilt){
-        VanillaTilt.init(document.querySelectorAll('#userScriptsList .tilt'), { max: 15, speed: 400, glare: true, "max-glare": 0.3 });
-      }
-    }
-    function updateSettingsScripts() {
-      const configDiv = document.getElementById('userScriptsConfig');
-      if(!configDiv) return;
-      const userScripts = JSON.parse(localStorage.getItem('userScripts') || "[]");
-      if(userScripts.length === 0){
-        configDiv.innerHTML = `<p class="text-gray-500">Nenhum script publicado.</p>`;
-      } else {
-        configDiv.innerHTML = '<ul class="text-sm list-disc list-inside"></ul>';
-        const ul = configDiv.querySelector('ul');
-        userScripts.forEach(s => {
-          const li = document.createElement('li');
-          li.textContent = `${s.name} - publicado em ${new Date(s.date).toLocaleDateString()}`;
-          ul.appendChild(li);
-        });
-      }
-    }
+    // Publicação de Scripts (não há mais aba "Comunidade", esta seção foi removida)
     
-    // Alterna entre abas: Executores, Scripts, Comunidade
+    // Alterna entre abas: Executores e Scripts
     let currentTab = localStorage.getItem('activeTab') || 'executors';
     function switchTab(tab) {
       if(tab === currentTab) return;
       const sections = {
         executors: document.getElementById('executorsSection'),
-        scripts: document.getElementById('scriptsSection'),
-        community: document.getElementById('communitySection')
+        scripts: document.getElementById('scriptsSection')
       };
       Object.values(sections).forEach(sec => sec.classList.add('hidden'));
       sections[tab].classList.remove('hidden');
@@ -940,18 +812,14 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
     }
     
     // Menu Mobile
-    function toggleMobileMenu() {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
-    }
+    function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
     
     // Dropdown (Desktop)
     function toggleCategoryDropdown() {
       const dropdown = document.getElementById('categoryDropdown');
       dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
     }
-    function hideCategoryDropdown() {
-      document.getElementById('categoryDropdown').style.display = 'none';
-    }
+    function hideCategoryDropdown() { document.getElementById('categoryDropdown').style.display = 'none'; }
     
     // Atribui delays individuais aos cartões para animação escalonada
     function staggerAnimations(sectionId) {
@@ -964,10 +832,8 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       const activeTab = localStorage.getItem('activeTab') || 'executors';
       switchTab(activeTab);
       updateUserDisplay();
-      loadUserScripts();
       staggerAnimations('executorsSection');
       staggerAnimations('scriptsSection');
-      staggerAnimations('communitySection');
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
       // Força o login se não houver usuário cadastrado

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <!-- Foco em dispositivos móveis (até 1400x1080) -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta charset="UTF-8">
+  <!-- Foco em dispositivos móveis (1400x1080 e menores) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RONYERDOB - Executores e Scripts</title>
   
   <!-- Google Fonts -->
@@ -33,46 +33,45 @@
   
   <!-- Custom CSS -->
   <style>
-    /* Base */
-    body {
-      font-family: 'Poppins', sans-serif;
-      transition: background-color 0.3s, color 0.3s;
-      overflow-x: hidden;
-    }
+    /* Base e fontes */
+    body { font-family: 'Poppins', sans-serif; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
     h1, h2, h3, h4, h5, h6 { font-family: 'Orbitron', sans-serif; }
     
     /* Fundo animado */
     .animated-bg {
       background-image: url('https://i.pinimg.com/originals/f4/34/e8/f434e86cdc40ef068b7783d150f8a65c.gif');
-      background-size: cover;
-      background-position: center;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -2;
-      opacity: 0.3;
+      background-size: cover; background-position: center;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -2; opacity: 0.3;
     }
     .dark .animated-bg { opacity: 0.1; }
+    
+    /* Animação contínua RGB para botões */
+    @keyframes rgbCycle {
+      0% { background-color: #ff0000; }
+      33% { background-color: #00ff00; }
+      66% { background-color: #0000ff; }
+      100% { background-color: #ff0000; }
+    }
+    .rgb-btn {
+      animation: rgbCycle 3s linear infinite;
+    }
     
     /* Botões com efeito neon e glassmorphism */
     .modern-btn {
       background: rgba(0, 0, 255, 0.2);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(0, 0, 255, 0.5);
-      color: #3B82F6;
-      font-weight: 600;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      transition: all 0.3s ease-in-out;
+      color: #3B82F6; font-weight: 600; padding: 0.5rem 1rem;
+      border-radius: 0.5rem; transition: all 0.3s ease-in-out;
     }
     .modern-btn:hover {
       background: rgba(0, 0, 255, 0.3);
-      box-shadow: 0 0 10px rgba(0, 0, 255, 0.8);
-      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 0, 255, 0.8); transform: scale(1.05);
     }
     .modern-btn:active { transform: scale(0.98); }
     
-    /* Borda neon para cards e inputs */
+    /* Borda neon para cartões */
     .neon-border {
       border: 2px solid transparent;
       border-image: linear-gradient(90deg, #7DF9FF, #E0B0FF, #F59E0B, #7DF9FF) 1;
@@ -82,126 +81,66 @@
     
     /* Bloco de código */
     .code-box {
-      background: #000;
-      color: #0ff;
-      border-radius: 8px;
-      padding: 10px;
-      font-family: 'Courier New', monospace;
-      border: 2px solid #00ffff;
+      background: #000; color: #0ff; border-radius: 8px; padding: 10px;
+      font-family: 'Courier New', monospace; border: 2px solid #00ffff;
       animation: flicker 1.5s infinite alternate;
     }
-    @keyframes flicker {
-      0% { opacity: 1; }
-      100% { opacity: 0.85; }
-    }
+    @keyframes flicker { 0% { opacity: 1; } 100% { opacity: 0.85; } }
     
     /* Animações */
     .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .slide-in { animation: slideIn 0.7s ease-out forwards; }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
     .bounce { animation: bounce 1s infinite; }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
     
-    /* Header com transição ao rolar */
-    header {
-      transition: transform 0.3s ease-in-out;
-    }
+    /* Header */
+    header { transition: transform 0.3s ease-in-out; }
     
-    /* Dropdown de Categorias (Desktop) */
+    /* Dropdown (desktop) */
     #categoryDropdown {
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 0.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      z-index: 50;
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      min-width: 150px;
+      position: absolute; right: 0; top: 100%;
+      background: white; border: 1px solid #ddd; border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 50; display: none;
+      flex-direction: column; overflow: hidden; min-width: 150px;
     }
-    #categoryDropdown button {
-      background: none;
-      border: none;
-      text-align: left;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-    }
+    #categoryDropdown button { background: none; border: none; text-align: left; padding: 0.5rem 1rem; font-size: 0.9rem; }
     #categoryDropdown button:hover { background: #f0f0f0; }
     
     /* Modal de Configurações */
     #settingsModal {
-      position: fixed;
-      top: 50%; left: 50%;
+      position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      background: white;
-      color: #333;
-      padding: 2rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      z-index: 60;
-      display: none;
+      background: white; color: #333; padding: 2rem; border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 60; display: none;
       width: 90%; max-width: 500px;
     }
     #settingsModal.dark { background: #1F2937; color: #f3f4f6; }
     #settingsModal h2 { margin-bottom: 1rem; }
     #settingsModal .tabs { display: flex; gap: 1rem; margin-bottom: 1rem; }
-    #settingsModal .tab {
-      flex: 1;
-      text-align: center;
-      padding: 0.5rem;
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-    }
+    #settingsModal .tab { flex: 1; text-align: center; padding: 0.5rem; border-bottom: 2px solid transparent; cursor: pointer; }
     #settingsModal .tab-active { border-color: #3B82F6; font-weight: bold; }
     #settingsModal button { margin-top: 1rem; }
     
-    /* Área de publicação de script (Comunidade) */
+    /* Área de Publicação (Comunidade) */
     #scriptSubmission {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
+      background: white; padding: 1.5rem; border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 2rem;
     }
     #scriptSubmission input[type="text"],
     #scriptSubmission textarea {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      margin-bottom: 0.5rem;
-      background: #f9f9f9;
+      width: 100%; padding: 0.75rem; border: 1px solid #ccc;
+      border-radius: 0.5rem; margin-bottom: 0.5rem; background: #f9f9f9;
     }
     #scriptSubmission input[type="file"] { margin-bottom: 1rem; }
-    #scriptImagePreview {
-      max-width: 100%;
-      max-height: 200px;
-      display: none;
-      margin-bottom: 1rem;
-      border-radius: 0.5rem;
-    }
+    #scriptImagePreview { max-width: 100%; max-height: 200px; display: none; margin-bottom: 1rem; border-radius: 0.5rem; }
     
-    /* Inputs do modal de login */
+    /* Inputs do modal de Login */
     #loginOverlay input[type="text"],
     #loginOverlay input[type="file"] {
-      width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 0.25rem;
+      width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;
+      border: 1px solid #ccc; border-radius: 0.25rem;
     }
     
     /* Força layout mobile para telas até 1400px */
@@ -222,9 +161,9 @@
     <div class="container mx-auto px-4 flex items-center justify-between">
       <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple">RONYERDOB</h1>
       <nav class="hidden md:flex space-x-6 items-center desktop">
-        <button onclick="switchTab('executors')" class="modern-btn slide-in">Executores</button>
-        <button onclick="switchTab('scripts')" class="modern-btn slide-in">Scripts</button>
-        <button onclick="switchTab('community')" class="modern-btn slide-in">Comunidade</button>
+        <button onclick="switchTab('executors')" class="modern-btn slide-in rgb-btn">Executores</button>
+        <button onclick="switchTab('scripts')" class="modern-btn slide-in rgb-btn">Scripts</button>
+        <button onclick="switchTab('community')" class="modern-btn slide-in rgb-btn">Comunidade</button>
         <button id="themeToggle" class="modern-btn slide-in" onclick="toggleTheme()">
           <i class="fas fa-adjust mr-2"></i> Toggle Tema
         </button>
@@ -236,9 +175,9 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="md:hidden mt-4 hidden mobile-menu">
       <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-2 flex flex-col space-y-1">
-        <button onclick="switchTab('executors'); toggleMobileMenu()" class="modern-btn text-left"><i class="fas fa-mobile-alt mr-2"></i> Executores</button>
-        <button onclick="switchTab('scripts'); toggleMobileMenu()" class="modern-btn text-left"><i class="fas fa-code mr-2"></i> Scripts</button>
-        <button onclick="switchTab('community'); toggleMobileMenu()" class="modern-btn text-left"><i class="fas fa-users mr-2"></i> Comunidade</button>
+        <button onclick="switchTab('executors'); toggleMobileMenu()" class="modern-btn text-left rgb-btn"><i class="fas fa-mobile-alt mr-2"></i> Executores</button>
+        <button onclick="switchTab('scripts'); toggleMobileMenu()" class="modern-btn text-left rgb-btn"><i class="fas fa-code mr-2"></i> Scripts</button>
+        <button onclick="switchTab('community'); toggleMobileMenu()" class="modern-btn text-left rgb-btn"><i class="fas fa-users mr-2"></i> Comunidade</button>
         <button onclick="openSettings(); toggleMobileMenu()" class="modern-btn text-left"><i class="fas fa-cog mr-2"></i> Configurações</button>
       </div>
     </div>
@@ -246,13 +185,13 @@
   
   <!-- Modal de Login/Cadastro -->
   <div id="loginOverlay" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-11/12 max-w-sm neon-border">
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-11/12 max-w-sm neon-border" style="background: linear-gradient(45deg, rgba(125,249,255,0.2), rgba(224,176,255,0.2));">
       <h2 class="text-xl font-bold mb-4 text-center">Bem-vindo!</h2>
       <input type="text" id="usernameInput" placeholder="Nome de usuário">
       <input type="file" id="profileImageInput" accept="image/*" onchange="handleProfileImage(event)">
       <img id="profilePreview" src="" alt="Preview" class="w-20 h-20 mx-auto rounded-full mb-4 hidden">
-      <button onclick="createAccount()" class="modern-btn w-full mb-2">Criar Conta</button>
-      <button onclick="hideLoginModal()" class="modern-btn w-full">Cancelar</button>
+      <button onclick="createAccount()" class="modern-btn w-full mb-2 rgb-btn">Criar Conta</button>
+      <button onclick="hideLoginModal()" class="modern-btn w-full rgb-btn">Cancelar</button>
     </div>
   </div>
   
@@ -278,9 +217,9 @@
       <h2 class="text-4xl font-bold mb-4">Executores e Scripts</h2>
       <p class="text-gray-700 dark:text-gray-300 mb-6">Os melhores executores e scripts para Roblox atualizados!</p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="https://discord.gg/yfB6DRdUy3" target="_blank" class="modern-btn slide-in"><i class="fab fa-discord text-xl"></i> Discord</a>
-        <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" class="modern-btn slide-in"><i class="fab fa-youtube text-xl"></i> Legado do Pirata</a>
-        <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" class="modern-btn slide-in"><i class="fab fa-youtube text-xl"></i> RONYERDOB</a>
+        <a href="https://discord.gg/yfB6DRdUy3" target="_blank" class="modern-btn slide-in rgb-btn"><i class="fab fa-discord text-xl"></i> Discord</a>
+        <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" class="modern-btn slide-in rgb-btn"><i class="fab fa-youtube text-xl"></i> Legado do Pirata</a>
+        <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" class="modern-btn slide-in rgb-btn"><i class="fab fa-youtube text-xl"></i> RONYERDOB</a>
       </div>
     </section>
     
@@ -299,7 +238,7 @@
           <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://apkclone.com/logos/krnl-executor-v663-apk.jpg" alt="KRNL Executor" class="h-20 w-20 mx-auto rounded-xl">
-              <h3 class="text-2xl font-bold bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent mt-3">KRNL Executor</h3>
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">KRNL Executor</h3>
             </div>
             <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=3600,h=2160,fit=crop/m6Lq6GkJxMT4WM7b/1000200657-removebg-preview-dWxBWj9xxLfepaL9.png" alt="KRNL Interface" class="w-full h-48 object-cover">
             <div class="p-6">
@@ -308,7 +247,84 @@
               </a>
             </div>
           </div>
-          <!-- Adicione aqui os demais executores: Codex, Trigon, Fluxus, Vegax, Arceusx Neo, Hydrogen, etc. -->
+          <!-- Codex Executor -->
+          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/654895ed9f66b9b6ca199e43/0x0.png" alt="Codex Executor" class="h-20 w-20 mx-auto rounded-xl">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Codex Executor</h3>
+            </div>
+            <img src="https://www.softlay.com/downloads/wp-content/uploads/Codex-Android-Interface-edited.jpeg" alt="Codex Interface" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <a href="https://www.mediafire.com/file/pb7w6l12892805q/Codex+v2.665.apk/file" target="_blank" class="modern-btn block text-center">
+                <i class="fas fa-download mr-2"></i> Download Codex
+              </a>
+            </div>
+          </div>
+          <!-- Trigon Executor -->
+          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://scriptblox.com/images/photo/65a56357e1ae033856e36b24-1710589765537.png" alt="Trigon Executor" class="h-20 w-20 mx-auto rounded-xl">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Trigon Executor</h3>
+            </div>
+            <img src="https://trigonevo.com/wp-content/uploads/2024/01/Untitled-1-768x432.png" alt="Trigon Interface" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <a href="https://www.mediafire.com/file/1nfqw82bkns9jmu/Trigon_v2.665.684.apk/file" target="_blank" class="modern-btn block text-center">
+                <i class="fas fa-download mr-2"></i> Download Trigon
+              </a>
+            </div>
+          </div>
+          <!-- Fluxus Executor -->
+          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://techbigs.com/uploads/2022/11/download-6654.jpg" alt="Fluxus Executor" class="h-20 w-20 mx-auto rounded-xl">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Fluxus Executor</h3>
+            </div>
+            <img src="https://assets.zyrosite.com/m6Lq6GkJxMT4WM7b/salinan-dari-hoho-hub-1-YyvoZ3N9vOcPWBlD.gif" alt="Fluxus Interface" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <a href="https://www.mediafire.com/file/woat8ey8w9v5rh9/Fluxus_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center">
+                <i class="fas fa-download mr-2"></i> Download Fluxus
+              </a>
+            </div>
+          </div>
+          <!-- Vegax Executor -->
+          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://modmenuz.com/storage/vega-x-icon.png" alt="Vegax Executor" class="h-20 w-20 mx-auto rounded-xl">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Vegax Executor</h3>
+            </div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPc_0Mbxf0LjfA39ti_JtV4LfzuVpZ6Y1HcXaZ4DtxTF6x_i-PuhW5sH-_ZGi4BBCm_WI&usqp=CAU" alt="Vegax Interface" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <a href="https://www.mediafire.com/file/wovfxy2qggsm19i/Vega_X_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center">
+                <i class="fas fa-download mr-2"></i> Download Vegax
+              </a>
+            </div>
+          </div>
+          <!-- Arceusx Neo Executor -->
+          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://apkboat.io/wp-content/uploads/arceus-x-neo-Logo.png" alt="Arceusx Neo Executor" class="h-20 w-20 mx-auto rounded-xl">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Arceusx Neo Executor</h3>
+            </div>
+            <img src="https://i.ytimg.com/vi/O97H2mVxYwk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAdQeYl5I2UhKAYB5lu6X2ZwOkydA" alt="Arceusx Neo Interface" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <a href="https://www.mediafire.com/file/1koyv79fepibqxp/Roblox_Arceus_X_NEO_1.6.0.apk/file" target="_blank" class="modern-btn block text-center">
+                <i class="fas fa-download mr-2"></i> Download Arceusx Neo
+              </a>
+            </div>
+          </div>
+          <!-- Hydrogen Executor -->
+          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+            <div class="p-6 text-center">
+              <img src="https://hydrogenexecutor.com/wp-content/uploads/2023/03/Hydrogen-Executor-Official-Logo.webp" alt="Hydrogen Executor" class="h-20 w-20 mx-auto rounded-xl">
+              <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Hydrogen Executor</h3>
+            </div>
+            <img src="https://hydrogen.us.com/wp-content/uploads/2022/12/hydrogen-executor-1024x582.webp" alt="Hydrogen Interface" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <a href="https://hydrogenexecutor.com/" target="_blank" class="modern-btn block text-center">
+                 <i class="fas fa-download mr-2"></i> Download Hydrogen
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -334,8 +350,270 @@
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
-          <!-- Adicione aqui os demais scripts: W Azure Hub, Banana Hub, Forge Hub, Fruit Finder, Xero Hub, Thunder Z, Alchemy Hub, Auto Bounty, Vxeze Hub, Skull Fruit Hub, Tsuo Hub, Ronyx Kaitum Hub, etc. -->
+          <!-- W Azure Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">W Azure Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">getgenv().Team = "Marines"
+getgenv().AutoLoad = false
+getgenv().SlowLoadUi = false
+getgenv().ForceUseSilentAimDashModifier = false
+getgenv().ForceUseWalkSpeedModifier = false
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()</pre>
+            </div>
+            <button onclick="copyScript('getgenv().Team = \\\"Marines\\\"\\ngetgenv().AutoLoad = false\\ngetgenv().SlowLoadUi = false\\ngetgenv().ForceUseSilentAimDashModifier = false\\ngetgenv().ForceUseWalkSpeedModifier = false\\nloadstring(game:HttpGet(\\\"https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Banana Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Banana Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+getgenv().Key = "PASTE_KEY_HERE"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua"))()</pre>
+            </div>
+            <button onclick="copyScript('repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\\ngetgenv().Key = \\\"PASTE_KEY_HERE\\\"\\nloadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Forge Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Forge Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()</pre>
+            </div>
+            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Fruit Finder Raito Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Fruit Finder Raito Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">
+ServerHopTimer = 5
+TeleportSafe = true
+Webhook = "Your Webhook Here"
+_G.Version = "Fruit Farm"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script"))()
+              </pre>
+            </div>
+            <button onclick="copyScript('ServerHopTimer = 5\\nTeleportSafe = true\\nWebhook = \\\"Your Webhook Here\\\"\\n_G.Version = \\\"Fruit Farm\\\"\\nloadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Xero Hub Kaitum -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Xero Hub Kaitum</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">
+script_key = ""
+getgenv().Shutdown = false
+getgenv().Configs = {
+  ["Team"] = "Marines",
+  ["Gun Farm"] = false,
+  ["FPS Boost"] = { ["Enable"] = false, ["FPS Cap"] = 30 },
+  ["Farm Boss Drops"] = { ["Enable"] = false, ["When x2 Exp Expired"] = false },
+  ["Auto Evo Race"] = true,
+  ["Awaken Fruit"] = true,
+  ["Rainbow Haki"] = true,
+  ["Hop Player Near"] = true,
+  ["Skull Guitar"] = true,
+  ["Find Fruit"] = false,
+  ["Cursed Dual Katana"] = true,
+  ["Switch Melee"] = true,
+  ["Eat Fruit"] = "",
+  ["Snipe Fruit"] = "",
+  ["Lock Fragment"] = 0,
+  ["Buy Stuffs"] = true
+}
+repeat task.wait() until pcall(function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/verudous/Xero-Hub/refs/heads/main/kaitun.lua"))()
+end) or getgenv().Check_Execute
+              </pre>
+            </div>
+            <button onclick="copyScript('script_key = \\\"\\\"\\ngetgenv().Shutdown = false\\ngetgenv().Configs = { [\\\"Team\\\"] = \\\"Marines\\\", [\\\"Gun Farm\\\"] = false, [\\\"FPS Boost\\\"] = { [\\\"Enable\\\"] = false, [\\\"FPS Cap\\\"] = 30 }, [\\\"Farm Boss Drops\\\"] = { [\\\"Enable\\\"] = false, [\\\"When x2 Exp Expired\\\"] = false }, [\\\"Auto Evo Race\\\"] = true, [\\\"Awaken Fruit\\\"] = true, [\\\"Rainbow Haki\\\"] = true, [\\\"Hop Player Near\\\"] = true, [\\\"Skull Guitar\\\"] = true, [\\\"Find Fruit\\\"] = false, [\\\"Cursed Dual Katana\\\"] = true, [\\\"Switch Melee\\\"] = true, [\\\"Eat Fruit\\\"] = \\\"\\\", [\\\"Snipe Fruit\\\"] = \\\"\\\", [\\\"Lock Fragment\\\"] = 0, [\\\"Buy Stuffs\\\"] = true } repeat task.wait() until pcall(function() loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/verudous/Xero-Hub/refs/heads/main/kaitun.lua\\\"))() end) or getgenv().Check_Execute')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Speed Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Speed Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</pre>
+            </div>
+            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\\\", true))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Thunder Z Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Thunder Z Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua"))()</pre>
+            </div>
+            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Alchemy Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Alchemy Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">loadstring(game:HttpGet("https://scripts.alchemyhub.xyz"))()</pre>
+            </div>
+            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://scripts.alchemyhub.xyz\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Auto Bounty Hoho Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Auto Bounty Hoho Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">
+script_key = "PASTE_KEY_HERE"
+_G["HoHo Hub Auto Bounty V4"] = {
+  ["Avatar"] = "rbxassetid://8598068647",
+  ["Farm Method"] = "Normal",
+  ["Select Team"] = "Pirate",
+  ["Discord Webhook"] = "",
+  ["Bypass Teleport"] = false,
+  ["Max Level Distance"] = 612,
+  ["Don't attack friends"] = true,
+  ["Don't attack player have cup"] = false,
+  ["Distance Attack Y"] = 2,
+  ["Chat After Kill"] = { ["Active"] = false, ["List Chat"] = {""} },
+  ["Yourself"] = { ["Invisible From Ken"] = true, ["No Stun"] = true },
+  ["SafeZone"] = {Enabled = true, ["Health Left (%)"] = 25, ["Wait Until Heal (%)"] = 80},
+  ["Time Control"] = { ["Max Time Target Player"] = 120 },
+  ["Abilities"] = {
+      ["Auto Click"] = true,
+      ["Melee"] = {
+          Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+          X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+          C = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}
+      },
+      ["Sword"] = {
+          Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+          X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}
+      },
+      ["Gun"] = {
+          Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6},
+          X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}
+      },
+      ["Fruit"] = {
+          Z = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6},
+          X = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6},
+          C = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6},
+          V = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6},
+          F = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}
+      }
+  }
+}
+_G.SupperFixLag = true
+_G["Auto Gacha & Store Fruit"] = true
+_G.loadCustomId = "fac6dbd013c78163f8061ce11b2c1330"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
+              </pre>
+            </div>
+            <button onclick="copyScript('script_key = \\\"PASTE_KEY_HERE\\\"\\n_G[\\\"HoHo Hub Auto Bounty V4\\\"] = { [\\\"Avatar\\\"] = \\\"rbxassetid://8598068647\\\", [\\\"Farm Method\\\"] = \\\"Normal\\\", [\\\"Select Team\\\"] = \\\"Pirate\\\", [\\\"Discord Webhook\\\"] = \\\"\\\", [\\\"Bypass Teleport\\\"] = false, [\\\"Max Level Distance\\\"] = 612, [\\\"Don\\'t attack friends\\\"] = true, [\\\"Don\\'t attack player have cup\\\"] = false, [\\\"Distance Attack Y\\\"] = 2, [\\\"Chat After Kill\\\"] = { [\\\"Active\\\"] = false, [\\\"List Chat\\\"] = {\\\"\\\"} }, [\\\"Yourself\\\"] = { [\\\"Invisible From Ken\\\"] = true, [\\\"No Stun\\\"] = true }, [\\\"SafeZone\\\"] = {Enabled = true, [\\\"Health Left (%)\\\"] = 25, [\\\"Wait Until Heal (%)\\\"] = 80}, [\\\"Time Control\\\"] = { [\\\"Max Time Target Player\\\"] = 120 }, [\\\"Abilities\\\"] = { [\\\"Auto Click\\\"] = true, [\\\"Melee\\\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\\\"Sword\\\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\\\"Gun\\\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\\\"Fruit\\\"] = { Z = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, V = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, F = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6} } } }\\n_G.SupperFixLag = true\\n_G[\\\"Auto Gacha & Store Fruit\\\"] = true\\n_G.loadCustomId = \\\"fac6dbd013c78163f8061ce11b2c1330\\\"\\nloadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Vxeze Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Vxeze Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt"))()</pre>
+            </div>
+            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Skull Fruit Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Skull Fruit Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">
+getgenv().BloxFruits = {
+  ["Team"] = "Marines",
+  ["TweenSpeed"] = 350,
+  ["Fruit"] = {
+      ["FruitNotifier"] = false,
+      ["AutoRandom"] = true,
+      ["FruitSniper"] = { ["Enabled"] = false, ["TargetFruits"] = {"Yeti-Yeti", "Dragon-Dragon", "Dough-Dough"} },
+  },
+  ["Farm"] = {
+      ["Enabled"] = true,
+      ["FastMethod"] = false,
+      ["AutoHop"] = true,
+      ["ItemHop"] = true,
+  },
+  ["Webhook"] = {
+      ["Enabled"] = false,
+      ["URL"] = "Your Webhook Url",
+      ["UserId"] = "Id Discord",
+  },
+  ["BlackScreen"] = false,
+  ["FpsBoost"] = false,
+  ["AntiIdle"] = true,
+}
+loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
+              </pre>
+            </div>
+            <button onclick="copyScript('getgenv().BloxFruits = { [\\\"Team\\\"] = \\\"Marines\\\", [\\\"TweenSpeed\\\"] = 350, [\\\"Fruit\\\"] = { [\\\"FruitNotifier\\\"] = false, [\\\"AutoRandom\\\"] = true, [\\\"FruitSniper\\\"] = { [\\\"Enabled\\\"] = false, [\\\"TargetFruits\\\"] = {\\\"Yeti-Yeti\\\", \\\"Dragon-Dragon\\\", \\\"Dough-Dough\\\"} } }, [\\\"Farm\\\"] = { [\\\"Enabled\\\"] = true, [\\\"FastMethod\\\"] = false, [\\\"AutoHop\\\"] = true, [\\\"ItemHop\\\"] = true }, [\\\"Webhook\\\"] = { [\\\"Enabled\\\"] = false, [\\\"URL\\\"] = \\\"Your Webhook Url\\\", [\\\"UserId\\\"] = \\\"Id Discord\\\" }, [\\\"BlackScreen\\\"] = false, [\\\"FpsBoost\\\"] = false, [\\\"AntiIdle\\\"] = true }; loadstring(game:HttpGet(\\\"https://skullhub.xyz/loader.lua\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Tsuo Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Tsuo Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts"))()</pre>
+            </div>
+            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts\\\"))()')" class="modern-btn flex items-center">
+              <i class="far fa-copy mr-2"></i> Copiar Script
+            </button>
+          </div>
+          <!-- Ronyx Kaitum Hub -->
+          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold">Ronyx Kaitum Hub</h3>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre class="text-sm">https://scriptpastebin.com/royx-kaitun-hub-blox-fruits-script-mobile/</pre>
+            </div>
+            <button onclick="window.open('https://scriptpastebin.com/royx-kaitun-hub-blox-fruits-script-mobile/', '_blank')" class="modern-btn flex items-center">
+              <i class="fas fa-external-link-alt mr-2"></i> Abrir Página
+            </button>
+          </div>
         </div>
+      </div>
       
       <!-- Comunidade Section -->
       <div id="communitySection" class="hidden" data-aos="fade-up">
@@ -351,7 +629,7 @@
           <textarea id="scriptCodeInput" rows="4" placeholder="Cole o código do script aqui..." class="block w-full px-3 py-2 mb-2 bg-gray-100 dark:bg-gray-700 rounded border border-gray-300 dark:border-gray-600"></textarea>
           <input type="file" id="scriptImageInput" accept="image/*" onchange="handleScriptImage(event)" class="mb-2">
           <img id="scriptImagePreview" src="" alt="Prévia da Imagem" class="w-full h-48 object-cover rounded mb-2" style="display: none;">
-          <button onclick="sendUserScript()" class="modern-btn w-full">
+          <button onclick="sendUserScript()" class="modern-btn w-full rgb-btn">
             <i class="fas fa-upload mr-2"></i> Publicar Script
           </button>
         </div>
@@ -368,13 +646,13 @@
       </div>
       <p class="text-gray-700 dark:text-gray-300 mb-4">&copy; 2025 RONYERDOB - Todos os direitos reservados</p>
       <div class="flex justify-center space-x-6 mb-6">
-        <a href="https://discord.gg/yfB6DRdUy3" target="_blank" class="modern-btn">
+        <a href="https://discord.gg/yfB6DRdUy3" target="_blank" class="modern-btn rgb-btn">
           <i class="fab fa-discord text-2xl"></i>
         </a>
-        <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" class="modern-btn">
+        <a href="https://youtube.com/@legadodoscript?si=DJV0fGc48Ql7B4my" target="_blank" class="modern-btn rgb-btn">
           <i class="fab fa-youtube text-2xl"></i>
         </a>
-        <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" class="modern-btn">
+        <a href="https://youtube.com/@ronyscripts?si=qO-a-diRd4dvReQ4" target="_blank" class="modern-btn rgb-btn">
           <i class="fab fa-youtube text-2xl"></i>
         </a>
       </div>
@@ -412,7 +690,7 @@
       "max-glare": 0.3
     });
     
-    // Toggle de tema
+    // Toggle de Tema
     function toggleTheme() {
       document.documentElement.classList.toggle('dark');
       localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
@@ -421,7 +699,7 @@
       document.documentElement.classList.add('dark');
     }
     
-    // Função para copiar texto
+    // Função para copiar texto (Clipboard API com fallback)
     function copyTextToClipboard(text) {
       if(navigator.clipboard && window.isSecureContext){
         navigator.clipboard.writeText(text).then(() => {
@@ -460,7 +738,7 @@
       window.getSelection().removeAllRanges();
     }
     
-    // Login/Cadastro
+    // Funções de Login / Cadastro
     let profileImageBase64 = "";
     function handleProfileImage(event) {
       const file = event.target.files[0];
@@ -523,7 +801,7 @@
       }
     }
     
-    // Publicação de scripts na Comunidade
+    // Publicação de Scripts (Comunidade)
     let scriptImageBase64 = "";
     function handleScriptImage(event) {
       const file = event.target.files[0];
@@ -641,15 +919,12 @@
       localStorage.setItem('activeTab', tab);
     }
     
-    // Removi a troca automática de aba via swipe (para evitar mudança indesejada)
-    // Se desejar, pode reabilitar a funcionalidade adicionando os eventListeners de touch
-    
     // Menu Mobile
     function toggleMobileMenu() {
       document.getElementById('mobileMenu').classList.toggle('hidden');
     }
     
-    // Dropdown de Categorias (Desktop)
+    // Dropdown (desktop)
     function toggleCategoryDropdown() {
       const dropdown = document.getElementById('categoryDropdown');
       dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';

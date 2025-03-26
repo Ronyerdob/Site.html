@@ -104,7 +104,7 @@
     }
     @keyframes flicker { 0% { opacity: 1; } 100% { opacity: 0.85; } }
 
-    /* Animações individuais – delays aplicados via JavaScript */
+    /* Animações individuais – delays aplicados via JS */
     .fade-in { animation: fadeIn 0.8s ease-out forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .slide-in { animation: slideIn 0.8s ease-out forwards; }
@@ -136,8 +136,6 @@
     }
     #categoryDropdown button:hover { background: #f0f0f0; }
     
-    /* Modal de Configurações removido */
-
     /* Inputs no modal de Login */
     #loginOverlay input[type="text"],
     #loginOverlay input[type="file"] {
@@ -329,7 +327,7 @@
             <img src="https://hydrogen.us.com/wp-content/uploads/2022/12/hydrogen-executor-1024x582.webp" alt="Hydrogen Interface" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
               <a href="https://hydrogenexecutor.com/" target="_blank" class="modern-btn block text-center rgb-btn">
-                <i class="fas fa-download mr-2"></i> Download Hydrogen
+                 <i class="fas fa-download mr-2"></i> Download Hydrogen
               </a>
             </div>
           </div>
@@ -635,7 +633,7 @@ repeat task.wait() until pcall(function(){
     // Alterna entre abas: Executores e Scripts
     let currentTab = localStorage.getItem('activeTab') || 'executors';
     function switchTab(tab) {
-      if(tab === currentTab) return;
+      // Removida a verificação "if(tab===currentTab)" para forçar a mudança
       const sections = {
         executors: document.getElementById('executorsSection'),
         scripts: document.getElementById('scriptsSection')

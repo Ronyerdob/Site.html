@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <!-- Foco em dispositivos móveis (1400x1080 e menores) -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RONYERDOB - Executores e Scripts</title>
@@ -33,20 +33,28 @@
   
   <!-- Custom CSS -->
   <style>
-    /* Base e fontes */
-    body { font-family: 'Poppins', sans-serif; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
+    /* Base */
+    body {
+      font-family: 'Poppins', sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
     h1, h2, h3, h4, h5, h6 { font-family: 'Orbitron', sans-serif; }
     
     /* Fundo animado */
     .animated-bg {
       background-image: url('https://i.pinimg.com/originals/f4/34/e8/f434e86cdc40ef068b7783d150f8a65c.gif');
-      background-size: cover; background-position: center;
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: -2; opacity: 0.3;
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -2;
+      opacity: 0.3;
     }
     .dark .animated-bg { opacity: 0.1; }
     
-    /* Animação contínua RGB para botões */
+    /* Animação RGB contínua para botões */
     @keyframes rgbCycle {
       0% { background-color: #ff0000; }
       33% { background-color: #00ff00; }
@@ -62,12 +70,16 @@
       background: rgba(0, 0, 255, 0.2);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(0, 0, 255, 0.5);
-      color: #3B82F6; font-weight: 600; padding: 0.5rem 1rem;
-      border-radius: 0.5rem; transition: all 0.3s ease-in-out;
+      color: #3B82F6;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease-in-out;
     }
     .modern-btn:hover {
       background: rgba(0, 0, 255, 0.3);
-      box-shadow: 0 0 10px rgba(0, 0, 255, 0.8); transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 0, 255, 0.8);
+      transform: scale(1.05);
     }
     .modern-btn:active { transform: scale(0.98); }
     
@@ -79,10 +91,19 @@
       box-shadow: 0 0 10px rgba(125,249,255,0.6);
     }
     
+    /* Fundo semi-transparente para cartões (preto translúcido) */
+    .transparent-card {
+      background: rgba(0, 0, 0, 0.5);
+    }
+    
     /* Bloco de código */
     .code-box {
-      background: #000; color: #0ff; border-radius: 8px; padding: 10px;
-      font-family: 'Courier New', monospace; border: 2px solid #00ffff;
+      background: #000;
+      color: #0ff;
+      border-radius: 8px;
+      padding: 10px;
+      font-family: 'Courier New', monospace;
+      border: 2px solid #00ffff;
       animation: flicker 1.5s infinite alternate;
     }
     @keyframes flicker { 0% { opacity: 1; } 100% { opacity: 0.85; } }
@@ -98,49 +119,85 @@
     /* Header */
     header { transition: transform 0.3s ease-in-out; }
     
-    /* Dropdown (desktop) */
+    /* Dropdown de Categorias (Desktop) */
     #categoryDropdown {
-      position: absolute; right: 0; top: 100%;
-      background: white; border: 1px solid #ddd; border-radius: 0.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 50; display: none;
-      flex-direction: column; overflow: hidden; min-width: 150px;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 50;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 150px;
     }
-    #categoryDropdown button { background: none; border: none; text-align: left; padding: 0.5rem 1rem; font-size: 0.9rem; }
+    #categoryDropdown button {
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
     #categoryDropdown button:hover { background: #f0f0f0; }
     
-    /* Modal de Configurações */
+    /* Modal de Configurações com fundo RGB translúcido */
     #settingsModal {
-      position: fixed; top: 50%; left: 50%;
+      position: fixed;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      background: white; color: #333; padding: 2rem; border-radius: 0.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3); z-index: 60; display: none;
+      background: linear-gradient(45deg, rgba(125,249,255,0.2), rgba(224,176,255,0.2));
+      color: #f3f4f6;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 60;
+      display: none;
       width: 90%; max-width: 500px;
     }
-    #settingsModal.dark { background: #1F2937; color: #f3f4f6; }
     #settingsModal h2 { margin-bottom: 1rem; }
     #settingsModal .tabs { display: flex; gap: 1rem; margin-bottom: 1rem; }
-    #settingsModal .tab { flex: 1; text-align: center; padding: 0.5rem; border-bottom: 2px solid transparent; cursor: pointer; }
+    #settingsModal .tab {
+      flex: 1;
+      text-align: center;
+      padding: 0.5rem;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+    }
     #settingsModal .tab-active { border-color: #3B82F6; font-weight: bold; }
     #settingsModal button { margin-top: 1rem; }
     
     /* Área de Publicação (Comunidade) */
     #scriptSubmission {
-      background: white; padding: 1.5rem; border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
     }
     #scriptSubmission input[type="text"],
     #scriptSubmission textarea {
-      width: 100%; padding: 0.75rem; border: 1px solid #ccc;
-      border-radius: 0.5rem; margin-bottom: 0.5rem; background: #f9f9f9;
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
     }
     #scriptSubmission input[type="file"] { margin-bottom: 1rem; }
     #scriptImagePreview { max-width: 100%; max-height: 200px; display: none; margin-bottom: 1rem; border-radius: 0.5rem; }
     
-    /* Inputs do modal de Login */
+    /* Inputs no modal de Login */
     #loginOverlay input[type="text"],
     #loginOverlay input[type="file"] {
-      width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;
-      border: 1px solid #ccc; border-radius: 0.25rem;
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
     }
     
     /* Força layout mobile para telas até 1400px */
@@ -235,92 +292,92 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
           <!-- KRNL Executor -->
-          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://apkclone.com/logos/krnl-executor-v663-apk.jpg" alt="KRNL Executor" class="h-20 w-20 mx-auto rounded-xl">
               <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">KRNL Executor</h3>
             </div>
             <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=3600,h=2160,fit=crop/m6Lq6GkJxMT4WM7b/1000200657-removebg-preview-dWxBWj9xxLfepaL9.png" alt="KRNL Interface" class="w-full h-48 object-cover">
             <div class="p-6">
-              <a href="https://www.mediafire.com/file/ih0161ok5xxjyww/krnl_release_2.665.684_2025.3.23_19.apk/file" target="_blank" class="modern-btn block text-center">
+              <a href="https://www.mediafire.com/file/ih0161ok5xxjyww/krnl_release_2.665.684_2025.3.23_19.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
                 <i class="fas fa-download mr-2"></i> Download KRNL
               </a>
             </div>
           </div>
           <!-- Codex Executor -->
-          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/654895ed9f66b9b6ca199e43/0x0.png" alt="Codex Executor" class="h-20 w-20 mx-auto rounded-xl">
               <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Codex Executor</h3>
             </div>
             <img src="https://www.softlay.com/downloads/wp-content/uploads/Codex-Android-Interface-edited.jpeg" alt="Codex Interface" class="w-full h-48 object-cover">
             <div class="p-6">
-              <a href="https://www.mediafire.com/file/pb7w6l12892805q/Codex+v2.665.apk/file" target="_blank" class="modern-btn block text-center">
+              <a href="https://www.mediafire.com/file/pb7w6l12892805q/Codex+v2.665.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
                 <i class="fas fa-download mr-2"></i> Download Codex
               </a>
             </div>
           </div>
           <!-- Trigon Executor -->
-          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://scriptblox.com/images/photo/65a56357e1ae033856e36b24-1710589765537.png" alt="Trigon Executor" class="h-20 w-20 mx-auto rounded-xl">
               <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Trigon Executor</h3>
             </div>
             <img src="https://trigonevo.com/wp-content/uploads/2024/01/Untitled-1-768x432.png" alt="Trigon Interface" class="w-full h-48 object-cover">
             <div class="p-6">
-              <a href="https://www.mediafire.com/file/1nfqw82bkns9jmu/Trigon_v2.665.684.apk/file" target="_blank" class="modern-btn block text-center">
+              <a href="https://www.mediafire.com/file/1nfqw82bkns9jmu/Trigon_v2.665.684.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
                 <i class="fas fa-download mr-2"></i> Download Trigon
               </a>
             </div>
           </div>
           <!-- Fluxus Executor -->
-          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://techbigs.com/uploads/2022/11/download-6654.jpg" alt="Fluxus Executor" class="h-20 w-20 mx-auto rounded-xl">
               <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Fluxus Executor</h3>
             </div>
             <img src="https://assets.zyrosite.com/m6Lq6GkJxMT4WM7b/salinan-dari-hoho-hub-1-YyvoZ3N9vOcPWBlD.gif" alt="Fluxus Interface" class="w-full h-48 object-cover">
             <div class="p-6">
-              <a href="https://www.mediafire.com/file/woat8ey8w9v5rh9/Fluxus_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center">
+              <a href="https://www.mediafire.com/file/woat8ey8w9v5rh9/Fluxus_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
                 <i class="fas fa-download mr-2"></i> Download Fluxus
               </a>
             </div>
           </div>
           <!-- Vegax Executor -->
-          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://modmenuz.com/storage/vega-x-icon.png" alt="Vegax Executor" class="h-20 w-20 mx-auto rounded-xl">
               <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Vegax Executor</h3>
             </div>
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPc_0Mbxf0LjfA39ti_JtV4LfzuVpZ6Y1HcXaZ4DtxTF6x_i-PuhW5sH-_ZGi4BBCm_WI&usqp=CAU" alt="Vegax Interface" class="w-full h-48 object-cover">
             <div class="p-6">
-              <a href="https://www.mediafire.com/file/wovfxy2qggsm19i/Vega_X_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center">
+              <a href="https://www.mediafire.com/file/wovfxy2qggsm19i/Vega_X_V2.665.684.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
                 <i class="fas fa-download mr-2"></i> Download Vegax
               </a>
             </div>
           </div>
           <!-- Arceusx Neo Executor -->
-          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://apkboat.io/wp-content/uploads/arceus-x-neo-Logo.png" alt="Arceusx Neo Executor" class="h-20 w-20 mx-auto rounded-xl">
               <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Arceusx Neo Executor</h3>
             </div>
             <img src="https://i.ytimg.com/vi/O97H2mVxYwk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAdQeYl5I2UhKAYB5lu6X2ZwOkydA" alt="Arceusx Neo Interface" class="w-full h-48 object-cover">
             <div class="p-6">
-              <a href="https://www.mediafire.com/file/1koyv79fepibqxp/Roblox_Arceus_X_NEO_1.6.0.apk/file" target="_blank" class="modern-btn block text-center">
+              <a href="https://www.mediafire.com/file/1koyv79fepibqxp/Roblox_Arceus_X_NEO_1.6.0.apk/file" target="_blank" class="modern-btn block text-center rgb-btn">
                 <i class="fas fa-download mr-2"></i> Download Arceusx Neo
               </a>
             </div>
           </div>
           <!-- Hydrogen Executor -->
-          <div class="tilt neon-border bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
+          <div class="tilt neon-border transparent-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow slide-in" data-tilt data-aos="zoom-in">
             <div class="p-6 text-center">
               <img src="https://hydrogenexecutor.com/wp-content/uploads/2023/03/Hydrogen-Executor-Official-Logo.webp" alt="Hydrogen Executor" class="h-20 w-20 mx-auto rounded-xl">
               <h3 class="text-2xl font-bold mt-3 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 text-transparent">Hydrogen Executor</h3>
             </div>
             <img src="https://hydrogen.us.com/wp-content/uploads/2022/12/hydrogen-executor-1024x582.webp" alt="Hydrogen Interface" class="w-full h-48 object-cover">
             <div class="p-6">
-              <a href="https://hydrogenexecutor.com/" target="_blank" class="modern-btn block text-center">
+              <a href="https://hydrogenexecutor.com/" target="_blank" class="modern-btn block text-center rgb-btn">
                  <i class="fas fa-download mr-2"></i> Download Hydrogen
               </a>
             </div>
@@ -336,70 +393,70 @@
           </div>
           <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Blox Fruits Scripts</h2>
         </div>
-        <div class="bg-white/60 dark:bg-gray-800/60 backdrop-blur-lg rounded-2xl shadow-lg p-6 mb-12 space-y-6">
+        <div class="bg-black/50 rounded-2xl shadow-lg p-6 mb-12 space-y-6">
           <!-- Hoho Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Hoho Hub</h3>
+              <h3 class="text-xl font-bold text-white">Hoho Hub</h3>
               <span class="bg-green-400/20 border border-green-400 text-green-500 text-xs font-bold px-3 py-1 rounded-full">Popular</span>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
               <pre id="hohoHubPre" class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()</pre>
             </div>
-            <button onclick="copyPreText('hohoHubPre')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('hohoHubPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- W Azure Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">W Azure Hub</h3>
+              <h3 class="text-xl font-bold text-white">W Azure Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">getgenv().Team = "Marines"
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="wAzureHubPre" class="text-sm">getgenv().Team = "Marines"
 getgenv().AutoLoad = false
 getgenv().SlowLoadUi = false
 getgenv().ForceUseSilentAimDashModifier = false
 getgenv().ForceUseWalkSpeedModifier = false
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua"))()</pre>
             </div>
-            <button onclick="copyScript('getgenv().Team = \\\"Marines\\\"\\ngetgenv().AutoLoad = false\\ngetgenv().SlowLoadUi = false\\ngetgenv().ForceUseSilentAimDashModifier = false\\ngetgenv().ForceUseWalkSpeedModifier = false\\nloadstring(game:HttpGet(\\\"https://api.luarmor.net/files/v3/loaders/3b2169cf53bc6104dabe8e19562e5cc2.lua\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('wAzureHubPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Banana Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Banana Hub</h3>
+              <h3 class="text-xl font-bold text-white">Banana Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="bananaHubPre" class="text-sm">repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
 getgenv().Key = "PASTE_KEY_HERE"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua"))()</pre>
             </div>
-            <button onclick="copyScript('repeat wait() until game:IsLoaded() and game.Players.LocalPlayer\\ngetgenv().Key = \\\"PASTE_KEY_HERE\\\"\\nloadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/obiiyeuem/vthangsitink/main/BananaHub.lua\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('bananaHubPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Forge Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Forge Hub</h3>
+              <h3 class="text-xl font-bold text-white">Forge Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()</pre>
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="forgeHubPre" class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua"))()</pre>
             </div>
-            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/Skzuppy/forge-hub/main/loader.lua\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('forgeHubPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Fruit Finder Raito Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Fruit Finder Raito Hub</h3>
+              <h3 class="text-xl font-bold text-white">Fruit Finder Raito Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="raitohubPre" class="text-sm">
 ServerHopTimer = 5
 TeleportSafe = true
 Webhook = "Your Webhook Here"
@@ -407,17 +464,17 @@ _G.Version = "Fruit Farm"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script"))()
               </pre>
             </div>
-            <button onclick="copyScript('ServerHopTimer = 5\\nTeleportSafe = true\\nWebhook = \\\"Your Webhook Here\\\"\\n_G.Version = \\\"Fruit Farm\\\"\\nloadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/Efe0626/RaitoHub/main/Script\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('raitohubPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Xero Hub Kaitum -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Xero Hub Kaitum</h3>
+              <h3 class="text-xl font-bold text-white">Xero Hub Kaitum</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="xeroHubPre" class="text-sm">
 script_key = ""
 getgenv().Shutdown = false
 getgenv().Configs = {
@@ -443,53 +500,53 @@ repeat task.wait() until pcall(function()
 end) or getgenv().Check_Execute
               </pre>
             </div>
-            <button onclick="copyScript('script_key = \\\"\\\"\\ngetgenv().Shutdown = false\\ngetgenv().Configs = { [\\\"Team\\\"] = \\\"Marines\\\", [\\\"Gun Farm\\\"] = false, [\\\"FPS Boost\\\"] = { [\\\"Enable\\\"] = false, [\\\"FPS Cap\\\"] = 30 }, [\\\"Farm Boss Drops\\\"] = { [\\\"Enable\\\"] = false, [\\\"When x2 Exp Expired\\\"] = false }, [\\\"Auto Evo Race\\\"] = true, [\\\"Awaken Fruit\\\"] = true, [\\\"Rainbow Haki\\\"] = true, [\\\"Hop Player Near\\\"] = true, [\\\"Skull Guitar\\\"] = true, [\\\"Find Fruit\\\"] = false, [\\\"Cursed Dual Katana\\\"] = true, [\\\"Switch Melee\\\"] = true, [\\\"Eat Fruit\\\"] = \\\"\\\", [\\\"Snipe Fruit\\\"] = \\\"\\\", [\\\"Lock Fragment\\\"] = 0, [\\\"Buy Stuffs\\\"] = true } repeat task.wait() until pcall(function() loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/verudous/Xero-Hub/refs/heads/main/kaitun.lua\\\"))() end) or getgenv().Check_Execute')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('xeroHubPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Speed Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Speed Hub</h3>
+              <h3 class="text-xl font-bold text-white">Speed Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</pre>
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="speedHubPre" class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()</pre>
             </div>
-            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua\\\", true))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('speedHubPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Thunder Z Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Thunder Z Hub</h3>
+              <h3 class="text-xl font-bold text-white">Thunder Z Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua"))()</pre>
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="thunderZPre" class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua"))()</pre>
             </div>
-            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/ThundarZ/Welcome/refs/heads/main/Main/Loader/AllGame.lua\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('thunderZPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Alchemy Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Alchemy Hub</h3>
+              <h3 class="text-xl font-bold text-white">Alchemy Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">loadstring(game:HttpGet("https://scripts.alchemyhub.xyz"))()</pre>
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="alchemyPre" class="text-sm">loadstring(game:HttpGet("https://scripts.alchemyhub.xyz"))()</pre>
             </div>
-            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://scripts.alchemyhub.xyz\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('alchemyPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Auto Bounty Hoho Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Auto Bounty Hoho Hub</h3>
+              <h3 class="text-xl font-bold text-white">Auto Bounty Hoho Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="autoBountyPre" class="text-sm">
 script_key = "PASTE_KEY_HERE"
 _G["HoHo Hub Auto Bounty V4"] = {
   ["Avatar"] = "rbxassetid://8598068647",
@@ -535,29 +592,29 @@ _G.loadCustomId = "fac6dbd013c78163f8061ce11b2c1330"
 loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
               </pre>
             </div>
-            <button onclick="copyScript('script_key = \\\"PASTE_KEY_HERE\\\"\\n_G[\\\"HoHo Hub Auto Bounty V4\\\"] = { [\\\"Avatar\\\"] = \\\"rbxassetid://8598068647\\\", [\\\"Farm Method\\\"] = \\\"Normal\\\", [\\\"Select Team\\\"] = \\\"Pirate\\\", [\\\"Discord Webhook\\\"] = \\\"\\\", [\\\"Bypass Teleport\\\"] = false, [\\\"Max Level Distance\\\"] = 612, [\\\"Don\\'t attack friends\\\"] = true, [\\\"Don\\'t attack player have cup\\\"] = false, [\\\"Distance Attack Y\\\"] = 2, [\\\"Chat After Kill\\\"] = { [\\\"Active\\\"] = false, [\\\"List Chat\\\"] = {\\\"\\\"} }, [\\\"Yourself\\\"] = { [\\\"Invisible From Ken\\\"] = true, [\\\"No Stun\\\"] = true }, [\\\"SafeZone\\\"] = {Enabled = true, [\\\"Health Left (%)\\\"] = 25, [\\\"Wait Until Heal (%)\\\"] = 80}, [\\\"Time Control\\\"] = { [\\\"Max Time Target Player\\\"] = 120 }, [\\\"Abilities\\\"] = { [\\\"Auto Click\\\"] = true, [\\\"Melee\\\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\\\"Sword\\\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\\\"Gun\\\"] = { Z = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = true, Hold = 0.05, WaitNextSkill = 0.6} }, [\\\"Fruit\\\"] = { Z = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, X = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, C = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, V = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6}, F = {Enabled = false, Hold = 0.05, WaitNextSkill = 0.6} } } }\\n_G.SupperFixLag = true\\n_G[\\\"Auto Gacha & Store Fruit\\\"] = true\\n_G.loadCustomId = \\\"fac6dbd013c78163f8061ce11b2c1330\\\"\\nloadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('autoBountyPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Vxeze Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Vxeze Hub</h3>
+              <h3 class="text-xl font-bold text-white">Vxeze Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt"))()</pre>
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="vxezeHubPre" class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt"))()</pre>
             </div>
-            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/Dex-Bear/Vxezehub/refs/heads/main/Skidlamcho.txt\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('vxezeHubPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Skull Fruit Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Skull Fruit Hub</h3>
+              <h3 class="text-xl font-bold text-white">Skull Fruit Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="skullFruitPre" class="text-sm">
 getgenv().BloxFruits = {
   ["Team"] = "Marines",
   ["TweenSpeed"] = 350,
@@ -584,31 +641,31 @@ getgenv().BloxFruits = {
 loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
               </pre>
             </div>
-            <button onclick="copyScript('getgenv().BloxFruits = { [\\\"Team\\\"] = \\\"Marines\\\", [\\\"TweenSpeed\\\"] = 350, [\\\"Fruit\\\"] = { [\\\"FruitNotifier\\\"] = false, [\\\"AutoRandom\\\"] = true, [\\\"FruitSniper\\\"] = { [\\\"Enabled\\\"] = false, [\\\"TargetFruits\\\"] = {\\\"Yeti-Yeti\\\", \\\"Dragon-Dragon\\\", \\\"Dough-Dough\\\"} } }, [\\\"Farm\\\"] = { [\\\"Enabled\\\"] = true, [\\\"FastMethod\\\"] = false, [\\\"AutoHop\\\"] = true, [\\\"ItemHop\\\"] = true }, [\\\"Webhook\\\"] = { [\\\"Enabled\\\"] = false, [\\\"URL\\\"] = \\\"Your Webhook Url\\\", [\\\"UserId\\\"] = \\\"Id Discord\\\" }, [\\\"BlackScreen\\\"] = false, [\\\"FpsBoost\\\"] = false, [\\\"AntiIdle\\\"] = true }; loadstring(game:HttpGet(\\\"https://skullhub.xyz/loader.lua\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('skullFruitPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Tsuo Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Tsuo Hub</h3>
+              <h3 class="text-xl font-bold text-white">Tsuo Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts"))()</pre>
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="tsuoHubPre" class="text-sm">loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts"))()</pre>
             </div>
-            <button onclick="copyScript('loadstring(game:HttpGet(\\\"https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts\\\"))()')" class="modern-btn flex items-center">
+            <button onclick="copyPreText('tsuoHubPre')" class="modern-btn flex items-center rgb-btn">
               <i class="far fa-copy mr-2"></i> Copiar Script
             </button>
           </div>
           <!-- Ronyx Kaitum Hub -->
-          <div class="bg-gray-50 dark:bg-gray-750 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
+          <div class="bg-black/50 rounded-xl p-6 shadow-md slide-in neon-border tilt" data-aos="zoom-in">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-xl font-bold">Ronyx Kaitum Hub</h3>
+              <h3 class="text-xl font-bold text-white">Ronyx Kaitum Hub</h3>
             </div>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-4 mb-4 overflow-x-auto code-box">
-              <pre class="text-sm">https://scriptpastebin.com/royx-kaitun-hub-blox-fruits-script-mobile/</pre>
+            <div class="bg-black/60 rounded-xl p-4 mb-4 overflow-x-auto code-box">
+              <pre id="ronyxKaitumPre" class="text-sm">https://scriptpastebin.com/royx-kaitun-hub-blox-fruits-script-mobile/</pre>
             </div>
-            <button onclick="window.open('https://scriptpastebin.com/royx-kaitun-hub-blox-fruits-script-mobile/', '_blank')" class="modern-btn flex items-center">
+            <button onclick="window.open('https://scriptpastebin.com/royx-kaitun-hub-blox-fruits-script-mobile/', '_blank')" class="modern-btn flex items-center rgb-btn">
               <i class="fas fa-external-link-alt mr-2"></i> Abrir Página
             </button>
           </div>
@@ -623,10 +680,10 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
           </div>
           <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Comunidade</h2>
         </div>
-        <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg neon-border rounded-2xl shadow-lg p-6 mb-12" data-aos="fade-up">
+        <div class="bg-black/80 rounded-2xl shadow-lg p-6 mb-12 neon-border" data-aos="fade-up">
           <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500 mb-4">Publicar Novo Script</h3>
-          <input type="text" id="scriptNameInput" placeholder="Digite o nome do script" class="block w-full px-3 py-2 mb-2 bg-gray-100 dark:bg-gray-700 rounded border border-gray-300 dark:border-gray-600">
-          <textarea id="scriptCodeInput" rows="4" placeholder="Cole o código do script aqui..." class="block w-full px-3 py-2 mb-2 bg-gray-100 dark:bg-gray-700 rounded border border-gray-300 dark:border-gray-600"></textarea>
+          <input type="text" id="scriptNameInput" placeholder="Digite o nome do script" class="block w-full px-3 py-2 mb-2 bg-black/50 rounded border border-gray-300 text-white">
+          <textarea id="scriptCodeInput" rows="4" placeholder="Cole o código do script aqui..." class="block w-full px-3 py-2 mb-2 bg-black/50 rounded border border-gray-300 text-white"></textarea>
           <input type="file" id="scriptImageInput" accept="image/*" onchange="handleScriptImage(event)" class="mb-2">
           <img id="scriptImagePreview" src="" alt="Prévia da Imagem" class="w-full h-48 object-cover rounded mb-2" style="display: none;">
           <button onclick="sendUserScript()" class="modern-btn w-full rgb-btn">
@@ -699,7 +756,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       document.documentElement.classList.add('dark');
     }
     
-    // Função para copiar texto (Clipboard API com fallback)
+    // Sistema de cópia (Clipboard API com fallback)
     function copyTextToClipboard(text) {
       if(navigator.clipboard && window.isSecureContext){
         navigator.clipboard.writeText(text).then(() => {
@@ -719,9 +776,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
         showToast("Script copiado com sucesso!", "success");
       }
     }
-    function copyScript(scriptText) {
-      copyTextToClipboard(scriptText);
-    }
+    function copyScript(scriptText) { copyTextToClipboard(scriptText); }
     function copyPreText(preId) {
       const preElement = document.getElementById(preId);
       if(!preElement) return;
@@ -738,7 +793,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       window.getSelection().removeAllRanges();
     }
     
-    // Funções de Login / Cadastro
+    // Login / Cadastro
     let profileImageBase64 = "";
     function handleProfileImage(event) {
       const file = event.target.files[0];
@@ -750,9 +805,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
           document.getElementById("profilePreview").classList.remove("hidden");
         }
         reader.readAsDataURL(file);
-      } else {
-        alert("Selecione um arquivo de imagem válido.");
-      }
+      } else { alert("Selecione um arquivo de imagem válido."); }
     }
     function showLoginModal() {
       document.getElementById('loginOverlay').classList.remove('hidden');
@@ -764,14 +817,8 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
     }
     function createAccount() {
       const username = document.getElementById('usernameInput').value.trim();
-      if(!username) {
-        showToast("Por favor, digite um nome de usuário", "error");
-        return;
-      }
-      if(!profileImageBase64) {
-        showToast("Selecione uma foto de perfil", "error");
-        return;
-      }
+      if(!username) { showToast("Por favor, digite um nome de usuário", "error"); return; }
+      if(!profileImageBase64) { showToast("Selecione uma foto de perfil", "error"); return; }
       const userData = { username, avatar: profileImageBase64, joinDate: new Date().toISOString() };
       localStorage.setItem('currentUser', JSON.stringify(userData));
       hideLoginModal();
@@ -814,23 +861,14 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
           preview.style.display = "block";
         }
         reader.readAsDataURL(file);
-      } else {
-        alert("Selecione um arquivo de imagem válido.");
-      }
+      } else { alert("Selecione um arquivo de imagem válido."); }
     }
     function sendUserScript() {
       const scriptName = document.getElementById('scriptNameInput').value.trim();
       const scriptCode = document.getElementById('scriptCodeInput').value.trim();
       const userData = JSON.parse(localStorage.getItem('currentUser'));
-      if(!userData){
-        showToast("Faça login para publicar scripts", "error");
-        showLoginModal();
-        return;
-      }
-      if(!scriptName || !scriptCode || !scriptImageBase64){
-        showToast("Preencha todos os campos para publicar o script", "error");
-        return;
-      }
+      if(!userData) { showToast("Faça login para publicar scripts", "error"); showLoginModal(); return; }
+      if(!scriptName || !scriptCode || !scriptImageBase64){ showToast("Preencha todos os campos para publicar o script", "error"); return; }
       const userScripts = JSON.parse(localStorage.getItem('userScripts') || "[]");
       userScripts.push({
         id: Date.now(),
@@ -863,13 +901,13 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
         const date = new Date(item.date);
         const formattedDate = date.toLocaleDateString() + " às " + date.toLocaleTimeString().substring(0,5);
         const div = document.createElement('div');
-        div.className = "tilt neon-border bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md mb-4 slide-in";
+        div.className = "tilt neon-border transparent-card rounded-xl p-4 shadow-md mb-4 slide-in";
         div.innerHTML = `
           <div class="flex items-center mb-2">
             <img src="${item.avatar}" alt="${item.user}" class="w-10 h-10 rounded-full mr-3">
             <div>
-              <p class="font-bold text-gray-800 dark:text-white">${item.user} - ${item.name}</p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">${formattedDate}</p>
+              <p class="font-bold text-white">${item.user} - ${item.name}</p>
+              <p class="text-xs text-gray-300">${formattedDate}</p>
             </div>
           </div>
           <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover rounded mb-2">
@@ -924,7 +962,7 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
       document.getElementById('mobileMenu').classList.toggle('hidden');
     }
     
-    // Dropdown (desktop)
+    // Dropdown (Desktop)
     function toggleCategoryDropdown() {
       const dropdown = document.getElementById('categoryDropdown');
       dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
@@ -932,6 +970,30 @@ loadstring(game:HttpGet('https://skullhub.xyz/loader.lua'))()
     function hideCategoryDropdown() {
       document.getElementById('categoryDropdown').style.display = 'none';
     }
+    
+    // Efeito de perspectiva 3D ao deslizar o dedo na área principal (Executores e Scripts)
+    let touchStartX = 0, touchDeltaX = 0;
+    const mainContentElem = document.getElementById('mainContent');
+    mainContentElem.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    });
+    mainContentElem.addEventListener('touchmove', (e) => {
+      touchDeltaX = e.touches[0].clientX - touchStartX;
+      mainContentElem.style.transform = `perspective(1000px) translateX(${touchDeltaX}px) rotateY(${touchDeltaX / 20}deg)`;
+    });
+    mainContentElem.addEventListener('touchend', (e) => {
+      mainContentElem.style.transition = "transform 0.5s ease-out";
+      mainContentElem.style.transform = "perspective(1000px) translateX(0px) rotateY(0deg)";
+      setTimeout(() => { mainContentElem.style.transition = ""; }, 500);
+      if(touchDeltaX > 100) {
+        if(currentTab === 'scripts') switchTab('executors');
+        else if(currentTab === 'community') switchTab('scripts');
+      } else if(touchDeltaX < -100) {
+        if(currentTab === 'executors') switchTab('scripts');
+        else if(currentTab === 'scripts') switchTab('community');
+      }
+      touchDeltaX = 0;
+    });
     
     // Inicialização
     document.addEventListener('DOMContentLoaded', function() {
